@@ -10,4 +10,6 @@
 
 @interface TwitterpostTests : SenTestCase
 
+@property (nonatomic, strong) NSString *minString;
+
 @end

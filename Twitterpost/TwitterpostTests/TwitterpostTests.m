@@ -13,20 +13,20 @@
 - (void)setUp
 {
     [super setUp];
-    
-    // Set-up code here.
+    self.minString = @"Dette er fett";
 }
 
 - (void)tearDown
 {
-    // Tear-down code here.
-    
+    self.minString = nil;
     [super tearDown];
 }
 
 - (void)testExample
 {
-    STFail(@"Unit tests are not implemented yet in TwitterpostTests");
+    STAssertNotNil(self.minString, @"Denne skal være satt");
 }
+
+@synthesize minString;
 
 @end
