@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Bekk Consulting as. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MainViewController.h"
 
 @implementation ViewController
 
@@ -20,6 +20,8 @@
 
 - (void)viewDidLoad
 {
+    
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }

@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Twitter/Twitter.h>
-#import <Accounts/Accounts.h>
 
 @interface ViewController : UIViewController
 
