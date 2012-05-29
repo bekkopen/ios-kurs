@@ -8,7 +8,7 @@
 
 #import "MainViewController.h"
 
-@implementation ViewController
+@implementation MainViewController
 
 - (void)didReceiveMemoryWarning
 {

@@ -17,7 +17,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    ViewController *twc = [[ViewController alloc] init];
+    MainViewController *twc = [[MainViewController alloc] init];
     
     [[self window] setRootViewController:twc];
     
