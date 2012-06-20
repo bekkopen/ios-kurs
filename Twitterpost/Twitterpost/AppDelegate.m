@@ -11,19 +11,23 @@
 
 @implementation AppDelegate
 
-@synthesize window = _window;
+@synthesize window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     MainViewController *twc = [[MainViewController alloc] init];
     
-    [[self window] setRootViewController:twc];
+    UINavigationController *navigationController = [[UINavigationController alloc]
+                                              initWithRootViewController:twc];
     
+    [[self window] setRootViewController:navigationController];
     self.window.backgroundColor = [UIColor whiteColor];
     
     [self.window makeKeyAndVisible];
+     
     
     return YES;
 }

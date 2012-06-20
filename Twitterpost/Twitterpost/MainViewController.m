@@ -7,8 +7,10 @@
 //
 
 #import "MainViewController.h"
+#import "TwitterUtils.h"
+#import "ShowListController.h"
 
-@implementation MainViewController
+@implementation MainViewController 
 
 - (void)didReceiveMemoryWarning
 {
@@ -20,10 +22,31 @@
 
 - (void)viewDidLoad
 {
+    TwitterUtils *tu = [[TwitterUtils alloc] init];
     
+    [tu isGrantedUseOfAccount:self onSuccess:@selector(onSuccess:) onError:@selector(onError)];
     
+    activity.hidesWhenStopped = true;
+    [activity startAnimating];
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void) onSuccess:(ACAccount *) account{
+    NSLog(@"Du kan nå bruke twitterkontoen");
+    [username setText:account.username];
+    [activity stopAnimating];
+}
+
+- (void) onError{
+    NSLog(@"Du må godkjenne bruk av konto");
+}
+
+- (void) showLatest:(id) sender{
+    NSLog(@"Klikket!!");
+    ShowListController *slc = [[ShowListController alloc] init];
+    
+    [[self navigationController] pushViewController:slc animated:YES];
 }
 
 - (void)viewDidUnload
@@ -48,7 +71,7 @@
 	[super viewWillDisappear:animated];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)viewDidDisappear    :(BOOL)animated
 {
 	[super viewDidDisappear:animated];
 }

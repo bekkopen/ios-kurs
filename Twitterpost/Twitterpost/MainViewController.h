@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Twitter/Twitter.h>
+#import <Accounts/Accounts.h>
+#import <Accounts/ACAccountType.h>
 
-@interface MainViewController : UIViewController
+@interface MainViewController : UIViewController{
+    IBOutlet UILabel *username;
+    IBOutlet UIActivityIndicatorView *activity;
+}
+
+-(void) onSuccess:(ACAccount *) account;
+-(void) onError;
+-(IBAction)showLatest:(id)sender;
+
 
 @end
