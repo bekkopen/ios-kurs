@@ -25,7 +25,8 @@
 			if ([accountsArray count] > 0) {
 				ACAccount *twitterAccount = [accountsArray objectAtIndex:0];
                 
-                [delegate performSelector:successCallback withObject:twitterAccount];
+                //[delegate performSelector:successCallback withObject:twitterAccount];
+                [delegate performSelectorOnMainThread:successCallback withObject:twitterAccount waitUntilDone:YES];
             }
         } else {
             [delegate performSelector:errorCallback];

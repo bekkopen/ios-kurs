@@ -35,11 +35,11 @@
 }
 
 - (void) onSuccess:(ACAccount *) account{
-    NSLog(@"Du kan nå bruke twitterkontoen");
-    [username setText:account.username];
+    NSString *user = account.username;
+    NSLog(@"username: %@", user);
+    [username setText:user];
     [activity stopAnimating];
     [tweetBtn setEnabled:YES];
-    NSLog(@"Balle");
 }
 
 - (void) onError{
