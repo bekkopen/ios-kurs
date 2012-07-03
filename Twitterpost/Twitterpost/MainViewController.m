@@ -35,11 +35,9 @@
 }
 
 - (void) onSuccess:(ACAccount *) account{
-    NSLog(@"Du kan nå bruke twitterkontoen");
     [username setText:account.username];
     [activity stopAnimating];
     [tweetBtn setEnabled:YES];
-    NSLog(@"Balle");
 }
 
 - (void) onError{
@@ -47,7 +45,6 @@
 }
 
 - (void) showLatest:(id) sender{
-    NSLog(@"Klikket!!");
     ShowListController *slc = [[ShowListController alloc] init];
     
     [[self navigationController] pushViewController:slc animated:YES];
