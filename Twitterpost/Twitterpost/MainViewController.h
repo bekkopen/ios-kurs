@@ -10,16 +10,22 @@
 #import <Twitter/Twitter.h>
 #import <Accounts/Accounts.h>
 #import <Accounts/ACAccountType.h>
+#import "TwitterUtils.h"
 
 @interface MainViewController : UIViewController{
     IBOutlet UILabel *username;
     IBOutlet UIActivityIndicatorView *activity;
     IBOutlet UIButton *tweetBtn;
+    IBOutlet UITextField *tweetTextView;
+    IBOutlet UIButton *tweetListBtn;
 }
 
--(void) onSuccess:(ACAccount *) account;
+@property(nonatomic, retain) TwitterUtils *tu;
+
+-(void) onSuccess;
 -(void) onError;
 -(IBAction)showLatest:(id)sender;
+-(IBAction)tweetText:(id)sender;
 
 
 @end

@@ -95,6 +95,7 @@
 		0530841D1591143100E93A04 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				053084201591148500E93A04 /* ShowListController.xib */,
 				05C0C8A8158923C100E560EE /* MainView.xib */,
 			);
 			name = Resources;
@@ -144,7 +145,6 @@
 				05C0B6AF155AD8FC0078DBC3 /* Supporting Files */,
 				0530841E1591148500E93A04 /* ShowListController.h */,
 				0530841F1591148500E93A04 /* ShowListController.m */,
-				053084201591148500E93A04 /* ShowListController.xib */,
 			);
 			path = Twitterpost;
 			sourceTree = "<group>";

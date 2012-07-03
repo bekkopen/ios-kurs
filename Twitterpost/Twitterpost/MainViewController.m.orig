@@ -12,8 +12,6 @@
 
 @implementation MainViewController 
 
-@synthesize tu;
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -24,9 +22,9 @@
 
 - (void)viewDidLoad
 {
-    [self setTu: [[TwitterUtils alloc] init]];
+    TwitterUtils *tu = [[TwitterUtils alloc] init];
     
-    [tu isGrantedUseOfAccount:self onSuccess:@selector(onSuccess) onError:@selector(onError)];
+    [tu isGrantedUseOfAccount:self onSuccess:@selector(onSuccess:) onError:@selector(onError)];
     
     activity.hidesWhenStopped = true;
     [activity startAnimating];
@@ -36,18 +34,20 @@
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
-- (void) onSuccess{
-    [username setText:tu.account.username];
+- (void) onSuccess:(ACAccount *) account{
+<<<<<<< HEAD
+    [username setText:account.username];
+=======
+    NSString *user = account.username;
+    NSLog(@"username: %@", user);
+    [username setText:user];
+>>>>>>> 7ee14c6bd102f37378efa960fe5ecd1358996c88
     [activity stopAnimating];
     [tweetBtn setEnabled:YES];
 }
 
 - (void) onError{
     NSLog(@"Du må godkjenne bruk av konto");
-}
-
-- (void) tweetText:(id)sender{    
-    [self.tu tweet:[tweetTextView text]];
 }
 
 - (void) showLatest:(id) sender{
