@@ -14,6 +14,7 @@
 @interface MainViewController : UIViewController{
     IBOutlet UILabel *username;
     IBOutlet UIActivityIndicatorView *activity;
+    IBOutlet UIButton *tweetBtn;
 }
 
 -(void) onSuccess:(ACAccount *) account;

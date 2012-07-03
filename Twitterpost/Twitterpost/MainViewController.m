@@ -28,6 +28,8 @@
     
     activity.hidesWhenStopped = true;
     [activity startAnimating];
+    
+    [tweetBtn setEnabled:NO];
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -36,6 +38,8 @@
     NSLog(@"Du kan nå bruke twitterkontoen");
     [username setText:account.username];
     [activity stopAnimating];
+    [tweetBtn setEnabled:YES];
+    NSLog(@"Balle");
 }
 
 - (void) onError{
