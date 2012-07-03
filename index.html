@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Title</title>
+    <title>iOS-kurs</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="https://github.com/downloads/gnab/remark/remark-0.3.4.min.js" type="text/javascript"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
@@ -16,9 +16,23 @@
 
 ---
 
+# Tredelt kurs
+
+* Dag 1 - Introduksjon
+  * Objective-C
+  * iOS
+  * Xcode
+* Dag 2 - Mer avansert
+  * Objective-C
+  * iOS
+  * Xcode
+* Dag 3 - stuff gonna happen
+  * Gjøre noe qlt
+
+---
+
 .agenda
-# Agenda
-## Del 1
+# Dagens agenda
 1. Introduksjon Objective-C 
 2. Introduksjon til iOS
 3. Introduksjon til Xcode
@@ -27,9 +41,12 @@
 
 ---
 
-# Introduksjon Objective-C
+.middle.center
+
+# Objective-C
 
 ---
+#Objective-C
 
 1. Objective-C bygger på programmeringsspråket C
 2. Det er objektorientert
@@ -58,7 +75,13 @@ Mer
 
 # Objective-C Objekt melding (Object Messaging)
 
-Mer
+Java:
+
+`mittObjekt.doSomething(parameter1, parameter2)`
+
+Objective-C
+
+`[mittObjekt doSomethingWith:parameter1 and:parameter2]`
 
 ---
 
@@ -84,7 +107,7 @@ Mer
 
 1. ARC
 2. MRC
-3. Garbage Collection
+3. Garbage Collection (droppes i Mountain Lion!)
 
 ---
 
@@ -138,7 +161,16 @@ Mer
 
 ---
 
-# Interface Builder - IBActions & IBOutlet
+# Interface Builder - IBActions &amp; IBOutlet
+###IBActions
+`- (IBAction)myFancyFunction`
+
+Knytter en handling til en funksjon
+
+###IBOutlets
+`@property(nonatomic) IBOutlet UIButton myButton`
+
+Knytter et UI-element opp mot en variabel
 
 ---
 
