@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShowListController : UIViewController
+@interface ShowListController : UITableViewController{
+    IBOutlet UITableView *tweetTableView;
+}
+
+@property (nonatomic, retain) NSMutableArray *tweets;
 
 @end
