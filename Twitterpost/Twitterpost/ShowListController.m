@@ -53,14 +53,16 @@
     // Configure the cell...  
     NSDictionary *aTweet = [tweets objectAtIndex:indexPath.row];
     cell.textLabel.text = [aTweet objectForKey:@"text"];  
-    cell.textLabel.adjustsFontSizeToFitWidth = YES;  
+    cell.textLabel.adjustsFontSizeToFitWidth = YES;
     cell.textLabel.font = [UIFont systemFontOfSize:12];  
     cell.textLabel.numberOfLines = 4;  
     cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;  
     
-    cell.detailTextLabel.text = [aTweet objectForKey:@"from_user"];  
+    NSDictionary *user = [aTweet objectForKey:@"user"];
     
-    NSURL *url = [NSURL URLWithString:[aTweet objectForKey:@"profile_image_url"]];  
+    cell.detailTextLabel.text = [user objectForKey:@"name"];
+    
+    NSURL *url = [NSURL URLWithString:[user objectForKey:@"profile_image_url"]];  
     NSData *data = [NSData dataWithContentsOfURL:url];  
     cell.imageView.image = [UIImage imageWithData:data];  
     cell.selectionStyle = UITableViewCellSelectionStyleNone;  
