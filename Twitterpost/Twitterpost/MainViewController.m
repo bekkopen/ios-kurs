@@ -48,6 +48,7 @@
 
 - (void) tweetText:(id)sender{    
     [self.tu tweet:[tweetTextView text]];
+    [tweetTextView resignFirstResponder];
 }
 
 - (void) showLatest:(id) sender{
