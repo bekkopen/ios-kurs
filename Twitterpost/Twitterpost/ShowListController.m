@@ -15,16 +15,14 @@
 - (id) init
 {
     self = [super initWithStyle:UITableViewStylePlain];
-    
     [self setTweets:[[NSMutableArray alloc] init]];
     
     [[self tweets] addObject:@"Min testcelle"];
-    NSLog(@"%i", [tweets count]);
     return self;
 }
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-
+    NSLog(@"%i", [tweets count]);
     return [tweets count];
 }
 

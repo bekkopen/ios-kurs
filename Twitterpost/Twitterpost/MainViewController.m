@@ -13,6 +13,7 @@
 @implementation MainViewController 
 
 @synthesize tu;
+@synthesize tweetListController;
 
 - (void)didReceiveMemoryWarning
 {
@@ -52,9 +53,11 @@
 }
 
 - (void) showLatest:(id) sender{
-    ShowListController *slc = [[ShowListController alloc] init];
+    if(!tweetListController){
+        tweetListController = [[ShowListController alloc] init];
+    }
     
-    [[self navigationController] pushViewController:slc animated:YES];
+    [[self navigationController] pushViewController:tweetListController animated:YES];
 }
 
 @end

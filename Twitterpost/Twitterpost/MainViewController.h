@@ -11,6 +11,7 @@
 #import <Accounts/Accounts.h>
 #import <Accounts/ACAccountType.h>
 #import "TwitterUtils.h"
+#import "ShowListController.h"
 
 @interface MainViewController : UIViewController{
     IBOutlet UILabel *username;
@@ -21,6 +22,7 @@
 }
 
 @property(nonatomic, retain) TwitterUtils *tu;
+@property(nonatomic, retain) ShowListController *tweetListController;
 
 -(void) onSuccess;
 -(void) onError;
