@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TwitterUtils.h"
 
 @interface ShowListController : UITableViewController{
     IBOutlet UITableView *tweetTableView;
 }
 
-@property (nonatomic, retain) NSMutableArray *tweets;
+@property(nonatomic, retain) TwitterUtils *tu;
+@property (nonatomic, retain) NSArray *tweets;
+
+- (void) gotTweets:(NSArray *) tweetDict;
+- (void) error;
 
 @end

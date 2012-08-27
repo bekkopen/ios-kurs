@@ -24,5 +24,6 @@
 
 - (void) isGrantedUseOfAccount:(id)delegate onSuccess:(SEL) successCallback onError:(SEL) errorCallback;
 - (void) tweet:(NSString *) theTweet;
+- (void) getTweets:(id)delegate onSuccess:(SEL) successCallback onError:(SEL) errorCallback;
 
 @end

@@ -55,6 +55,7 @@
 - (void) showLatest:(id) sender{
     if(!tweetListController){
         tweetListController = [[ShowListController alloc] init];
+        [tweetListController setTu:[self tu]];
     }
     
     [[self navigationController] pushViewController:tweetListController animated:YES];
