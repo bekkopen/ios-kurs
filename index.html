@@ -161,7 +161,20 @@ eller
 
 # Objective-C Klasser
 
-Mer
+Som alle i alle andre programmeringsspråk så lager man egne objekter ved hjelp av klasser og klassene igjen inneholder andre objekter. 
+
+I tillegg til å holde på sine instans variabler, så inneholder klassene forskjellige metoder. I Objetive-C så bruker man stor forbokstav på klasser, men små bokstaver på instanser av denne klassen.
+
+NSObject er en root klasse som alle andre klaser arver fra. 
+
+Opprette instans av en klasse gjøres på følgende måte:
+
+
+.objective-c
+	id morroKlassen = [MorroKlassen alloc] init];
+
+Alloc - Allokerer en plass i minne til objektet
+Init - Gjør initialiseringen som kreves av et objekt for å bli klart
 
 ---
 
@@ -169,7 +182,7 @@ Mer
 
 1. ARC
 2. MRC
-3. Garbage Collection (droppes i Mountain Lion!)
+3. Garbage Collection (droppes i Mountain Lion til fordel for ARC)
 
 ---
 
