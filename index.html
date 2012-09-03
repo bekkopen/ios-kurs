@@ -12,41 +12,41 @@
     <textarea id="source">
 
 .front-page
-# iOS-kurs 2012
+
+# iOS-kurs 
 
 ---
 
-<<<<<<< HEAD
 # Tredelt kurs
 
 * Del 1 - Introduksjon
-  * Objective-C
-  * iOS
-  * Xcode
+	* Objective-C
+	* iOS
+	* Xcode
 * Del 2 - Mer avansert
-  * Objective-C
-  * iOS
-  * Xcode
+	* Objective-C
+	* iOS
+	* Xcode
 * Del 3 - stuff gonna happen
-  * Gjøre noe qlt
-=======
+	* Gjøre noe kult
+
+---
+
 .middle.center
+
 # Del 1
->>>>>>> Fixing
 
 ---
 
 .agenda
-<<<<<<< HEAD
-# Dagens agenda
-=======
+
 # Agenda
->>>>>>> Fixing
-1. Introduksjon Objective-C 
-2. Introduksjon til iOS
-3. Introduksjon til Xcode
-4. Utvikle en enkel twitter klient med send tweet funksjonalitet
-5. Hva skjer del 2?
+
+* Introduksjon Objective-C 
+* Introduksjon til iOS
+* Introduksjon til Xcode
+* Utvikle en enkel twitter klient med send tweet funksjonalitet
+* Hva skjer del 2?
 
 ---
 
@@ -54,16 +54,14 @@
 
 # Objective-C
 
-# Introduksjon Objective-C
-
 ---
-#Objective-C
 
 # Basics
 1. Objective-C bygger på programmeringsspråket C
 2. Det er objektorientert
 3. Et dynamisk-typet språk
 4. Messaging syntax for metodekall
+5. Ingen Garbagecollector (men bruker ARC fra iOS 5.0)
 
 ---
 
@@ -77,6 +75,20 @@
   - Deallokere minne når man er ferdig
 - Lite overhead - blazing fast
 
+
+
+.c
+	int main()
+	{
+  	int this_is_a_number;
+
+  	printf( "Please enter a number: " );
+  	scanf( "%d", &this_is_a_number );
+  	printf( "You entered %d", this_is_a_number );
+  	getchar();
+  	return 0;
+	}
+
 ---
 
 # Objective-C Objekter
@@ -87,13 +99,34 @@ Mer
 
 # Objective-C Objekt melding (Object Messaging)
 
+For å snakke med objekter bruker man "Object Messageing". 
+
 Java:
 
-`mittObjekt.doSomething(parameter1, parameter2)`
+
+.java
+	mittObjekt.doSomething(parameter1, parameter2)
+
+	MinKlasse.DoSomethingElse(parameter1)
+
+	String output = mittObject.doSomething(paramter1)
+
 
 Objective-C
 
-`[mittObjekt doSomethingWith:parameter1 and:parameter2]`
+
+.objetive-c
+	[mittObjekt doSomethingWith:parameter1 and:parameter2]
+
+	[MinKlasse doSomethingWith:parameter1]
+	
+	NSString *output = [mittObjekt doSomethingWith:parameter1]
+
+eller
+
+
+.objective-c
+	id *output = [mittObjekt doSomethingWith:parameter1]
 
 ---
 
@@ -111,7 +144,14 @@ Mer
 
 # Objective-C Ivar og Properties
 
-Mer
+Objective-C har instans variabler. Disse blir deklarert i headeren (.h) for hver klasse. En kjapp måte og lage getter og setter for disse er å bruke properties
+
+Eksempel:
+
+
+Man kan også bruke Dot Syntax for å nå getter og setters. 
+
+Eksempel: 
 
 ---
 
