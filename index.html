@@ -93,7 +93,23 @@
 
 # Objective-C Objekter
 
-Mer
+Som i alle andre objektorienterte språk så er objekter data-holdere som man kan utføre operasjoner på. Disse er kalt metoder. Dataen som blir påvirket ligger i såkalte instans-variabler. 
+
+I Objective-C er alle instans variabler interne (@protected) for objektet de ligger på. Dermed er staten til instans variablene kun tilgjengelig via objektet sine metoder. Man kan overstyre dette ved å bruke 'scope directives'. 
+
+@private - Instans variabelen er bare tilgjengelig inne i klassen som deklarerer den
+
+@protected - Instans variabelen er tilgjengelig i klassen som deklarer den og for klasser som arver av den klassen
+
+@public - Instans variabelen er tilgjengelig for alle 
+
+@package - Kun tilgjengelig for klasser som ligger i ett og samme image. 
+
+Alle objekter kan refereres til ved hjelp av 'id'. For eksempel:
+
+
+.objective-c
+	id ettObjekt 
 
 ---
 
