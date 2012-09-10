@@ -17,6 +17,11 @@
   <body>
     <textarea id="source">
 
+# Om tid, se på dette før oppmøte
+* [Lœr C](http://cocoadevcentral.com/articles/000081.php) - http://cocoadevcentral.com/articles/000081.php
+
+---
+
 .front-page
 # iOS-kurs 
 
@@ -61,11 +66,10 @@
 ---
 
 # Basics
-* Objective-C bygger på programmeringsspråket C
-* Det er objektorientert
-* Et dynamisk-typet språk
-* Messaging syntax for metodekall
-* Ingen Garbagecollector (men bruker ARC fra iOS 5.0)
+* Objective-C kan defineres som ett sett med utvidelser til  programmeringsspråket C
+* Virker ganske forskjellig fra C
+* Objektorientert
+* Dynamisk-typet
 
 ---
 
@@ -99,16 +103,6 @@
 
 Som i alle andre objektorienterte språk så er objekter data-holdere som man kan utføre operasjoner på. Disse er kalt metoder. Dataen som blir påvirket ligger i såkalte instans-variabler. 
 
-I Objective-C er alle instans variabler interne (@protected) for objektet de ligger på. Dermed er staten til instans variablene kun tilgjengelig via objektet sine metoder. Man kan overstyre dette ved å bruke 'scope directives'. 
-
-@private - Instans variabelen er bare tilgjengelig inne i klassen som deklarerer den
-
-@protected - Instans variabelen er tilgjengelig i klassen som deklarer den og for klasser som arver av den klassen
-
-@public - Instans variabelen er tilgjengelig for alle 
-
-@package - Kun tilgjengelig for klasser som ligger i ett og samme image. 
-
 Alle objekter kan refereres til ved hjelp av 'id'. For eksempel:
 
 
@@ -117,15 +111,60 @@ Alle objekter kan refereres til ved hjelp av 'id'. For eksempel:
 
 ---
 
+# Objective-C Klasser
+
+Som i mange andre programmeringsspråk så lager man egne objekter ved hjelp av klasser og klassene igjen inneholder andre objekter. 
+
+I tillegg til å holde på sine instans variabler, så inneholder klassene forskjellige metoder. I Objetive-C så bruker man stor forbokstav på klasser, men små bokstaver på instanser av denne klassen.
+
+NSObject er en root klasse som alle andre klaser arver fra. 
+
+Opprette instans av en klasse gjøres på følgende måte:
+
+
+.objective-c
+	id morroKlassen = [MorroKlassen alloc] init];
+
+* Alloc - Allokerer en plass i minne til objektet
+* Init - Gjør initialiseringen som kreves av et objekt for å bli klart
+
+---
+
+# Objective-C Ivar
+Instans variabler blir deklarert i headeren (.h) for hver klasse.
+
+I Objective-C er alle instans variabler interne (@protected) for objektet de ligger på. Dermed er staten til instans variablene kun tilgjengelig via objektet sine metoder. Man kan overstyre dette ved å bruke 'scope directives'. 
+
+
+.objective-c
+	/* Instans variabelen er bare tilgjengelig inne i klassen som deklarerer den */
+	@private 
+	NSString * ettObjekt;
+
+	/* Instans variabelen er tilgjengelig i klassen som 
+	deklarer den og for klasser som arver av den klassen */
+	@protected 
+	NSString * ettObjekt;
+	
+	/* Instans variabelen er tilgjengelig for alle */
+	@public 
+	NSString * ettObjekt;
+
+	/* Kun tilgjengelig for klasser som ligger i ett og samme image. */
+	@package 	
+	NSString * ettObjekt;
+
+---
+
 # Objective-C Ivar og Properties
 
-Instans variabler blir deklarert i headeren (.h) for hver klasse. En kjapp måte og lage getter og setter for disse er å bruke properties
+En kjapp måte og lage getter og setter for Ivars er å bruke properties
 
 Eksempel:
 
 
 .objective-c
-	@propterty(nonatomic, strong) DittObject *enkeltObjekt
+	@propterty(nonatomic, strong) DittObject * enkeltObjekt
 
 Man kan også bruke Dot Syntax for å nå getter og setters. Viktig å bestemme seg for å bruke enten message syntax eller Dot Syntax i prosjektet du jobber med. (konvensjoner) 
 
@@ -142,7 +181,6 @@ i stedet for
 	[enkeltObjekt endaEnklereInstansVariabel] 
 
 ---
-
 
 # Objective-C Objekt melding (Object Messaging)
 
@@ -174,25 +212,6 @@ eller
 
 .objective-c
 	id *output = [mittObjekt doSomethingWith:parameter1]
-
----
-
-# Objective-C Klasser
-
-Som alle i alle andre programmeringsspråk så lager man egne objekter ved hjelp av klasser og klassene igjen inneholder andre objekter. 
-
-I tillegg til å holde på sine instans variabler, så inneholder klassene forskjellige metoder. I Objetive-C så bruker man stor forbokstav på klasser, men små bokstaver på instanser av denne klassen.
-
-NSObject er en root klasse som alle andre klaser arver fra. 
-
-Opprette instans av en klasse gjøres på følgende måte:
-
-
-.objective-c
-	id morroKlassen = [MorroKlassen alloc] init];
-
-* Alloc - Allokerer en plass i minne til objektet
-* Init - Gjør initialiseringen som kreves av et objekt for å bli klart
 
 ---
 
