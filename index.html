@@ -7,12 +7,17 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 	<script src="https://github.com/downloads/kjbekkelund/remark-bekk/bekk-0.0.3.js" type="text/javascript"></script>
 	<link href="https://github.com/downloads/kjbekkelund/remark-bekk/bekk-0.0.3.css" type="text/css" rel="stylesheet">
+
+<style>
+	.ios-family img {
+		width: 100%;	
+	}
+</style>
   </head>
   <body>
     <textarea id="source">
 
 .front-page
-
 # iOS-kurs 
 
 ---
@@ -36,13 +41,11 @@
 ---
 
 .middle.center
-
 # Del 1
 
 ---
 
 .agenda
-
 # Agenda
 
 * Introduksjon Objective-C 
@@ -53,29 +56,28 @@
 ---
 
 .middle.center
-
 # Objective-C
 
 ---
 
 # Basics
-1. Objective-C bygger på programmeringsspråket C
-2. Det er objektorientert
-3. Et dynamisk-typet språk
-4. Messaging syntax for metodekall
-5. Ingen Garbagecollector (men bruker ARC fra iOS 5.0)
+* Objective-C bygger på programmeringsspråket C
+* Det er objektorientert
+* Et dynamisk-typet språk
+* Messaging syntax for metodekall
+* Ingen Garbagecollector (men bruker ARC fra iOS 5.0)
 
 ---
 
 # C på så få minutter som mulig
 
-- "Primitivt" i forhold til nyere språk
-  - Ikke objektorientert
-  - Strings er et ukjent fenomen
-- Ingen garbage collection
-  - Allokere minne før man bruker det
-  - Deallokere minne når man er ferdig
-- Lite overhead - blazing fast
+* "Primitivt" i forhold til nyere språk
+  * Ikke objektorientert
+  * Strings er et ukjent fenomen
+* Ingen garbage collection
+  * Allokere minne før man bruker det
+  * Deallokere minne når man er ferdig
+* Lite overhead - blazing fast
 
 
 
@@ -84,9 +86,9 @@
 	{
   	int this_is_a_number;
 
-  	printf( "Please enter a number: " );
+  	printf( "Vennligst skriv inn ett nummer: " );
   	scanf( "%d", &this_is_a_number );
-  	printf( "You entered %d", this_is_a_number );
+  	printf( "Du skrev inn %d", this_is_a_number );
   	getchar();
   	return 0;
 	}
@@ -121,9 +123,23 @@ Instans variabler blir deklarert i headeren (.h) for hver klasse. En kjapp måte
 
 Eksempel:
 
-Man kan også bruke Dot Syntax for å nå getter og setters. 
+
+.objective-c
+	@propterty(nonatomic, strong) DittObject *enkeltObjekt
+
+Man kan også bruke Dot Syntax for å nå getter og setters. Viktig å bestemme seg for å bruke enten message syntax eller Dot Syntax i prosjektet du jobber med. (konvensjoner) 
 
 Eksempel: 
+
+
+.objective-c
+	enkeltObjekt.endaEnklereInstansVariabel
+
+i stedet for
+
+
+.objective-c
+	[enkeltObjekt endaEnklereInstansVariabel] 
 
 ---
 
@@ -175,16 +191,36 @@ Opprette instans av en klasse gjøres på følgende måte:
 .objective-c
 	id morroKlassen = [MorroKlassen alloc] init];
 
-Alloc - Allokerer en plass i minne til objektet
-Init - Gjør initialiseringen som kreves av et objekt for å bli klart
+* Alloc - Allokerer en plass i minne til objektet
+* Init - Gjør initialiseringen som kreves av et objekt for å bli klart
 
 ---
 
 # Objective-C Minnehåndtering
 
-1. ARC
-2. MRC
-3. Garbage Collection (droppes i Mountain Lion til fordel for ARC)
+* MRC (Manual Reference Counting)
+* Garbage Collection (ligner på Java sin, droppes i Mountain Lion til fordel for ARC og finnes ikke i iOS)
+* ARC (Automatic Reference Counting)
+
+
+
+.objective-c
+		- (void)morroMetoden
+	{ 
+  	NSMutableArray *vanligArray = [[NSMutableArray alloc] init];
+		//bruk array'et
+		[vanligArray release]; //slett det fra minnet når du er ferdig
+	}
+
+<p></p>
+
+
+.objective-c
+		- (void)morroMetoden
+	{ 
+  	NSMutableArray *vanligArray = [[NSMutableArray alloc] init];
+		// bruk array'et
+	}
 
 ---
 
@@ -194,6 +230,9 @@ Init - Gjør initialiseringen som kreves av et objekt for å bli klart
 ---
 
 # iOS familien
+
+.ios-family 
+![](images/ios-devices.png)
 
 ---
 
