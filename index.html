@@ -9,8 +9,12 @@
 	<link href="https://github.com/downloads/kjbekkelund/remark-bekk/bekk-0.0.3.css" type="text/css" rel="stylesheet">
 
 <style>
-	.ios-family img {
+	.max-width img {
 		width: 100%;	
+	}
+
+	.max-height img {
+		height: 100%;
 	}
 </style>
   </head>
@@ -117,7 +121,9 @@ Som i mange andre programmeringsspråk så lager man egne objekter ved hjelp av 
 
 I tillegg til å holde på sine instans variabler, så inneholder klassene forskjellige metoder. I Objetive-C så bruker man stor forbokstav på klasser, men små bokstaver på instanser av denne klassen.
 
-NSObject er en root klasse som alle andre klaser arver fra. 
+Det meste av metode og instans variable definering blir gjort i en .h fil, men selve implementasjonen blir gjort i en .m fil.
+
+NSObject er en root klasse som alle andre klasser arver fra. 
 
 Opprette instans av en klasse gjøres på følgende måte:
 
@@ -166,7 +172,7 @@ Eksempel:
 .objective-c
 	@propterty(nonatomic, strong) DittObject * enkeltObjekt
 
-Man kan også bruke Dot Syntax for å nå getter og setters. Viktig å bestemme seg for å bruke enten message syntax eller Dot Syntax i prosjektet du jobber med. (konvensjoner) 
+Man kan også bruke Dot Syntax for å nå getter og setters.
 
 Eksempel: 
 
@@ -211,35 +217,38 @@ eller
 
 
 .objective-c
-	id *output = [mittObjekt doSomethingWith:parameter1]
+	id output = [mittObjekt doSomethingWith:parameter1]
 
 ---
 
 # Objective-C Minnehåndtering
 
 * MRC (Manual Reference Counting)
-* Garbage Collection (ligner på Java sin, droppes i Mountain Lion til fordel for ARC og finnes ikke i iOS)
-* ARC (Automatic Reference Counting)
 
 
 
 .objective-c
-		- (void)morroMetoden
+	- (void)morroMetoden
 	{ 
   	NSMutableArray *vanligArray = [[NSMutableArray alloc] init];
 		//bruk array'et
 		[vanligArray release]; //slett det fra minnet når du er ferdig
 	}
 
-<p></p>
+
+* ARC (Automatic Reference Counting)
+
 
 
 .objective-c
-		- (void)morroMetoden
+	- (void)morroMetoden
 	{ 
   	NSMutableArray *vanligArray = [[NSMutableArray alloc] init];
 		// bruk array'et
 	}
+
+
+* Garbage Collection (ligner på Java sin, droppes i Mountain Lion til fordel for ARC og finnes ikke i iOS)
 
 ---
 
@@ -250,8 +259,18 @@ eller
 
 # iOS familien
 
-.ios-family 
+.max-width
 ![](images/ios-devices.png)
+
+---
+
+# iOS - Layers
+
+Lag inndelingen av iOS, Core OS, Core Services, Media, Cocoa Touch
+
+
+.max-width
+![Lag inndeling og rammeverk i iOS](images/layers.png)
 
 ---
 
@@ -262,28 +281,6 @@ eller
 * Hva kan de forskjellige iOS enhetene gjøre (GPS, kamera, osv)
 * Hvilke utfordringer gir mobil design (liten skjerm osv)
 * Tenk frem i tid, hva slags skjermer ser vi for oss at appen må støtte
-
----
-
-# iOS - Layers
-
-Lag inndelingen av iOS, Core OS, Core Services, Media, Cocoa Touch
-
----
-
-# Cocoa Touch
-
-Fortelle litt om hva Cocoa er og hva som skiller Cocoa og Cocoa Touch. Rammeverk osv
-
-Cocoa: Foundation + Appkit
-
-Cocoa Touch: Foundation + UIKit
-
----
-
-#Cocoa Touch - Hva gir det deg?
-
-Fortelle litt om UIKit og andre viktige rammeverk som kommer med Cocoa Touch.
 
 ---
 
