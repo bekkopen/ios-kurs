@@ -369,6 +369,21 @@ Knytter et UI-element opp mot en variabel
 ---
 
 # Categories
+Categories brukes for å legge nye funksjoner til eksisterende klasser, og er ofte et alternativ til å subklasse.
+En category vil kjøre som en del av klassen, og ha tilgang til self.
+
+
+.objective-c
+	@interface NSString (MyCategory)
+	- (BOOL)isEmptyString;
+	@end
+
+	@implementation NSString (MyCategory)
+
+	- (BOOL)isEmptyString {
+		/* implementation.. */
+	}
+	@end
 
 ---
 
