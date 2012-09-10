@@ -389,13 +389,57 @@ Knytter et UI-element opp mot en variabel
 
 # Blocks
 
+Minner mye om closures, og brukes ofte for å
+
+* kunne kjøre små kodeblokker samtidig
+* iterere over objekter i et array
+* kjøre kode som et callback
+
+Man definerer en block med `.objective-c ^{ /*min fine block*/ }`, og alt inne i blocken kan referere til variabler på utsiden
+
+
+
+.objective-c
+	NSArray *mySortedArray = [myArray sortedArrayUsingComparator:
+	^(id first, id second) {
+		if (first.myCoolValue > second.myCoolValue)
+			return NSOrderedAscending;
+		...
+	}];
+
 ---
 
 # Delegates
 
+Pattern for å få et objekt til å delegere deler av sine oppgaver til et annet objekt.
+
+
+.objective-c
+	- (void)showAlertView {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Advarsel"
+			message:@"Beskjed"
+			delegate:self
+			cancelButtonTitle:@"Ok"
+			otherButtonTitles:nil];
+		[alert show];
+	}
+
+	- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+		NSLog(@"Trykket på en knapp!");
+	}
+
 ---
 
 # MVC
+I Cocoa bruker man som regel en litt modifisert versjon av MVC
+
+![](images/mvc.jpg)
+
+Model: inneholder alle data
+
+View: viser og lar deg redigere dine data
+
+Controller: er koblingen mellom viewet og modellen din
 
 ---
 
