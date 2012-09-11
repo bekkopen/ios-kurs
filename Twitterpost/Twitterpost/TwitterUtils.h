@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Twitter/Twitter.h>
 #import <Accounts/Accounts.h>
+#import "TwitterUtilTweetDelegate.h"
 
 @interface TwitterUtils : NSObject{    
     id delegate;
@@ -18,11 +19,11 @@
 
 @property(nonatomic) SEL successCallback;
 @property(nonatomic) SEL errorCallback;
-@property(nonatomic, retain) id delegate;
-@property(nonatomic, retain) ACAccountStore *accountStore;
-@property(nonatomic, retain) ACAccount *account;
+@property(nonatomic, strong) ACAccountStore *accountStore;
+@property(nonatomic, strong) ACAccount *account;
+@property(nonatomic, weak) id<TwitterUtilTweetDelegate> loadDelegate;
 
-- (void) isGrantedUseOfAccount:(id)delegate onSuccess:(SEL) successCallback onError:(SEL) errorCallback;
+- (id) initWithDelegate:(id <TwitterUtilTweetDelegate>) loadDelegateObject;
 - (void) tweet:(NSString *) theTweet;
 - (void) getTweets:(id)delegate onSuccess:(SEL) successCallback onError:(SEL) errorCallback;
 

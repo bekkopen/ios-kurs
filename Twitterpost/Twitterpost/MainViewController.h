@@ -10,10 +10,13 @@
 #import <Twitter/Twitter.h>
 #import <Accounts/Accounts.h>
 #import <Accounts/ACAccountType.h>
+#import "BAccountUtil.h"
 #import "TwitterUtils.h"
+#import "TwitterUtilTweetDelegate.h"
 #import "ShowListController.h"
+#import "PAccountProtocol.h"
 
-@interface MainViewController : UIViewController{
+@interface MainViewController : UIViewController <TwitterUtilTweetDelegate, PAccountProtocol> {
     IBOutlet UILabel *username;
     IBOutlet UIActivityIndicatorView *activity;
     IBOutlet UIButton *tweetBtn;
@@ -21,8 +24,9 @@
     IBOutlet UIButton *tweetListBtn;
 }
 
-@property(nonatomic, retain) TwitterUtils *tu;
-@property(nonatomic, retain) ShowListController *tweetListController;
+@property(nonatomic, strong) TwitterUtils *tu;
+@property(nonatomic, strong) AccountUtil *au;
+@property(nonatomic, strong) ShowListController *tweetListController;
 
 -(void) onSuccess;
 -(void) onError;

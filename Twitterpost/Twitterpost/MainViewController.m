@@ -12,6 +12,7 @@
 
 @implementation MainViewController 
 
+@synthesize au;
 @synthesize tu;
 @synthesize tweetListController;
 
@@ -21,13 +22,35 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+#pragma mark - TwitterDelegate
+
+- (void) loadStarted
+{
+    [activity startAnimating];
+}
+
+- (void) loadFinished
+{
+    [activity stopAnimating];
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
-    [self setTu: [[TwitterUtils alloc] init]];
+    [self setTu: [[TwitterUtils alloc] initWithDelegate:self]];
+    [self setAu: [[AccountUtil alloc] init]];
     
-    [tu isGrantedUseOfAccount:self onSuccess:@selector(onSuccess) onError:@selector(onError)];
+    [self.au isGrantedAccess:^(ACAccount *account){
+        [self.tu setAccount:self.au.account];
+        NSString *title = [[NSString alloc] initWithFormat:@"Twitter: %@", au.account.username];
+        
+        [self setTitle:title];
+        [activity stopAnimating];
+        [tweetBtn setEnabled:YES];
+    } errorHandler:^(){
+        NSLog(@"Feilet");
+    }];
     
     activity.hidesWhenStopped = true;
     [activity startAnimating];
@@ -35,12 +58,6 @@
     [tweetBtn setEnabled:NO];
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void) onSuccess{
-    [username setText:tu.account.username];
-    [activity stopAnimating];
-    [tweetBtn setEnabled:YES];
 }
 
 - (void) onError{

@@ -25,6 +25,8 @@
 		05C0C88C1575562E00E560EE /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C0C884157555B300E560EE /* Accounts.framework */; };
 		05C0C8A31575675200E560EE /* TwitterUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C0C8A21575675200E560EE /* TwitterUtils.m */; };
 		05C0C8A9158923C100E560EE /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05C0C8A8158923C100E560EE /* MainView.xib */; };
+		94F1CF6D15FDE001007D584A /* BAccountUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F1CF6C15FDE001007D584A /* BAccountUtil.m */; };
+		94F1CF7615FE13EF007D584A /* PAccountUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F1CF7515FE13EF007D584A /* PAccountUtil.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,12 @@
 		05C0C8A11575675200E560EE /* TwitterUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterUtils.h; sourceTree = "<group>"; };
 		05C0C8A21575675200E560EE /* TwitterUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterUtils.m; sourceTree = "<group>"; };
 		05C0C8A8158923C100E560EE /* MainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainView.xib; sourceTree = "<group>"; };
+		94F1CF6515F67E09007D584A /* TwitterUtilTweetDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterUtilTweetDelegate.h; sourceTree = "<group>"; };
+		94F1CF6B15FDE001007D584A /* BAccountUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAccountUtil.h; sourceTree = "<group>"; };
+		94F1CF6C15FDE001007D584A /* BAccountUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAccountUtil.m; sourceTree = "<group>"; };
+		94F1CF7315FE1306007D584A /* PAccountProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PAccountProtocol.h; sourceTree = "<group>"; };
+		94F1CF7415FE13EF007D584A /* PAccountUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAccountUtil.h; sourceTree = "<group>"; };
+		94F1CF7515FE13EF007D584A /* PAccountUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAccountUtil.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,10 +190,32 @@
 		05C0C8A01575671D00E560EE /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				94F1CF7215FE12BA007D584A /* accountProtocol */,
+				94F1CF6F15FE0258007D584A /* accountBlock */,
 				05C0C8A11575675200E560EE /* TwitterUtils.h */,
 				05C0C8A21575675200E560EE /* TwitterUtils.m */,
+				94F1CF6515F67E09007D584A /* TwitterUtilTweetDelegate.h */,
 			);
 			name = utils;
+			sourceTree = "<group>";
+		};
+		94F1CF6F15FE0258007D584A /* accountBlock */ = {
+			isa = PBXGroup;
+			children = (
+				94F1CF6B15FDE001007D584A /* BAccountUtil.h */,
+				94F1CF6C15FDE001007D584A /* BAccountUtil.m */,
+			);
+			name = accountBlock;
+			sourceTree = "<group>";
+		};
+		94F1CF7215FE12BA007D584A /* accountProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				94F1CF7315FE1306007D584A /* PAccountProtocol.h */,
+				94F1CF7415FE13EF007D584A /* PAccountUtil.h */,
+				94F1CF7515FE13EF007D584A /* PAccountUtil.m */,
+			);
+			name = accountProtocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,6 +331,8 @@
 				05C0B6C2155AD8FC0078DBC3 /* MainViewController.m in Sources */,
 				05C0C8A31575675200E560EE /* TwitterUtils.m in Sources */,
 				053084211591148500E93A04 /* ShowListController.m in Sources */,
+				94F1CF6D15FDE001007D584A /* BAccountUtil.m in Sources */,
+				94F1CF7615FE13EF007D584A /* PAccountUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

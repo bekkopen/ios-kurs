@@ -13,7 +13,7 @@
     IBOutlet UITableView *tweetTableView;
 }
 
-@property(nonatomic, retain) TwitterUtils *tu;
+@property (nonatomic, retain) TwitterUtils *tu;
 @property (nonatomic, retain) NSArray *tweets;
 
 - (void) gotTweets:(NSArray *) tweetDict;

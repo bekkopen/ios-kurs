@@ -7,40 +7,23 @@
 //
 
 #import "TwitterUtils.h"
+#import "TwitterUtilTweetDelegate.h"
 
 @implementation TwitterUtils
 @synthesize accountStore;
 @synthesize account;
+@synthesize loadDelegate;
 
-
-- (void) isGrantedUseOfAccount:(id)delegate onSuccess:(SEL)successCallback onError:(SEL)errorCallback
+- (id) initWithDelegate:(id<TwitterUtilTweetDelegate>) loadDelegateObject
 {
-    if(self.accountStore == nil){
-        [self setAccountStore:[[ACAccountStore alloc] init]];
-    }
-
-	// Create an account type that ensures Twitter accounts are retrieved.
-    ACAccountType *accountType = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    
-    [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
-        if(granted)
-        {
-            NSArray *accountsArray = [self.accountStore accountsWithAccountType:accountType];
-            
-			if ([accountsArray count] > 0) {
-                [self setAccount:[accountsArray objectAtIndex:0]];
-                
-                [delegate performSelectorOnMainThread:successCallback withObject:nil waitUntilDone:YES];
-            }
-        } else {
-            [delegate performSelector:errorCallback];
-        }
-        
-    }];
+    self = [super init];
+    self.loadDelegate = loadDelegateObject;
+    return self;
 }
 
 -(void) tweet:(NSString *) theTweet
 {
+    [loadDelegate loadStarted];
     NSURL *updateUrl = [NSURL URLWithString:@"https://api.twitter.com/1/statuses/update.json"];
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:theTweet, @"status", nil];
@@ -53,7 +36,8 @@
     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:NULL];
         
-        NSLog(@"%@", dict);
+        //NSLog(@"%@", dict);
+        [(id)[self loadDelegate] performSelectorOnMainThread:@selector(loadFinished) withObject:nil waitUntilDone:YES];
     }];
 }
 
@@ -99,7 +83,6 @@
      }];
 }
 
-@synthesize delegate;
 @synthesize successCallback;
 @synthesize errorCallback;
 
