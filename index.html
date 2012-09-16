@@ -361,10 +361,71 @@ Knytter et UI-element opp mot en variabel
 ---
 
 # Arv
+Man kan arve fra én klasse. Rootklassen kalles i Objective C NSObject.
+
+Arv spesifiseres i headerfilen, på samme plass som man navngir klassen sin.
+
+
+.objective-c
+	#import "Shape.h"
+
+	@interface Circle : Shape {
+		int radius;
+	}
+
+	- (float)computeArea;
+	@end
+
+---
+
+# Delegates
+
+Pattern for å få et objekt til å delegere deler av sine oppgaver til et annet objekt.
+
+
+.objective-c
+	- (void)showAlertView {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Advarsel"
+			message:@"Beskjed"
+			delegate:self
+			cancelButtonTitle:@"Ok"
+			otherButtonTitles:nil];
+		[alert show];
+	}
+
+	- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+		NSLog(@"Trykket på en knapp!");
+	}
+
 
 ---
 
 # Protocols
+Brukes ofte for å:
+
+- lage et interface for en klasse, og skjule selve implementasjonen
+- spesifisere funksjoner man forventer at et delegat skal implementere
+
+
+
+.objective-c
+	@protocol MyFancyProtocol
+	@required
+	- (void)doThis;
+	@optional
+	- (void)maybeDoThat;
+	@end
+
+	/* MyClass må implementere doThis, og kan implementere maybeDoThat */
+	@interface MyClass : NSObject <MyFancyProtocol> {}
+	@end
+
+	/* Hvilken som helst klasse som implementerer MyFancyProtocol kan settes som delegate */
+	@interface MyOtherClass : NSObject {
+		id<MyFancyProtocol> delegate;
+	}
+	@end
+
 
 ---
 
@@ -396,6 +457,17 @@ En category vil kjøre som en del av klassen, og ha tilgang til self.
 ---
 
 # Threading
+Cocoa gir oss flere forskjellige måter å lage tråder på
+
+- NSThread gir oss muligheten til å kjøre en selector i en ny tråd
+
+
+
+.objective-c
+	initWithTarget:(id)target selector:(SEL)selector object:(id)object;
+
+- NSOperationQueue og NSOperation
+- `dispatch_async()`
 
 ---
 
@@ -418,27 +490,6 @@ Man definerer en block med `.objective-c ^{ /*min fine block*/ }`, og alt inne i
 			return NSOrderedAscending;
 		...
 	}];
-
----
-
-# Delegates
-
-Pattern for å få et objekt til å delegere deler av sine oppgaver til et annet objekt.
-
-
-.objective-c
-	- (void)showAlertView {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Advarsel"
-			message:@"Beskjed"
-			delegate:self
-			cancelButtonTitle:@"Ok"
-			otherButtonTitles:nil];
-		[alert show];
-	}
-
-	- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-		NSLog(@"Trykket på en knapp!");
-	}
 
 ---
 
