@@ -1,1 +1,1 @@
-web:  java -cp "backend/target/classes:backend/target/dependency/*" no.bekk.ioskurs.Main
+web:  cd backend && java -cp "target/classes:target/dependency/*" no.bekk.ioskurs.Main
