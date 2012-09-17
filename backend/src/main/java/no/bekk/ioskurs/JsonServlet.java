@@ -1,7 +1,6 @@
 package no.bekk.ioskurs;
 
-import org.eclipse.jetty.util.ajax.JSON;
-import org.eclipse.jetty.util.ajax.JSONObjectConvertor;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,14 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collection;
 
 public class JsonServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
         resp.setContentType("application/json");
-        out.println(JSON.toString(AllPosts.posts));
+
+        out.println(new Gson().toJson(AllPosts.posts));
     }
 }

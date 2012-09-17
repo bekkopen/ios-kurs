@@ -17,7 +17,11 @@ public class PostServlet extends HttpServlet {
 
         String from = req.getParameter("from");
         String message = req.getParameter("message");
-        out.println(String.format("Mottatt post fra %s message %s", from, message));
-        AllPosts.addPost(from, message);
+        if (from != null) {
+            out.println(String.format("Mottatt post fra %s message %s", from, message));
+            AllPosts.addPost(from, message);
+        } else {
+            out.println("Mangler from eller message");
+        }
     }
 }
