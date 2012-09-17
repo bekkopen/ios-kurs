@@ -6,7 +6,8 @@
     <groupId>no.bekk</groupId>
     <artifactId>ios-kurs-backend-parent</artifactId>
     <version>1-0-SNAPSHOT</version>
-    <name>iOS Kurs Backend</name>
+    <name>iOS Kurs Backend Parent</name>
+	<packaging>pom</packaging>
 
 	<modules>
 		<module>backend</module>
