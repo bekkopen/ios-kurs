@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+
+    <display-name>iOS Kurs Backend</display-name>
+
+    <servlet>
+        <servlet-name>post</servlet-name>
+        <servlet-class>no.bekk.ioskurs.PostServlet</servlet-class>
+    </servlet>
+
+
+    <servlet>
+        <servlet-name>json</servlet-name>
+        <servlet-class>no.bekk.ioskurs.JsonServlet</servlet-class>
+    </servlet>
+
+
+    <servlet>
+        <servlet-name>html</servlet-name>
+        <servlet-class>no.bekk.ioskurs.HtmlServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>post</servlet-name>
+        <url-pattern>/post</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>json</servlet-name>
+        <url-pattern>/json</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>html</servlet-name>
+        <url-pattern>/html</url-pattern>
+    </servlet-mapping>
+</web-app>
