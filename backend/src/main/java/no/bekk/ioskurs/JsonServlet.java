@@ -1,5 +1,8 @@
 package no.bekk.ioskurs;
 
+import org.eclipse.jetty.util.ajax.JSON;
+import org.eclipse.jetty.util.ajax.JSONObjectConvertor;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +16,7 @@ public class JsonServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        resp.setContentType("text/html");
-        out.println("Hei json");
+        resp.setContentType("application/json");
+        out.println(JSON.toString(AllPosts.posts));
     }
 }

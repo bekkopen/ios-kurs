@@ -14,6 +14,10 @@ public class PostServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
         resp.setContentType("text/html");
-        out.println("Hei post");
+
+        String from = req.getParameter("from");
+        String message = req.getParameter("message");
+        out.println(String.format("Mottatt post fra %s message %s", from, message));
+        AllPosts.addPost(from, message);
     }
 }
