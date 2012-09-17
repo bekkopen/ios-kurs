@@ -16,22 +16,16 @@
 #import "ShowListController.h"
 #import "PAccountProtocol.h"
 
-@interface MainViewController : UIViewController <TwitterUtilTweetDelegate, PAccountProtocol> {
-    IBOutlet UILabel *username;
-    IBOutlet UIActivityIndicatorView *activity;
-    IBOutlet UIButton *tweetBtn;
-    IBOutlet UITextField *tweetTextView;
-    IBOutlet UIButton *tweetListBtn;
-}
+@interface MainViewController : UIViewController
+{}
 
-@property(nonatomic, strong) TwitterUtils *tu;
-@property(nonatomic, strong) AccountUtil *au;
-@property(nonatomic, strong) ShowListController *tweetListController;
+@property (weak, nonatomic) IBOutlet UILabel *username;
+@property (weak, nonatomic) IBOutlet UITextField *tweetTextView;
+@property (weak, nonatomic) IBOutlet UIButton *tweetBtn;
+@property (weak, nonatomic) IBOutlet UIButton *tweetListBtn;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 
--(void) onSuccess;
--(void) onError;
--(IBAction)showLatest:(id)sender;
--(IBAction)tweetText:(id)sender;
-
+- (IBAction)showLatest:(id)sender;
+- (IBAction)tweetText:(id)sender;
 
 @end

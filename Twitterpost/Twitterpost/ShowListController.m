@@ -8,21 +8,29 @@
 
 #import "ShowListController.h"
 
+@interface ShowListController ()
+@property (nonatomic, retain) TwitterUtils *twitterUtils;
+@property (nonatomic, retain) NSArray *tweets;
+
+- (void) gotTweets:(NSArray *) tweetDict;
+- (void) error;
+@end
+
 @implementation ShowListController
 
 @synthesize tweets;
-@synthesize tu;
+@synthesize twitterUtils;
 
-- (id) init
+- (void)viewDidLoad
 {
-    self = [super initWithStyle:UITableViewStylePlain];
+    [super viewDidLoad];
     [self setTweets:[[NSArray alloc] init]];
-    
-    return self;
+    [self setTwitterUtils:[[TwitterUtils alloc] init]];
 }
 
+
 - (void)viewDidAppear:(BOOL)animated{
-    [tu getTweets:self onSuccess:@selector(gotTweets:) onError:@selector(error)];
+    [twitterUtils getTweets:self onSuccess:@selector(gotTweets:) onError:@selector(error)];
 }
 
 - (void) gotTweets:(NSArray *) tweetDict{

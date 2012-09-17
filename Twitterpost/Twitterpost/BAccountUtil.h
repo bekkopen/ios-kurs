@@ -10,16 +10,16 @@
 #import <Twitter/Twitter.h>
 #import <Accounts/Accounts.h>
 
-@interface AccountUtil : UITableViewController{
-    IBOutlet UITableView *accountSelectorTableView;
-}
-
 typedef void(^SuccessHandler)(ACAccount *);
 typedef void(^ErrorHandler)();
 
-- (void) isGrantedAccess:(SuccessHandler)successHandler errorHandler:(ErrorHandler)errorHandler;
+@interface BAccountUtil : NSObject
+{}
 
-@property(nonatomic, strong) ACAccountStore *accountStore;
 @property(nonatomic, strong) ACAccount *account;
+
+- (void)isGrantedAccess:(SuccessHandler)successHandler errorHandler:(ErrorHandler)errorHandler;
+
+
 
 @end

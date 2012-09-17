@@ -12,8 +12,8 @@
 @protocol PAccountProtocol <NSObject>
 
 @required
--(void) didGetAccount:(ACAccount *) account;
+- (void)didGetAccount:(ACAccount *)account;
 @required
--(void) didFailWithErros:(NSString *) error;
+- (void)didFailWithErros:(NSString *)error;
 
 @end

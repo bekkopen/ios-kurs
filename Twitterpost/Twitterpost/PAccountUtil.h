@@ -10,15 +10,10 @@
 #import <Foundation/Foundation.h>
 #import <Accounts/Accounts.h>
 
-@interface PAccountUtil : NSObject{
-    @private
-    id<PAccountProtocol> delegate;
-}
+@interface PAccountUtil : NSObject
+{}
 
-- (id) initWithDelegate: (id<PAccountProtocol>) delegate;
-- (void) grantAccessToAccount;
-
-@property(nonatomic, strong) ACAccountStore *accountStore;
-@property(nonatomic, strong) ACAccount *account;
+- (id)initWithDelegate:(id<PAccountProtocol>)delegate;
+- (void)grantAccessToAccount;
 
 @end

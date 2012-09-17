@@ -13,6 +13,8 @@
 @synthesize accountStore;
 @synthesize account;
 @synthesize loadDelegate;
+@synthesize successCallback;
+@synthesize errorCallback;
 
 - (id) initWithDelegate:(id<TwitterUtilTweetDelegate>) loadDelegateObject
 {
@@ -21,21 +23,18 @@
     return self;
 }
 
--(void) tweet:(NSString *) theTweet
+-(void)tweet:(NSString *)theTweet
 {
     [loadDelegate loadStarted];
     NSURL *updateUrl = [NSURL URLWithString:@"https://api.twitter.com/1/statuses/update.json"];
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:theTweet, @"status", nil];
     
-    TWRequest *request = [[TWRequest alloc] initWithURL:updateUrl parameters:params requestMethod:TWRequestMethodPOST];
-        
+    TWRequest *request = [[TWRequest alloc] initWithURL:updateUrl parameters:params requestMethod:TWRequestMethodPOST];    
     request.account = self.account;
-    NSLog(@"%@", request.account);
     
     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:NULL];
-        
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:NULL];        
         //NSLog(@"%@", dict);
         [(id)[self loadDelegate] performSelectorOnMainThread:@selector(loadFinished) withObject:nil waitUntilDone:YES];
     }];
@@ -82,8 +81,5 @@
          }
      }];
 }
-
-@synthesize successCallback;
-@synthesize errorCallback;
 
 @end

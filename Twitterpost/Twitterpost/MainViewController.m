@@ -10,70 +10,75 @@
 #import "TwitterUtils.h"
 #import "ShowListController.h"
 
+@interface MainViewController ()
+@property(nonatomic, strong) TwitterUtils *twitterUtils;
+@property(nonatomic, strong) BAccountUtil *accountUtils;
+
+- (void)onSuccess;
+- (void)onError;
+@end
+
 @implementation MainViewController 
 
-@synthesize au;
-@synthesize tu;
-@synthesize tweetListController;
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
+@synthesize accountUtils;
+@synthesize twitterUtils;
 
 #pragma mark - TwitterDelegate
 
 - (void) loadStarted
 {
-    [activity startAnimating];
+    [self.activity startAnimating];
 }
 
 - (void) loadFinished
 {
-    [activity stopAnimating];
+    [self.activity stopAnimating];
 }
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
-    [self setTu: [[TwitterUtils alloc] initWithDelegate:self]];
-    [self setAu: [[AccountUtil alloc] init]];
+    [super viewDidLoad];
     
-    [self.au isGrantedAccess:^(ACAccount *account){
-        [self.tu setAccount:self.au.account];
-        NSString *title = [[NSString alloc] initWithFormat:@"Twitter: %@", au.account.username];
+    [self setTwitterUtils:[[TwitterUtils alloc] initWithDelegate:self]];
+    [self setAccountUtils:[[BAccountUtil alloc] init]];
+    
+    [self.accountUtils isGrantedAccess:^(ACAccount *account)
+    {
+        [self.twitterUtils setAccount:self.accountUtils.account];
         
+        NSString *title = [[NSString alloc] initWithFormat:@"Twitter: %@", accountUtils.account.username];
         [self setTitle:title];
-        [activity stopAnimating];
-        [tweetBtn setEnabled:YES];
-    } errorHandler:^(){
-        NSLog(@"Feilet");
+        
+        [self.activity stopAnimating];
+        [self.tweetBtn setEnabled:YES];
+    } errorHandler:^()
+    {
+        [self.activity stopAnimating];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Feilet" message:@"Kunne ikke finne twitter konto" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
     }];
     
-    activity.hidesWhenStopped = true;
-    [activity startAnimating];
-    
-    [tweetBtn setEnabled:NO];
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    self.activity.hidesWhenStopped = true;
+    [self.activity startAnimating];
+    [self.tweetBtn setEnabled:NO];
 }
 
-- (void) onError{
+- (void)onError
+{
     NSLog(@"Du må godkjenne bruk av konto");
 }
 
-- (void) tweetText:(id)sender{    
-    [self.tu tweet:[tweetTextView text]];
-    [tweetTextView resignFirstResponder];
+- (void)tweetText:(id)sender
+{
+    [self.twitterUtils tweet:[self.tweetTextView text]];
+    [self.tweetTextView resignFirstResponder];
 }
 
-- (void) showLatest:(id) sender{
-    if(!tweetListController){
-        tweetListController = [[ShowListController alloc] init];
-        [tweetListController setTu:[self tu]];
-    }
+- (void) showLatest:(id)sender
+{
+    ShowListController *tweetListController = [[ShowListController alloc] initWithNibName:@"ShowListController" bundle:[NSBundle mainBundle]];
     
     [[self navigationController] pushViewController:tweetListController animated:YES];
 }

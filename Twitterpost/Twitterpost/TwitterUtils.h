@@ -23,8 +23,8 @@
 @property(nonatomic, strong) ACAccount *account;
 @property(nonatomic, weak) id<TwitterUtilTweetDelegate> loadDelegate;
 
-- (id) initWithDelegate:(id <TwitterUtilTweetDelegate>) loadDelegateObject;
-- (void) tweet:(NSString *) theTweet;
-- (void) getTweets:(id)delegate onSuccess:(SEL) successCallback onError:(SEL) errorCallback;
+- (id)initWithDelegate:(id<TwitterUtilTweetDelegate>)loadDelegateObject;
+- (void)tweet:(NSString *)theTweet;
+- (void)getTweets:(id)delegate onSuccess:(SEL)successCallback onError:(SEL)errorCallback;
 
 @end
