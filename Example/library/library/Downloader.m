@@ -5,32 +5,39 @@
 @property(nonatomic, strong) NSMutableData *data;
 @property(nonatomic, strong) NSString *username;
 @property(nonatomic, strong) NSString *password;
-@property(nonatomic, strong) NSURL *url;
+@property(nonatomic, strong) NSURLRequest *request;
 @property (nonatomic, copy) DataDownloaderSuccessHandler successHandler;
 @property (nonatomic, copy) DataDownloaderFailedHandler failedHandler;
 @end
 
 @implementation Downloader
 
-+ (NSURLRequest *)createRequestForUrl:(NSURL *)url
++ (NSURLRequest *)createGetRequestForUrl:(NSURL *)url
 {
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
-    [urlRequest setHTTPMethod:@"GET"];
-    return urlRequest;
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"GET"];
+    return request;
 }
 
-+ (void)startDownloadWithUrl:(NSURL *)url successHandler:(DataDownloaderSuccessHandler)successHandler failedHandler:(DataDownloaderFailedHandler)failedHandler
++ (NSURLRequest *)createPostRequestForUrl:(NSURL *)url
 {
-    [self startDownloadWithUrl:url username:nil andPassword:nil successHandler:successHandler failedHandler:failedHandler];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    return request;
 }
 
-+ (void)startDownloadWithUrl:(NSURL *)url username:(NSString *)username andPassword:(NSString *)password successHandler:(DataDownloaderSuccessHandler)successHandler failedHandler:(DataDownloaderFailedHandler)failedHandler
++ (void)startDownloadWithRequest:(NSURLRequest *)request successHandler:(DataDownloaderSuccessHandler)successHandler failedHandler:(DataDownloaderFailedHandler)failedHandler
 {
-    Downloader *downloader = [[Downloader alloc] initWithUrl:url username:username andPassword:password];
+    [self startDownloadWithRequest:request username:nil andPassword:nil successHandler:successHandler failedHandler:failedHandler];
+}
+
++ (void)startDownloadWithRequest:(NSURLRequest *)request username:(NSString *)username andPassword:(NSString *)password successHandler:(DataDownloaderSuccessHandler)successHandler failedHandler:(DataDownloaderFailedHandler)failedHandler
+{
+    Downloader *downloader = [[Downloader alloc] initWithRequest:request username:username andPassword:password];
     [downloader setSuccessHandler:successHandler];
     [downloader setFailedHandler:failedHandler];
-    NSURLRequest *urlRequest = [Downloader createRequestForUrl:url];
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:downloader startImmediately:YES];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:downloader startImmediately:YES];
     
     if (!connection)
     {
@@ -38,23 +45,23 @@
     }
 }
 
-- (id)initWithUrl:(NSURL *)url andDelegate:(id<DataDownloaderDelegate>)delegate
+- (id)initWithRequest:(NSURLRequest *)request andDelegate:(id<DataDownloaderDelegate>)delegate
 {
-    return [self initWithUrl:url andDelegate:delegate username:nil andPassword:nil];
+    return [self initWithRequest:request andDelegate:delegate username:nil andPassword:nil];
 }
 
-- (id)initWithUrl:(NSURL *)url username:(NSString *)username andPassword:(NSString *)password
+- (id)initWithRequest:(NSURLRequest *)request username:(NSString *)username andPassword:(NSString *)password
 {
-    return [self initWithUrl:url andDelegate:nil username:username andPassword:password];
+    return [self initWithRequest:request andDelegate:nil username:username andPassword:password];
 }
 
-- (id)initWithUrl:(NSURL *)url andDelegate:(id<DataDownloaderDelegate>)delegate username:(NSString *)username andPassword:(NSString *)password
+- (id)initWithRequest:(NSURLRequest *)request andDelegate:(id<DataDownloaderDelegate>)delegate username:(NSString *)username andPassword:(NSString *)password
 {
     self = [self init];
     
     if (self != nil)
     {
-        self.url = url;
+        self.request = request;
         self.theDelegate = delegate;
         self.data = [NSMutableData data];
         self.username = username;
@@ -66,8 +73,7 @@
 
 - (void)startDownload
 {
-    NSURLRequest *urlRequest = [Downloader createRequestForUrl:self.url];
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self startImmediately:YES];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:YES];
     
     if (!connection)
     {

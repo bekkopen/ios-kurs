@@ -19,8 +19,21 @@
 {
     [super viewDidLoad];
     
-    [Downloader startDownloadWithUrl:[NSURL URLWithString:@"http://vg.no"] successHandler:^(NSData *data)
+    [Downloader startDownloadWithRequest:[Downloader createGetRequestForUrl:[NSURL URLWithString:@"http://stormy-reef-4228.herokuapp.com/post?from=sdssdsd&message=Test"]] successHandler:^(NSData *data)
+     {
+         NSError *error = nil;
+         NSDictionary *jsonObjects = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+         NSLog(@"%@", jsonObjects);
+     } failedHandler:^(NSError *error)
+     {
+         
+     }];
+    
+    [Downloader startDownloadWithRequest:[Downloader createGetRequestForUrl:[NSURL URLWithString:@"http://stormy-reef-4228.herokuapp.com/json"]] successHandler:^(NSData *data)
     {
+        NSError *error = nil;
+        NSDictionary *jsonObjects = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+         NSLog(@"%@", jsonObjects);
     } failedHandler:^(NSError *error)
     {
          
