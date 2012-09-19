@@ -26,8 +26,7 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    
+    [super viewDidLoad];  
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -38,8 +37,8 @@
 
 - (void)postFrom:(NSString *)from withMessage:(NSString *)message
 {
-    NSString* escapedFrom = [from stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-    NSString* escapedMessage = [message stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    NSString* escapedFrom = [from stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString* escapedMessage = [message stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *postString = [NSString stringWithFormat:@"http://ioskurs.herokuapp.com/post?from=%@&message=%@", escapedFrom, escapedMessage];
     
     [Downloader startDownloadWithRequest:[Downloader createPostRequestForUrl:[NSURL URLWithString:postString]] successHandler:^(NSData *data)
