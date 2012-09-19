@@ -38,7 +38,9 @@
 
 - (void)postFrom:(NSString *)from withMessage:(NSString *)message
 {
-    NSString *postString = [NSString stringWithFormat:@"http://ioskurs.herokuapp.com/post?from=%@&message=%@", from, message];
+    NSString* escapedFrom = [from stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    NSString* escapedMessage = [message stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    NSString *postString = [NSString stringWithFormat:@"http://ioskurs.herokuapp.com/post?from=%@&message=%@", escapedFrom, escapedMessage];
     
     [Downloader startDownloadWithRequest:[Downloader createPostRequestForUrl:[NSURL URLWithString:postString]] successHandler:^(NSData *data)
      {
