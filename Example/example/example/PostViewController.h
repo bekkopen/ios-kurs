@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PostViewController : UIViewController
-
+- (IBAction)cancelTouch:(id)sender;
+- (IBAction)sendTouch:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 @end
