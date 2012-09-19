@@ -22,6 +22,9 @@
 		602D304416079D6700172AB7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602D302216079D6700172AB7 /* Foundation.framework */; };
 		602D304C16079D6700172AB7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 602D304A16079D6700172AB7 /* InfoPlist.strings */; };
 		602D304F16079D6700172AB7 /* exampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 602D304E16079D6700172AB7 /* exampleTests.m */; };
+		60619EB21609979D00CEB7BC /* MessageParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 60619EB11609979D00CEB7BC /* MessageParser.m */; };
+		60619EB6160997B400CEB7BC /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 60619EB5160997B400CEB7BC /* Message.m */; };
+		60619EB916099B6700CEB7BC /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60619EB816099B6700CEB7BC /* PostViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +79,12 @@
 		602D304B16079D6700172AB7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		602D304D16079D6700172AB7 /* exampleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = exampleTests.h; sourceTree = "<group>"; };
 		602D304E16079D6700172AB7 /* exampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = exampleTests.m; sourceTree = "<group>"; };
+		60619EB01609979D00CEB7BC /* MessageParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageParser.h; sourceTree = "<group>"; };
+		60619EB11609979D00CEB7BC /* MessageParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageParser.m; sourceTree = "<group>"; };
+		60619EB4160997B400CEB7BC /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		60619EB5160997B400CEB7BC /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		60619EB716099B6700CEB7BC /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
+		60619EB816099B6700CEB7BC /* PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
 		60F5DB5D1607A4480084AD13 /* library.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = library.xcodeproj; path = ../library/library.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,12 +156,16 @@
 		602D302616079D6700172AB7 /* example */ = {
 			isa = PBXGroup;
 			children = (
+				60619EB3160997A200CEB7BC /* Model */,
+				60619EAE1609974400CEB7BC /* Parser */,
 				602D302F16079D6700172AB7 /* AppDelegate.h */,
 				602D303016079D6700172AB7 /* AppDelegate.m */,
 				602D303216079D6700172AB7 /* MainStoryboard_iPhone.storyboard */,
 				602D303516079D6700172AB7 /* MainStoryboard_iPad.storyboard */,
 				602D303816079D6700172AB7 /* ViewController.h */,
 				602D303916079D6700172AB7 /* ViewController.m */,
+				60619EB716099B6700CEB7BC /* PostViewController.h */,
+				60619EB816099B6700CEB7BC /* PostViewController.m */,
 				602D302716079D6700172AB7 /* Supporting Files */,
 			);
 			path = example;
@@ -186,6 +199,24 @@
 				602D304A16079D6700172AB7 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		60619EAE1609974400CEB7BC /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				60619EB01609979D00CEB7BC /* MessageParser.h */,
+				60619EB11609979D00CEB7BC /* MessageParser.m */,
+			);
+			name = Parser;
+			sourceTree = "<group>";
+		};
+		60619EB3160997A200CEB7BC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				60619EB4160997B400CEB7BC /* Message.h */,
+				60619EB5160997B400CEB7BC /* Message.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,6 +354,9 @@
 				602D302D16079D6700172AB7 /* main.m in Sources */,
 				602D303116079D6700172AB7 /* AppDelegate.m in Sources */,
 				602D303A16079D6700172AB7 /* ViewController.m in Sources */,
+				60619EB21609979D00CEB7BC /* MessageParser.m in Sources */,
+				60619EB6160997B400CEB7BC /* Message.m in Sources */,
+				60619EB916099B6700CEB7BC /* PostViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

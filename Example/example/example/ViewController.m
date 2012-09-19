@@ -8,9 +8,10 @@
 
 #import "ViewController.h"
 #import <library/library.h>
+#import "MessageParser.h"
 
 @interface ViewController ()
-
+@property (nonatomic, strong) NSArray *messages;
 @end
 
 @implementation ViewController
@@ -18,26 +19,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [Downloader startDownloadWithRequest:[Downloader createGetRequestForUrl:[NSURL URLWithString:@"http://stormy-reef-4228.herokuapp.com/post?from=sdssdsd&message=Test"]] successHandler:^(NSData *data)
-     {
-         NSError *error = nil;
-         NSDictionary *jsonObjects = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-         NSLog(@"%@", jsonObjects);
-     } failedHandler:^(NSError *error)
-     {
-         
-     }];
-    
-    [Downloader startDownloadWithRequest:[Downloader createGetRequestForUrl:[NSURL URLWithString:@"http://stormy-reef-4228.herokuapp.com/json"]] successHandler:^(NSData *data)
+        
+    [Downloader startDownloadWithRequest:[Downloader createGetRequestForUrl:[NSURL URLWithString:@"http://ioskurs.herokuapp.com/json"]] successHandler:^(NSData *data)
     {
+        MessageParser *messageParser = [[MessageParser alloc] init];
+        
         NSError *error = nil;
-        NSDictionary *jsonObjects = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-         NSLog(@"%@", jsonObjects);
+        self.messages = [messageParser createMessagesFromJSON:data error:&error];
+        
+        if (error != nil)
+        {
+            [self showAlert];
+            return;
+        }        
     } failedHandler:^(NSError *error)
     {
-         
+        [self showAlert];
     }];
+}
+
+- (void)showAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Feil oppsto" message:@"Kunne ikke hente meldinger" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
 }
 
 - (void)viewDidUnload
