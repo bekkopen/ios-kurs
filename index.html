@@ -70,7 +70,7 @@
 ---
 
 # Basics
-* Objective-C kan defineres som ett sett med utvidelser til  programmeringsspråket C
+* Objective-C kan defineres som ett sett med utvidelser til programmeringsspråket C
 * Virker ganske forskjellig fra C
 * Objektorientert
 * Dynamisk-typet
@@ -137,9 +137,9 @@ Opprette instans av en klasse gjøres på følgende måte:
 ---
 
 # Objective-C Ivar
-Instans variabler blir deklarert i headeren (.h) for hver klasse.
+Instans-variabler blir deklarert i headeren (.h) for hver klasse.
 
-I Objective-C er alle instans variabler interne (@protected) for objektet de ligger på. Dermed er staten til instans variablene kun tilgjengelig via objektet sine metoder. Man kan overstyre dette ved å bruke 'scope directives'. 
+I Objective-C er alle instans variabler interne (@protected) for objektet de ligger på. Dermed er staten til instans-variablene kun tilgjengelig via objektet sine metoder. Man kan overstyre dette ved å bruke 'scope directives'. 
 
 
 .objective-c
@@ -170,7 +170,8 @@ Eksempel:
 
 
 .objective-c
-	@propterty(nonatomic, strong) DittObject * enkeltObjekt
+	@property(nonatomic, strong) DittObject * enkeltObjekt;
+	@property(nonatomic) int etTall;
 
 Man kan også bruke Dot Syntax for å nå getter og setters.
 
@@ -188,11 +189,11 @@ i stedet for
 
 ---
 
-# Objective-C Objekt melding (Object Messaging)
+# Objective-C Message Passing
 
-For å snakke med objekter bruker man "Object Messageing". 
+Navngir ikke selve funksjonen, men hvert parameter til funksjonen.
 
-Java:
+Java
 
 
 .java
@@ -361,7 +362,7 @@ Knytter et UI-element opp mot en variabel
 ---
 
 # Arv
-Man kan arve fra én klasse. Rootklassen kalles i Objective C NSObject.
+Man kan arve fra én klasse. Rootklassen i Objective-C kalles NSObject.
 
 Arv spesifiseres i headerfilen, på samme plass som man navngir klassen sin.
 
@@ -498,7 +499,7 @@ I Cocoa bruker man som regel en litt modifisert versjon av MVC
 
 ![](images/mvc.jpg)
 
-Model: inneholder alle data
+Model: klasser som holder på data
 
 View: viser og lar deg redigere dine data
 
