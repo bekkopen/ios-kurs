@@ -60,7 +60,7 @@
 * Introduksjon Objective-C 
 * Introduksjon til iOS
 * Introduksjon til verktøy
-* Utvikle en enkel twitter klient med send tweet funksjonalitet
+* Utvikle en enkel app
 
 ---
 
@@ -121,7 +121,7 @@ Som i mange andre programmeringsspråk så lager man egne objekter ved hjelp av 
 
 I tillegg til å holde på sine instans variabler, så inneholder klassene forskjellige metoder. I Objetive-C så bruker man stor forbokstav på klasser, men små bokstaver på instanser av denne klassen.
 
-Det meste av metode og instans variable definering blir gjort i en .h fil, men selve implementasjonen blir gjort i en .m fil.
+Det noe av metode og instans variable definering blir gjort i en .h fil, men all implementasjonen blir gjort i en .m fil.
 
 NSObject er en root klasse som alle andre klasser arver fra. 
 
@@ -139,7 +139,7 @@ Opprette instans av en klasse gjøres på følgende måte:
 # Objective-C Ivar
 Instans-variabler blir deklarert i headeren (.h) for hver klasse.
 
-I Objective-C er alle instans variabler interne (@protected) for objektet de ligger på. Dermed er staten til instans-variablene kun tilgjengelig via objektet sine metoder. Man kan overstyre dette ved å bruke 'scope directives'. 
+I Objective-C er alle instans variabler interne (@protected) for klassen de er definert i. Dermed er staten til instans-variablene kun tilgjengelig via klassens metoder eller en klasse som har arvet av den klassen der instans-variablene er definert. Man kan overstyre dette ved å bruke 'scope directives'. 
 
 
 .objective-c
@@ -159,33 +159,6 @@ I Objective-C er alle instans variabler interne (@protected) for objektet de lig
 	/* Kun tilgjengelig for klasser som ligger i ett og samme image. */
 	@package 	
 	NSString * ettObjekt;
-
----
-
-# Objective-C Ivar og Properties
-
-En kjapp måte og lage getter og setter for Ivars er å bruke properties
-
-Eksempel:
-
-
-.objective-c
-	@property(nonatomic, strong) DittObject * enkeltObjekt;
-	@property(nonatomic) int etTall;
-
-Man kan også bruke Dot Syntax for å nå getter og setters.
-
-Eksempel: 
-
-
-.objective-c
-	enkeltObjekt.endaEnklereInstansVariabel
-
-i stedet for
-
-
-.objective-c
-	[enkeltObjekt endaEnklereInstansVariabel] 
 
 ---
 
@@ -222,6 +195,33 @@ eller
 
 ---
 
+# Objective-C Ivar og Properties
+
+Properties er en kjapp måte og lage en get og set metode for instans variabler (Ivars)
+
+Eksempel:
+
+
+.objective-c
+	@property(nonatomic, strong) DittObject * enkeltObjekt;
+	@property(nonatomic) int etTall;
+
+Man kan også bruke Dot Syntax for å nå get og set metoder.
+
+Eksempel: 
+
+
+.objective-c
+	enkeltObjekt.endaEnklereInstansVariabel
+
+i stedet for
+
+
+.objective-c
+	[enkeltObjekt endaEnklereInstansVariabel] 
+
+---
+
 # Objective-C Minnehåndtering
 
 * MRC (Manual Reference Counting)
@@ -231,7 +231,7 @@ eller
 .objective-c
 	- (void)morroMetoden
 	{ 
-  	NSMutableArray *vanligArray = [[NSMutableArray alloc] init];
+		NSMutableArray *vanligArray = [[NSMutableArray alloc] init];
 		//bruk array'et
 		[vanligArray release]; //slett det fra minnet når du er ferdig
 	}
@@ -244,7 +244,7 @@ eller
 .objective-c
 	- (void)morroMetoden
 	{ 
-  	NSMutableArray *vanligArray = [[NSMutableArray alloc] init];
+		NSMutableArray *vanligArray = [[NSMutableArray alloc] init];
 		// bruk array'et
 	}
 
@@ -265,23 +265,28 @@ eller
 
 ---
 
-# iOS - Layers
-
-Lag inndelingen av iOS, Core OS, Core Services, Media, Cocoa Touch
-
-
-.max-width
-![Lag inndeling og rammeverk i iOS](images/layers.png)
-
----
-
 # Design vurderinger (alt for kort oppsummert) ;)
 
 * [iOS Human Interface Guidelines](http://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/MobileHIG/Introduction/Introduction.html#//apple_ref/doc/uid/TP40006556
 ) 
+* Nettverksproblemer (4G, 3G, EDGE, INGENTING)
 * Hva kan de forskjellige iOS enhetene gjøre (GPS, kamera, osv)
 * Hvilke utfordringer gir mobil design (liten skjerm osv)
 * Tenk frem i tid, hva slags skjermer ser vi for oss at appen må støtte
+
+## Mockup verktøy og GUI stuff
+
+* http://www.uistencils.com/
+* http://keynotopia.com/
+* http://www.teehanlax.com/downloads/
+
+---
+
+# iOS - Layers
+
+
+.max-width
+![Lag inndeling og rammeverk i iOS](images/layers.png)
 
 ---
 
@@ -316,7 +321,7 @@ Lag inndelingen av iOS, Core OS, Core Services, Media, Cocoa Touch
 
 
 .objective-c
-		- (IBAction)myFancyFunction
+	- (IBAction)myFancyFunction
 
 Knytter en handling til en funksjon
 
@@ -339,6 +344,16 @@ Knytter et UI-element opp mot en variabel
 
 .middle.center
 # Lets code!
+
+## V
+
+---
+
+# Hei på dere appen
+
+v1. Lag en app som skriver "Hei på dere" ut i consolet
+v2. Lag en app uten interface builder som legger ut en UILabel og viser "Hei på dere"
+v3. Lag en app med interface builder som 
 
 ---
 
