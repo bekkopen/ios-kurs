@@ -21,8 +21,21 @@
   <body>
     <textarea id="source">
 
-# Om tid, se på dette før oppmøte
-* [Lœr C](http://cocoadevcentral.com/articles/000081.php) - http://cocoadevcentral.com/articles/000081.php
+# Forslag til beskrivelse
+Få en pangstart på din karriere som app-utvikler. BEKK holder tre-delt iOS-kurs, der du vil få den grunnleggende kunnskapen som skal til for å lage en iOS-app fra bunnen av. 
+
+Del 1 gir introduksjon til Objective-C, iOS platformen og verktøy. Det blir holdt presentasjon og det skal kodes.
+Del 2 går mer i dybden på temaene i del 1 og vi vil lage en twitter-aktig app.
+Del 3 vil gå ut på å lage en applikasjon fra bunnen av som bruker egne API'er eller foreslåtte API'er. Veileder vil hjelpe til underveis. 
+
+Krav:
+Mac med Xcode
+
+Oppsett før man dukker opp på del 1:
+Installert: Xcode (4 eldste, men jo nyere jo bedre, 4.5 er siste)
+Åpnet Xcode for å vite at det starter
+
+Om man får tid se kjapt på: http://cocoadevcentral.com/articles/000081.php
 
 ---
 
@@ -40,7 +53,6 @@
 	* Koding og blir kjent med verktøyene
 * Del 2 - Mer avansert
 	* Objective-C
-	* iOS
 	* Verktøy
 	* Koding - Vi skal lage en twitter aktig app
 * Del 3 - Lage en app
@@ -105,13 +117,17 @@
 
 # Objective-C Objekter
 
-Som i alle andre objektorienterte språk så er objekter data-holdere som man kan utføre operasjoner på. Disse er kalt metoder. Dataen som blir påvirket ligger i såkalte instans-variabler. 
+Da Objetive-C er objektorientert, vil de samme prinsippene gjelde her som i andre objektorienterte språk, som for eksempel Java. 
 
-Alle objekter kan refereres til ved hjelp av 'id'. For eksempel:
+Objektene har data og metoder for å bruke dataen, den dataen som blir påvirket ligger i såkalte instans-variabler (Ivars). 
+
+Da språket er dynamisk typet, kan alle objekter refereres til ved hjelp av 'id'. For eksempel:
 
 
 .objective-c
 	id ettObjekt 
+
+Det betyr også, at man må vœre litt mer varsom enn i java, da man ikke får kompileringsfeil ved å sende inn en feil type til en metode.
 
 ---
 
@@ -203,7 +219,7 @@ Eksempel:
 
 
 .objective-c
-	@property(nonatomic, strong) DittObject * enkeltObjekt;
+	@property(nonatomic, strong) DittObject *enkeltObjekt;
 	@property(nonatomic) int etTall;
 
 Man kan også bruke Dot Syntax for å nå get og set metoder.
@@ -321,7 +337,7 @@ i stedet for
 
 
 .objective-c
-	- (IBAction)myFancyFunction
+	- (IBAction)myFancyFunction:(id)sender
 
 Knytter en handling til en funksjon
 
@@ -375,7 +391,6 @@ Knytter et UI-element opp mot en variabel
 .agenda
 # Agenda
 * Objective-C
-* iOS
 * Verktøy
 * Koding - Vi skal lage en twitter aktig app
 
@@ -479,9 +494,45 @@ En category vil kjøre som en del av klassen, og ha tilgang til self.
 
 # Selectors
 
+I Objective-C har selectors to meninger. Man refererer til en metode, eller man kan referere til en unikt navn etter kildekoden er kompilert. 
+
+* Kompilerte selektorerer er av typen SEL, og den kan brukes til å invoke en metode på et objekt. 
+* @selector() brukes til å refere til en selector i stedet for det fullstendige metode navnet
+
+Eksempel:
+
+
+.objetive-c
+	SEL enMetode;
+	setWidthHeight = @selector(enMetode:medMer:);
+
+
+Et eksempel på bruk:
+
+.objective-c
+	[venn performSelector:@selector(sladre:)
+    withObject:enNabo];
+
+    //er det samme som
+    [venn sladre:enNabo];
+
+Forskjellen er at man kan variere bedskjeden og objektet som motar bedskjeden runtime, da de ikke er tett knyttet sammen under kompilering. 
+
 ---
 
 # Exception Handling
+
+Gjøres likt som i alle andre programmeringsspråk, men brukes skjelden. De fleste bruker NSError i stedet. 
+
+.objective-c
+	Venn *venn = [[Venn alloc] init];
+ 
+	@try {
+	    [venn sladre];
+	}
+	@catch (NSException *exception) {
+	    NSLog(@"Feilet %@: %@", [exception name], [exception reason]);
+	}
 
 ---
 
@@ -523,7 +574,7 @@ Man definerer en block med `.objective-c ^{ /*min fine block*/ }`, og alt inne i
 ---
 
 # MVC
-I Cocoa bruker man som regel en litt modifisert versjon av MVC
+I Cocoa og Cocoa Touch bruker man som regel en litt modifisert versjon av MVC
 
 ![](images/mvc.jpg)
 
@@ -532,16 +583,6 @@ Model: klasser som holder på data
 View: viser og lar deg redigere dine data
 
 Controller: er koblingen mellom viewet og modellen din
-
----
-
-.middle.center
-# Mer iOS
-
----
-
-.middle.center
-# Xcode hot-key-/navigation tips
 
 ---
 
