@@ -37,12 +37,12 @@
 	* Objective-C
 	* iOS
 	* Verktøy
-	* Koding
+	* Koding og blir kjent med verktøyene
 * Del 2 - Mer avansert
 	* Objective-C
 	* iOS
 	* Verktøy
-	* Koding
+	* Koding - Vi skal lage en twitter aktig app
 * Del 3 - Lage en app
 	* Lag en iOS app ved å bruke ett eksisterende API
 	* Veiledere vil hjelpe deg underveis i kodingen 
@@ -57,10 +57,10 @@
 .agenda
 # Agenda
 
-* Introduksjon Objective-C 
-* Introduksjon til iOS
-* Introduksjon til verktøy
-* Utvikle en enkel app
+* Objective-C
+* iOS
+* Verktøy
+* Koding og blir kjent med verktøyene
 
 ---
 
@@ -92,13 +92,13 @@
 .c
 	int main()
 	{
-  	int this_is_a_number;
+	int this_is_a_number;
 
-  	printf( "Vennligst skriv inn ett nummer: " );
-  	scanf( "%d", &this_is_a_number );
-  	printf( "Du skrev inn %d", this_is_a_number );
-  	getchar();
-  	return 0;
+	printf( "Vennligst skriv inn ett nummer: " );
+	scanf( "%d", &this_is_a_number );
+	printf( "Du skrev inn %d", this_is_a_number );
+	getchar();
+	return 0;
 	}
 
 ---
@@ -157,7 +157,7 @@ I Objective-C er alle instans variabler interne (@protected) for klassen de er d
 	NSString * ettObjekt;
 
 	/* Kun tilgjengelig for klasser som ligger i ett og samme image. */
-	@package 	
+	@package	
 	NSString * ettObjekt;
 
 ---
@@ -329,7 +329,7 @@ Knytter en handling til en funksjon
 
 
 .objective-c
-	@property(nonatomic) IBOutlet UIButton myButton
+	@property(nonatomic, strong) IBOutlet UIButton *myButton
 
 Knytter et UI-element opp mot en variabel
 
@@ -345,15 +345,25 @@ Knytter et UI-element opp mot en variabel
 .middle.center
 # Lets code!
 
-## V
+## Hjelp og demo på skjerm
 
 ---
 
 # Hei på dere appen
 
-v1. Lag en app som skriver "Hei på dere" ut i consolet
-v2. Lag en app uten interface builder som legger ut en UILabel og viser "Hei på dere"
-v3. Lag en app med interface builder som 
+1. Lag en app som skriver "Hei på dere" ut i consolet
+2. Lag en app uten interface builder som legger ut en UILabel og viser "Hei på dere"
+3. Lag en app med interface builder som viser en UILabel med "Hei på dere"
+
+---
+
+# Vis hva jeg skriver appen
+1. Lag en app med eller uten interface builder som har en UIButton, UITextField og en UILabel. UILabel skal vise det som står i UITextField når man trykker på knappen.
+
+---
+
+# Den enkle browser appen
+1. Lag en app med knapper eller UIPickerView som henviser til websider, når man klikker på knappen så vises den websiden i en UIWebView
 
 ---
 
@@ -364,10 +374,10 @@ v3. Lag en app med interface builder som
 
 .agenda
 # Agenda
-1. Mer Objective-C
-2. Mer iOS
-3. Verktøy hot-key-/navigation tips
-4. Videre utvikling av twitter klienten med lesing av feed 
+* Objective-C
+* iOS
+* Verktøy
+* Koding - Vi skal lage en twitter aktig app
 
 ---
 
@@ -377,7 +387,7 @@ v3. Lag en app med interface builder som
 ---
 
 # Arv
-Man kan arve fra én klasse. Rootklassen i Objective-C kalles NSObject.
+Man kan arve fra én klasse for å gi din klasse de egenskapene den klassen du arver fra har. Rootklassen i Objective-C kalles NSObject.
 
 Arv spesifiseres i headerfilen, på samme plass som man navngir klassen sin.
 
@@ -396,7 +406,7 @@ Arv spesifiseres i headerfilen, på samme plass som man navngir klassen sin.
 
 # Delegates
 
-Pattern for å få et objekt til å delegere deler av sine oppgaver til et annet objekt.
+Design pattern for å få et objekt til å delegere deler av sine oppgaver til et annet objekt.
 
 
 .objective-c
@@ -446,13 +456,15 @@ Brukes ofte for å:
 ---
 
 # Categories
-Categories brukes for å legge nye funksjoner til eksisterende klasser, og er ofte et alternativ til å subklasse.
+Categories brukes for å legge nye funksjoner til eksisterende klasser, og er et alternativ til å subklasse. 
 En category vil kjøre som en del av klassen, og ha tilgang til self.
 
 
 .objective-c
 	@interface NSString (MyCategory)
+
 	- (BOOL)isEmptyString;
+	
 	@end
 
 	@implementation NSString (MyCategory)
@@ -460,6 +472,7 @@ En category vil kjøre som en del av klassen, og ha tilgang til self.
 	- (BOOL)isEmptyString {
 		/* implementation.. */
 	}
+
 	@end
 
 ---
@@ -548,9 +561,9 @@ Controller: er koblingen mellom viewet og modellen din
 * Bruke andre API'er eller fortsette på twitter appen
 * API forslag
 *	Flytider
-	* Bring
-	* RSS-feed
-	* YQL (Yahoo)
+ 	* Bring
+ 	* RSS-feed
+ 	* YQL (Yahoo)
 
 ---
 
@@ -558,7 +571,7 @@ Controller: er koblingen mellom viewet og modellen din
 
 * JetBrains AppCode - Et alternativ IDE til Xcode
 * Accessorizer - Effektivieringsverktøy som suplementerer Xcode. Kan blant annet generere mer enn 40 forskjellige kodesnutter. 
-* Key	Codes - Verktøy for å vise tilgjengelige snarveier i OSX
+* Key Codes - Verktøy for å vise tilgjengelige snarveier i OSX
 * Sip - Finn fargekoden for en farge på skjermen din
 * App Viz, App Annie, App Figures - Følg med på App salg, rangering og kommentarer
 
