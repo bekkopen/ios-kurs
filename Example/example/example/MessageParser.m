@@ -13,10 +13,17 @@
 
 - (NSArray *)createMessagesFromJSON:(NSData *)messagesJSON error:(NSError **)error
 {
-    NSDictionary *jsonObjects = [NSJSONSerialization JSONObjectWithData:messagesJSON options:kNilOptions error:error];
+    NSString *string = [[NSString alloc] initWithData:messagesJSON encoding: NSASCIIStringEncoding];
+    messagesJSON = [string dataUsingEncoding:NSUTF8StringEncoding];
     
-    if (error)
+    NSError *jsonError;
+    NSDictionary *jsonObjects = [NSJSONSerialization JSONObjectWithData:messagesJSON options:NSJSONReadingMutableContainers|NSJSONReadingAllowFragments error:&jsonError];
+    
+    if (jsonError != nil)
     {
+        NSMutableDictionary *errorDetail = [NSMutableDictionary dictionary];
+        [errorDetail setValue:@"Failed parsing JSON" forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"parse" code:500 userInfo:errorDetail];
         return [NSArray array];
     }
     
