@@ -19,10 +19,14 @@
     return request;
 }
 
-+ (NSURLRequest *)createPostRequestForUrl:(NSURL *)url
++ (NSURLRequest *)createPostRequestForUrl:(NSURL *)url withParameterAsString:(NSString *)params
 {
+    NSData *postData = [[params stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding] dataUsingEncoding:NSASCIIStringEncoding];
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:postData];
+    
     return request;
 }
 

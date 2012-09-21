@@ -38,11 +38,10 @@
 
 - (void)postFrom:(NSString *)from withMessage:(NSString *)message
 {
-    NSString* escapedFrom = [from stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-    NSString* escapedMessage = [message stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-    NSString *postString = [NSString stringWithFormat:@"http://ioskurs.herokuapp.com/post?from=%@&message=%@", escapedFrom, escapedMessage];
+    NSString *postString = [[NSString alloc] initWithFormat:@"from=%@&message=%@",from, message];
+    NSURL *postUrl = [NSURL URLWithString:@"http://ioskurs.herokuapp.com/post"];
     
-    [Downloader startDownloadWithRequest:[Downloader createPostRequestForUrl:[NSURL URLWithString:postString]] successHandler:^(NSData *data)
+    [Downloader startDownloadWithRequest:[Downloader createPostRequestForUrl:postUrl withParameterAsString:postString] successHandler:^(NSData *data)
      {
          [self cancelTouch:nil];
      } failedHandler:^(NSError *error)

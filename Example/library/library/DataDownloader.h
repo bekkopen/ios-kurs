@@ -20,6 +20,6 @@ typedef void(^DataDownloaderFailedHandler)(NSError*);
 - (void)startDownload;
 
 + (NSURLRequest *)createGetRequestForUrl:(NSURL *)url;
-+ (NSURLRequest *)createPostRequestForUrl:(NSURL *)url;
++ (NSURLRequest *)createPostRequestForUrl:(NSURL *)url withParameterAsString:(NSString *) params;
 
 @end
