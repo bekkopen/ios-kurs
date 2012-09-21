@@ -537,17 +537,18 @@ Gjøres likt som i alle andre programmeringsspråk, men brukes skjelden. De fles
 ---
 
 # Threading
-Cocoa gir oss flere forskjellige måter å lage tråder på
+Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tre forskjellige
 
-- NSThread gir oss muligheten til å kjøre en selector i en ny tråd
+* NSThread gir oss muligheten til å kjøre en selector i en ny tråd
 
 
 
 .objective-c
-	initWithTarget:(id)target selector:(SEL)selector object:(id)object;
+	[NSThread detachNewThreadSelector:@selector(startBakgrunnsJobb) toTarget:self withObject:nil];  
+    
+* `dispatch_async()` er en del av GCD (Grand Central Dispatch), som er et rammeverk for å gjøre jobber samtidig. dispatch_async er en metode man kan kalle med en block og brukes ofte der man ønsker å kjøre små kodeblokker asynkrone.
+* NSOperationQueue og NSOperation - Wrapper objekter til GCD for å forenkle threading i Objective-C, kan for eksempel lage oppgave klasser som arver av NSOperation og legge disse på NSOperationQueue
 
-- NSOperationQueue og NSOperation
-- `dispatch_async()`
 
 ---
 
