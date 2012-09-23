@@ -521,9 +521,10 @@ Knytter et UI-element opp mot en variabel
 ---
 
 # Arv
-Man kan arve fra én klasse for å gi din klasse de egenskapene den klassen du arver fra har. Rootklassen i Objective-C kalles NSObject.
 
-Arv spesifiseres i headerfilen, på samme plass som man navngir klassen sin.
+* Man kan arve fra én klasse for å gi din klasse de egenskapene den klassen du arver fra har. Rootklassen i Objective-C kalles NSObject.
+
+* Arv spesifiseres i headerfilen, på samme plass som man navngir klassen sin.
 
 
 .objective-c
@@ -540,7 +541,7 @@ Arv spesifiseres i headerfilen, på samme plass som man navngir klassen sin.
 
 # Delegates
 
-Design pattern for å få et objekt til å delegere deler av sine oppgaver til et annet objekt.
+* Design pattern for å få et objekt til å delegere deler av sine oppgaver til et annet objekt.
 
 
 .objective-c
@@ -561,10 +562,10 @@ Design pattern for å få et objekt til å delegere deler av sine oppgaver til e
 ---
 
 # Protocols
-Brukes ofte for å:
 
-- lage et interface for en klasse, og skjule selve implementasjonen
-- spesifisere funksjoner man forventer at et delegat skal implementere
+* Kan brukes til å
+	* Lage et interface for en klasse, og skjule selve implementasjonen
+	* Spesifisere funksjoner man forventer at et delegat skal implementere
 
 
 
@@ -590,8 +591,10 @@ Brukes ofte for å:
 ---
 
 # Categories
-Categories brukes for å legge nye funksjoner til eksisterende klasser, og er et alternativ til å subklasse. 
-En category vil kjøre som en del av klassen, og ha tilgang til self.
+
+* Categories brukes for å legge nye funksjoner til eksisterende klasser, og er et alternativ til å subklasse. 
+* En category vil kjøre som en del av klassen, og ha tilgang til self.
+
 
 
 .objective-c
@@ -613,29 +616,26 @@ En category vil kjøre som en del av klassen, og ha tilgang til self.
 
 # Selectors
 
-I Objective-C har selectors to meninger. Man refererer til en metode, eller man kan referere til en unikt navn etter kildekoden er kompilert. 
+* Referere til en metode med ett unikt navn.
+* Ligner på funksjonspekere
+* De er av typen SEL, og den kan brukes til å invoke en metode på et objekt. 
+* @selector() brukes til å lage en SEL
 
-* Kompilerte selektorerer er av typen SEL, og den kan brukes til å invoke en metode på et objekt. 
-* @selector() brukes til å refere til en selector i stedet for det fullstendige metode navnet
-
-Eksempel:
 
 
 .objetive-c
 	SEL enMetode;
-	setWidthHeight = @selector(enMetode:medMer:);
+	enMetode = @selector(enMetode:medMer:);
 
 
-Et eksempel på bruk:
 
 .objective-c
-	[venn performSelector:@selector(sladre:)
-    withObject:enNabo];
+	[venn performSelector:@selector(sladre:) withObject:enNabo];
 
     //er det samme som
     [venn sladre:enNabo];
 
-Forskjellen er at man kan variere bedskjeden og objektet som motar bedskjeden runtime, da de ikke er tett knyttet sammen under kompilering. 
+* Forskjellen på ett vanlig metode kall er at man kan variere beskjeden og objektet som motar beskjeden runtime, da de ikke er tett knyttet sammen under kompilering. 
 
 ---
 
@@ -693,16 +693,8 @@ Man definerer en block med `.objective-c ^{ /*min fine block*/ }`, og alt inne i
 
 ---
 
-# MVC
-I Cocoa og Cocoa Touch bruker man som regel en litt modifisert versjon av MVC
+# Object literals
 
-![](images/mvc.jpg)
-
-Model: klasser som holder på data
-
-View: viser og lar deg redigere dine data
-
-Controller: er koblingen mellom viewet og modellen din
 
 ---
 
