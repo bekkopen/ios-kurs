@@ -82,10 +82,12 @@ Om man får tid se kjapt på: http://cocoadevcentral.com/articles/000081.php
 ---
 
 # Basics
-* Objective-C kan defineres som ett sett med utvidelser til programmeringsspråket C
-* Virker ganske forskjellig fra C
-* Objektorientert
-* Dynamisk-typet
+* Objective-C er ett sett med utvidelser til programmeringsspråket C
+* Man kan blande Objective-C med C og C++ (Obj++)
+* Objektorientert, mer om Apple sin tolkning av dette finner du på:
+	* http://developer.apple.com/iphone/library/documentation/ Cocoa/Conceptual/OOP_ObjC
+* Enkelt spårk, men litt rar syntax
+* Dynamisk typet runtime
 
 ---
 
@@ -104,16 +106,26 @@ Om man får tid se kjapt på: http://cocoadevcentral.com/articles/000081.php
 .c
 	int main()
 	{
-	int this_is_a_number;
+		int this_is_a_number;
 
-	printf( "Vennligst skriv inn ett nummer: " );
-	scanf( "%d", &this_is_a_number );
-	printf( "Du skrev inn %d", this_is_a_number );
-	getchar();
-	return 0;
+		printf( "Vennligst skriv inn ett nummer: " );
+		scanf( "%d", &this_is_a_number );
+		printf( "Du skrev inn %d", this_is_a_number );
+		getchar();
+		return 0;
 	}
 
 ---
+
+# Objective-C Klasser og Objekter
+
+<!--- Som i mange andre programmeringsspråk så lager man egne objekter ved hjelp av klasser og klassene igjen inneholder andre objekter. 
+
+I tillegg til å holde på sine instans variabler, så inneholder klassene forskjellige metoder. I Objetive-C så bruker man stor forbokstav på klasser, men små bokstaver på instanser av denne klassen. 
+
+Det noe av metode og instans variable definering blir gjort i en .h fil, men all implementasjonen blir gjort i en .m fil.
+
+NSObject er en root klasse som alle andre klasser arver fra. 
 
 # Objective-C Objekter
 
@@ -129,33 +141,56 @@ Da språket er dynamisk typet, kan alle objekter refereres til ved hjelp av 'id'
 
 Det betyr også, at man må vœre litt mer varsom enn i java, da man ikke får kompileringsfeil ved å sende inn en feil type til en metode.
 
+-->
+
+* Man lager egne objekter ved å definere klasser
+* Klassene inneholder som regel instans variabler for å ta vare på klassens data
+* Manipulering av instans variablene skjer ved hjelp av metoder
+* Stor forbokstav for klasser og små for instanser av denne klassen
+* En klasse har både .h og .m fil tilhørende
+	* h. filen definerer som regel instans variablene og public metoder
+	* m. filen inneholder all implemtasjon
+
 ---
 
-# Objective-C Klasser
+# Klasse og instansmetoder
 
-Som i mange andre programmeringsspråk så lager man egne objekter ved hjelp av klasser og klassene igjen inneholder andre objekter. 
+* Instanse metoder defineres på følgende måte
 
-I tillegg til å holde på sine instans variabler, så inneholder klassene forskjellige metoder. I Objetive-C så bruker man stor forbokstav på klasser, men små bokstaver på instanser av denne klassen.
-
-Det noe av metode og instans variable definering blir gjort i en .h fil, men all implementasjonen blir gjort i en .m fil.
-
-NSObject er en root klasse som alle andre klasser arver fra. 
-
-Opprette instans av en klasse gjøres på følgende måte:
 
 
 .objective-c
-	id morroKlassen = [MorroKlassen alloc] init];
+	- (id)init //Gjør initialiseringen som kreves av et objekt for å bli klart
 
-* Alloc - Allokerer en plass i minne til objektet
-* Init - Gjør initialiseringen som kreves av et objekt for å bli klart
+* Klasse metoder defineres på følgende måte
+
+
+
+.objective-c
+	+ (id)alloc //Allokerer en plass i minne til objektet
+
+
+* Opprette instans av en klasse gjøres på følgende måte:
+
+
+
+.objective-c
+	Person *person = [Person alloc] init];
+
 
 ---
 
-# Objective-C Ivar
-Instans-variabler blir deklarert i headeren (.h) for hver klasse.
+# Objective-C ivar
 
-I Objective-C er alle instans variabler interne (@protected) for klassen de er definert i. Dermed er staten til instans-variablene kun tilgjengelig via klassens metoder eller en klasse som har arvet av den klassen der instans-variablene er definert. Man kan overstyre dette ved å bruke 'scope directives'. 
+<!-- 
+
+I Objective-C er alle instans variabler interne (@protected) for klassen de er definert i. Dermed er staten til instans-variablene kun tilgjengelig via klassens metoder eller en klasse som har arvet av den klassen der instans-variablene er definert. Man kan overstyre dette ved å bruke 'scope directives'.
+
+--> 
+
+* Alle instans-variabler deklarert i .h filen er automatisk interne (@protected)
+* Kan overstyres ved hjelp av 'scope directives'
+
 
 
 .objective-c
@@ -178,67 +213,151 @@ I Objective-C er alle instans variabler interne (@protected) for klassen de er d
 
 ---
 
+
 # Objective-C Message Passing
 
-Navngir ikke selve funksjonen, men hvert parameter til funksjonen.
+* I Objetive-C kaller man ikke metoder på objekter, men sender en beskjed
+* Navngir ikke selve funksjonen, men hvert parameter til funksjonen.
+* Skriver metoder mer som man snakker til objektet
 
 Java
 
 
 .java
-	mittObjekt.doSomething(parameter1, parameter2)
+	person.doSomething(parameter1, parameter2);
 
-	MinKlasse.DoSomethingElse(parameter1)
+	Person.doSomethingElse(parameter1);
 
-	String output = mittObject.doSomething(paramter1)
+	String fullName = Person.fullName();
 
 
 Objective-C
 
 
 .objetive-c
-	[mittObjekt doSomethingWith:parameter1 and:parameter2]
+	[person doSomethingWith:parameter1 and:parameter2];
 
-	[MinKlasse doSomethingWith:parameter1]
+	[Person doSomethingWith:parameter1];
 	
-	NSString *output = [mittObjekt doSomethingWith:parameter1]
-
-eller
-
-
-.objective-c
-	id output = [mittObjekt doSomethingWith:parameter1]
+	NSString *fullName = [person fullName];
 
 ---
 
-# Objective-C Ivar og Properties
+# Metoder og kall eksempler
 
-Properties er en kjapp måte og lage en get og set metode for instans variabler (Ivars)
+* Et eksempel på hvordan en typisk klasse kan se ut og hvordan man kaller metoder på en instans av denne klassen
 
-Eksempel:
-
-
-.objective-c
-	@property(nonatomic, strong) DittObject *enkeltObjekt;
-	@property(nonatomic) int etTall;
-
-Man kan også bruke Dot Syntax for å nå get og set metoder.
-
-Eksempel: 
 
 
 .objective-c
-	enkeltObjekt.endaEnklereInstansVariabel
 
-i stedet for
+	Person *person = [Person alloc] init];
+	- (NSString *)fullName;
+	// NSString *fullName = [person fullName];
+	- (int)age
+	// int age = [person age];
+	- (void)setAge(int)age;
+	// [person setAge:25];
+	- (BOOL)hasDrivingLicence;
+	// if ([person hasDrivingLicence]) 
+	// {
+	//	  //drive car
+	// }
 
-
-.objective-c
-	[enkeltObjekt endaEnklereInstansVariabel] 
 
 ---
 
-# Objective-C Minnehåndtering
+# Termologi
+
+* Message expression
+
+
+
+.objective-c
+	[person setAge:25];
+
+* Message
+
+
+
+.Objective-C
+	setAge:25
+
+ * Selector 
+
+
+
+.objective-c
+	setAge:
+
+* Method - Koden valgt av bedskjeden
+
+---
+
+# Objective-C ivar og properties
+
+* Properties er en effektiv måte og lage en get og set metode for instans variabler (ivars)
+* I nyere Objective-C trenger man ikke definere ivars om man definere properties, de blir også automatisk laget
+
+
+
+.objective-c
+	@property(nonatomic, strong) Person *person;
+	@property(nonatomic) int promille;
+	
+
+---
+
+# Dot Syntax
+
+* En alternativ måte å kalle tilgangsmetoder (accessor methods, get, set)
+
+
+
+.objective-c
+	NSString *fullName = person.fullName;
+	person.age = 25;
+	person.sibling.age = 27;
+
+* i stedet for
+
+
+
+.objective-c
+	NSString *fullName = [person fullName]; 
+	[person setAge:25];
+	[person sibling] setAge:27];
+
+---
+
+
+# Dynamisk typet og statisk typet
+
+* Som forklart har Objective-C har en dynamisk typet runtime, men man kan bruke statiske typer.
+
+
+
+.objetive-c
+	id person //dynamisk typet
+	Person *person //statisk typet
+
+* Runtime bryr Objective-C seg ikke om statiske typer
+* Statiske typer gir type sjekking compile time
+
+---
+
+# Nil
+
+* Først og fremst, hva er disse * overalt?
+	* Det er hvordan man definerer en peker til minnet
+	* Ved bruk av id bruker man ikke * da den har en peker automatisk
+* I Objective-C bruker man nil, i stedet for null som i mange andre språk
+* Forskjellen er at man kan kalle metoder på nil uten at man kræsjer eller får exceptions
+* Om man kaller en metode på nil får man bare nil tilbake
+
+---
+
+# Objective-C Minnehåndtering (bye bye)
 
 * MRC (Manual Reference Counting)
 
@@ -397,7 +516,7 @@ Knytter et UI-element opp mot en variabel
 ---
 
 .middle.center
-# Mer Objective-C
+# Objective-C
 
 ---
 
