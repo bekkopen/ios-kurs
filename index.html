@@ -388,6 +388,53 @@ Objective-C
 
 ---
 
+# Et eksempel på en klasse
+
+
+
+.objective-c
+	/* Ingen ivars deklarert i .h */
+	@interface Contact : NSObject
+		@property (nonatomic, strong) NSString *category;
+		@property (nonatomic, strong) NSString *firm;
+		@property (nonatomic, strong) NSString *phoneNumber;
+		@property (nonatomic, strong) NSString *url;
+
+		- (void)someMethod;
+		- (BOOL)someOtherMethod:(NSString *)string andAnotherParameter:(BOOL)bool;
+	@end
+
+
+.objective-c
+	@implementation Contact
+		/* @synthesize er ikke lenger nødvendig i Xcode 4.5, 
+			da det blir automatisk laget for alle @property */
+		@synthesize category;
+		@synthesize firm;
+		@synthesize phoneNumber;
+		@synthesize url;
+
+		- (void)someMethod
+		{
+
+		}
+
+		- (BOOL)someOtherMethod:(NSString *)string andAnotherParameter:(BOOL)bool
+		{
+			/*	Legg merke til at boolean bruker YES og NO i stedet 
+			  	for true eller false som i mange andre språk */
+
+			return YES;
+		}
+
+		- (void)somePrivateMethod
+		{
+			//I nyeste Xcode spesifiserer man ikke private metoder
+		}
+	@end
+
+---
+
 .middle.center
 # Introduksjon iOS
 
@@ -694,7 +741,50 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 
 ---
 
-# Object literals
+# Object Literals
+
+* Apple LLVM Compiler heter Apple sin compiler, altså den som komplierer til binœr kode
+* Fra og med 4.0 har man fått mange nye features og forenklinger av språket, da blant annet object literals.
+
+---
+
+## NSNumber Literals
+
+
+
+.objective-c
+	@12 // [NSNumber numberWithInt:12]
+	@'Z' // [NSNumber numberWithChar:'Z']
+	@YES // [NSNumber numberWithBool:YES]
+
+
+## Boxed Expression Literals (C kall)
+
+
+
+.objective-c
+	@(M_PI/16) // [NSNumber numberWithDouble:(M_PI / 16)]
+
+## Container Literals
+
+
+
+.objective-c
+	NSArray *array = @[ @"Hello", @"Wellow", @"Cool" ]; 
+
+	/*
+	NSArray arrayWithObjects:@"Hello", @"Wellow", @"Cool", nil]
+	*/
+	
+	NSDictionary *dictionary = @{
+		@"firstname" : @"Foo",
+		@"lastname" : @"Bar",
+	};
+
+	/* 
+	NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+		@"value1", @"key1", @"value2", @"key2", nil];
+	*/
 
 
 ---
