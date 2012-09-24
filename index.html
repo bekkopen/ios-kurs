@@ -557,7 +557,6 @@ Knytter et UI-element opp mot en variabel
 .agenda
 # Agenda
 * Objective-C
-* Verktøy
 * Koding - Vi skal lage en twitter aktig app
 
 ---
@@ -713,7 +712,8 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 
 
 .objective-c
-	[NSThread detachNewThreadSelector:@selector(startBakgrunnsJobb) toTarget:self withObject:nil];  
+	[NSThread detachNewThreadSelector:
+		@selector(startBakgrunnsJobb) toTarget:self withObject:nil];  
     
 * `dispatch_async()` er en del av GCD (Grand Central Dispatch), som er et rammeverk for å gjøre jobber samtidig. dispatch_async er en metode man kan kalle med en block og brukes ofte der man ønsker å kjøre små kodeblokker asynkrone.
 * NSOperationQueue og NSOperation - Wrapper objekter til GCD for å forenkle threading i Objective-C, kan for eksempel lage oppgave klasser som arver av NSOperation og legge disse på NSOperationQueue
@@ -773,7 +773,7 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 	NSArray *array = @[ @"Hello", @"Wellow", @"Cool" ]; 
 
 	/*
-	NSArray arrayWithObjects:@"Hello", @"Wellow", @"Cool", nil]
+	NSArray arrayWithObjects:@"Hello", @"Wellow", @"Cool", nil];
 	*/
 	
 	NSDictionary *dictionary = @{
