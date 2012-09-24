@@ -311,6 +311,23 @@ Objective-C
 
 ---
 
+#Properties continued
+
+Properties kan også ha attributes, som sier hva som skal skje når den aksesseres
+
+* Tilgjengelighet
+ 	- __readonly__: propertien får kun en getter
+ 	- __readwrite__: propertien får både en getter og en setter (default)
+* Hvordan setteren skal fungere
+	- __strong__: denne klassen eier propertien, og styrer minnehåndtering
+	- __weak__: denne klassen eier _ikke_ propertien, og styrrer derfor _ikke_ minnehåndteringen
+	- __copy__: en kopi av objektet vil bli brukt ved assignment
+	- __assign__: setter verdien direkte. Brukes ofte på primitiver
+* Trådsikkerhet
+	- __nonatomic__ : Trådsikkerhet er dust, bruke nonatomic.
+
+---
+
 # Dot Syntax
 
 * En alternativ måte å kalle tilgangsmetoder (accessor methods, get, set)
@@ -334,7 +351,7 @@ Objective-C
 ---
 
 
-# Dynamisk typet og statisk typet
+# Dynamisk eller statisk?
 
 * Objective-C har en dynamisk typet runtime, men man kan også bruke statiske typer
 
@@ -344,7 +361,8 @@ Objective-C
 	id person //dynamisk typet
 	Person *person //statisk typet
 
-* Statisk typing hjelper deg å oppdage typefeil ved kompilering, men vil (for det meste) ikke gi noen innvirkning på den kompilerte koden.
+* Statisk typing er kun til for å gi deg typesikkerhet compile time; alle spor forsvinner etter kompilering
+* Hvis vi ser på initializerne ser vi at de _alltid_ returnerer `id`. `id` er definert som en pointer til hva som helst
 
 <!--* Runtime bryr Objective-C seg ikke om statiske typer
 * Statiske typer gir typesjekking compile time-->
@@ -394,9 +412,7 @@ Objective-C
 
 ---
 
-# Et eksempel på en klasse
-
-
+# Et eksempel (header)
 
 .objective-c
 	/* Ingen ivars deklarert i .h */
@@ -410,6 +426,9 @@ Objective-C
 		- (BOOL)someOtherMethod:(NSString *)string andAnotherParameter:(BOOL)bool;
 	@end
 
+---
+
+# Et eksempel continued (implementation)
 
 .objective-c
 	@implementation Contact
@@ -427,8 +446,8 @@ Objective-C
 
 		- (BOOL)someOtherMethod:(NSString *)string andAnotherParameter:(BOOL)bool
 		{
-			/*	Legg merke til at boolean bruker YES og NO i stedet 
-			  	for true eller false som i mange andre språk */
+			/*  Legg merke til at boolean bruker YES og NO i stedet 
+			    for true eller false som i mange andre språk */
 
 			return YES;
 		}
@@ -453,13 +472,13 @@ Objective-C
 
 ---
 
-# Design vurderinger (alt for kort oppsummert) ;)
+# Designvurderinger (alt for kort oppsummert) ;)
 
 * [iOS Human Interface Guidelines](http://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/MobileHIG/Introduction/Introduction.html#//apple_ref/doc/uid/TP40006556
 ) 
 * Nettverksproblemer (4G, 3G, EDGE, INGENTING)
-* Hva kan de forskjellige iOS enhetene gjøre (GPS, kamera, osv)
-* Hvilke utfordringer gir mobil design (liten skjerm osv)
+* Hva kan de forskjellige iOS-enhetene gjøre (GPS, kamera, osv)
+* Hvilke utfordringer gir mobilutvikling (liten skjerm osv)
 * Tenk frem i tid, hva slags skjermer ser vi for oss at appen må støtte
 
 ## Mockup verktøy og GUI stuff
@@ -537,7 +556,7 @@ Knytter et UI-element opp mot en variabel
 
 ---
 
-# Hei på dere appen
+# Hei på dere-appen
 
 1. Lag en app som skriver "Hei på dere" ut i consolet
 2. Lag en app uten interface builder som legger ut en UILabel og viser "Hei på dere"
@@ -550,7 +569,7 @@ Knytter et UI-element opp mot en variabel
 
 ---
 
-# Den enkle browser appen
+# Den enkle browserappen
 1. Lag en app med knapper eller UIPickerView som henviser til websider, når man klikker på knappen så vises den websiden i en UIWebView
 
 ---
@@ -563,7 +582,7 @@ Knytter et UI-element opp mot en variabel
 .agenda
 # Agenda
 * Objective-C
-* Koding - Vi skal lage en twitter aktig app
+* Koding - Vi skal lage en twitter-aktig app
 
 ---
 
@@ -792,6 +811,11 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 		@"value1", @"key1", @"value2", @"key2", nil];
 	*/
 
+
+---
+
+.middle.center
+#Debug time!
 
 ---
 
