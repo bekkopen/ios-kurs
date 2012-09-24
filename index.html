@@ -86,7 +86,7 @@ Om man får tid se kjapt på: http://cocoadevcentral.com/articles/000081.php
 * Man kan blande Objective-C med C og C++ (Obj++)
 * Objektorientert, mer om Apple sin tolkning av dette finner du på:
 	* http://developer.apple.com/iphone/library/documentation/ Cocoa/Conceptual/OOP_ObjC
-* Enkelt spårk, men litt rar syntax
+* Enkelt språk, men litt rar syntax
 * Dynamisk typet runtime
 
 ---
@@ -144,18 +144,18 @@ Det betyr også, at man må vœre litt mer varsom enn i java, da man ikke får k
 -->
 
 * Man lager egne objekter ved å definere klasser
-* Klassene inneholder som regel instans variabler for å ta vare på klassens data
-* Manipulering av instans variablene skjer ved hjelp av metoder
+* Klassene inneholder som regel instans-variabler for å ta vare på klassens data
+* Manipulering av instans-variablene skjer ved hjelp av metoder
 * Stor forbokstav for klasser og små for instanser av denne klassen
-* En klasse har både .h og .m fil tilhørende
-	* h. filen definerer som regel instans variablene og public metoder
-	* m. filen inneholder all implemtasjon
+* En klasse består av en .h-fil og en .m-fil
+	* h.-filen definerer som regel instans variablene og public metoder
+	* m.-filen inneholder all implemtasjon
 
 ---
 
 # Klasse og instansmetoder
 
-* Instanse metoder defineres på følgende måte
+* Instansmetoder defineres på følgende måte
 
 
 
@@ -188,7 +188,7 @@ I Objective-C er alle instans variabler interne (@protected) for klassen de er d
 
 --> 
 
-* Alle instans-variabler deklarert i .h filen er automatisk interne (@protected)
+* Alle instans-variabler deklarert i .h-filen er automatisk interne (@protected)
 * Kan overstyres ved hjelp av 'scope directives'
 
 
@@ -267,7 +267,7 @@ Objective-C
 
 ---
 
-# Termologi
+# Terminologi
 
 * Message expression
 
@@ -296,14 +296,17 @@ Objective-C
 
 # Objective-C ivar og properties
 
-* Properties er en effektiv måte og lage en get og set metode for instans variabler (ivars)
-* I nyere Objective-C trenger man ikke definere ivars om man definere properties, de blir også automatisk laget
+* Properties er en effektiv måte og lage en get og set metode for instans-variabler (ivars)
+* I nyere Objective-C trenger man ikke definere ivars om man definerer properties, de blir også automatisk laget
 
 
 
 .objective-c
 	@property(nonatomic, strong) Person *person;
 	@property(nonatomic) int promille;
+
+	// Klassen har nå propertiene 'person' og 'promille',
+	// med tilhørende settere og gettere
 	
 
 ---
@@ -333,7 +336,7 @@ Objective-C
 
 # Dynamisk typet og statisk typet
 
-* Som forklart har Objective-C har en dynamisk typet runtime, men man kan bruke statiske typer.
+* Objective-C har en dynamisk typet runtime, men man kan også bruke statiske typer
 
 
 
@@ -341,14 +344,16 @@ Objective-C
 	id person //dynamisk typet
 	Person *person //statisk typet
 
-* Runtime bryr Objective-C seg ikke om statiske typer
-* Statiske typer gir type sjekking compile time
+* Statisk typing hjelper deg å oppdage typefeil ved kompilering, men vil (for det meste) ikke gi noen innvirkning på den kompilerte koden.
+
+<!--* Runtime bryr Objective-C seg ikke om statiske typer
+* Statiske typer gir typesjekking compile time-->
 
 ---
 
 # Nil
 
-* Først og fremst, hva er disse * overalt?
+* Først og fremst, _hva er disse * overalt?_
 	* Det er hvordan man definerer en peker til minnet
 	* Ved bruk av id bruker man ikke * da den har en peker automatisk
 * I Objective-C bruker man nil, i stedet for null som i mange andre språk
@@ -368,7 +373,8 @@ Objective-C
 	{ 
 		NSMutableArray *vanligArray = [[NSMutableArray alloc] init];
 		//bruk array'et
-		[vanligArray release]; //slett det fra minnet når du er ferdig
+		[vanligArray release];
+		//slett det fra minnet når du er ferdig
 	}
 
 
@@ -407,8 +413,8 @@ Objective-C
 
 .objective-c
 	@implementation Contact
-		/* @synthesize er ikke lenger nødvendig i Xcode 4.5, 
-			da det blir automatisk laget for alle @property */
+		// @synthesize er ikke lenger nødvendig i Xcode 4.5, 
+		// da det blir automatisk laget for alle @property 
 		@synthesize category;
 		@synthesize firm;
 		@synthesize phoneNumber;
