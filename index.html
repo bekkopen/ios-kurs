@@ -22,6 +22,7 @@
     <textarea id="source">
 
 # Forslag til beskrivelse
+
 Få en pangstart på din karriere som app-utvikler. BEKK holder tre-delt iOS-kurs, der du vil få den grunnleggende kunnskapen som skal til for å lage en iOS-app fra bunnen av. 
 
 Del 1 gir introduksjon til Objective-C, iOS platformen og verktøy. Det blir holdt presentasjon og det skal kodes.
@@ -53,7 +54,7 @@ Om man får tid se kjapt på: http://cocoadevcentral.com/articles/000081.php
 	* Koding og blir kjent med verktøyene
 * Del 2 - Mer avansert
 	* Objective-C
-	* Verktøy
+	* Verktøy og debugging
 	* Koding - Vi skal lage en twitter aktig app
 * Del 3 - Lage en app
 	* Lag en iOS app ved å bruke ett eksisterende API
@@ -72,7 +73,7 @@ Om man får tid se kjapt på: http://cocoadevcentral.com/articles/000081.php
 * Objective-C
 * iOS
 * Verktøy
-* Koding og blir kjent med verktøyene
+* Koding og bli kjent med verktøyene
 
 ---
 
@@ -81,7 +82,7 @@ Om man får tid se kjapt på: http://cocoadevcentral.com/articles/000081.php
 
 ---
 
-# Basics
+# Hva er Objective-C?
 * Objective-C er ett sett med utvidelser til programmeringsspråket C
 * Man kan blande Objective-C med C og C++ (Obj++)
 * Objektorientert, mer om Apple sin tolkning av dette finner du på:
@@ -219,7 +220,7 @@ I Objective-C er alle instans variabler interne (@protected) for klassen de er d
 
 * I Objetive-C kaller man ikke metoder på objekter, men sender en beskjed
 * Navngir ikke selve funksjonen, men hvert parameter til funksjonen.
-* Skriver metoder mer som man snakker til objektet
+* Skriver metoder mer som om man snakker til objektet
 
 Java
 
@@ -298,7 +299,7 @@ Objective-C
 # Objective-C ivar og properties
 
 * Properties er en effektiv måte og lage en get og set metode for instans-variabler (ivars)
-* I nyere Objective-C trenger man ikke definere ivars om man definerer properties, de blir også automatisk laget
+* I nyere Objective-C trenger man ikke definere ivars om man definerer properties, da de blir automatisk laget om det ikke finnes en matchende ivars til property navnet
 
 
 
@@ -325,6 +326,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 	- __copy__: en kopi av objektet vil bli brukt ved assignment
 	- __assign__: setter verdien direkte. Brukes ofte på primitiver
 * Trådsikkerhet
+	- __atomic__ : Default, men bør brukes skjelden da den er trengere. Har tilleggsfunksjonalitet som gjør at man alltid returnerer ett helt objekt når flere tråder snakker med setter og getter
 	- __nonatomic__ : Trådsikkerhet er dust, bruke nonatomic.
 
 ---
@@ -354,7 +356,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 # Dynamisk eller statisk?
 
-* Objective-C har en dynamisk typet runtime, men man kan også bruke statiske typer
+* Objective-C har en dynamisk typet runtime, men man kan velge å bruke statiske typer når man skriver koden.
 
 
 
@@ -363,7 +365,8 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 	Person *person //statisk typet
 
 * Statisk typing er kun til for å gi deg typesikkerhet compile time; alle spor forsvinner etter kompilering
-* Hvis vi ser på initializerne ser vi at de _alltid_ returnerer `id`. `id` er definert som en pointer til hva som helst
+* Hvis vi ser på initializerne ser vi at de _alltid_ returnerer `id`. 
+* `id` er definert som en pointer til hva som helst
 
 <!--* Runtime bryr Objective-C seg ikke om statiske typer
 * Statiske typer gir typesjekking compile time-->
@@ -378,6 +381,15 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 * I Objective-C bruker man nil, i stedet for null som i mange andre språk
 * Forskjellen er at man kan kalle metoder på nil uten at man kræsjer eller får exceptions
 * Om man kaller en metode på nil får man bare nil tilbake
+
+
+
+.objetive-c
+    NSString *string = nil;
+	NSString *low = [string lowercaseString];
+    NSLog(@"%@", low);
+
+* Dette vil logge (null) uten å krœsje
 
 ---
 
@@ -397,6 +409,8 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 	}
 
 
+
+* Garbage Collection (ligner på Java sin, droppes i Mountain Lion til fordel for ARC og finnes ikke i iOS)
 * ARC (Automatic Reference Counting)
 
 
@@ -409,11 +423,12 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 	}
 
 
-* Garbage Collection (ligner på Java sin, droppes i Mountain Lion til fordel for ARC og finnes ikke i iOS)
 
 ---
 
-# Et eksempel (header)
+
+
+# Et eksempel (header *.h)
 
 .objective-c
 	/* Ingen ivars deklarert i .h */
@@ -429,7 +444,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 ---
 
-# Et eksempel continued (implementation)
+# Et eksempel (implementation *.m)
 
 .objective-c
 	@implementation Contact
@@ -462,6 +477,12 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 ---
 
 .middle.center
+# En liten pause?
+
+
+---
+
+.middle.center
 # Introduksjon iOS
 
 ---
@@ -475,17 +496,20 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 # Designvurderinger (alt for kort oppsummert) ;)
 
-* [iOS Human Interface Guidelines](http://goo.gl/SEJDc) 
+* [iOS Human Interface Guidelines (http://goo.gl/SEJDc)](http://goo.gl/SEJDc) 
 * Nettverksproblemer (4G, 3G, EDGE, INGENTING)
-* Hva kan de forskjellige iOS-enhetene gjøre (GPS, kamera, osv)
+* Hva kan de forskjellige iOS-enhetene gjøre (GPS, kamera, telefon, osv)
 * Hvilke utfordringer gir mobilutvikling (liten skjerm osv)
-* Tenk frem i tid, hva slags skjermer ser vi for oss at appen må støtte
+* Tenk frem i tid, for eksempel hva slags skjermer ser vi for oss at appen må støtte
 
-## Mockup verktøy og GUI stuff
+---
 
-* http://www.uistencils.com/
-* http://keynotopia.com/
-* http://www.teehanlax.com/downloads/
+# Mockup verktøy og GUI stuff
+
+* Forskjellig verktøy som kan vœre greit å leke med når man har lyst å utvikle en applikasjon
+	* [Penn og papir (http://www.uistencils.com/)](http://www.uistencils.com/) 
+	* [Digitalt forskjellig (http://keynotopia.com/)](http://keynotopia.com/)
+	* [Adobe Photoshop og Adobe Illustrator (http://www.teehanlax.com/downloads/)](http://www.teehanlax.com/downloads/)
 
 ---
 
@@ -550,6 +574,11 @@ Knytter et UI-element opp mot en variabel
 ---
 
 .middle.center
+# En liten pause?
+
+---
+
+.middle.center
 # Lets code!
 
 ## Hjelp og demo på skjerm
@@ -582,6 +611,7 @@ Knytter et UI-element opp mot en variabel
 .agenda
 # Agenda
 * Objective-C
+* Verktøy og debugging
 * Koding - Vi skal lage en twitter-aktig app
 
 ---
@@ -607,6 +637,10 @@ Knytter et UI-element opp mot en variabel
 
 	- (float)computeArea;
 	@end
+
+
+
+* `super` brukes for å sende bedskjeder til klassen man arver fra
 
 ---
 
@@ -635,7 +669,7 @@ Knytter et UI-element opp mot en variabel
 
 # Protocols
 
-* Kan brukes til å
+* Kan brukes til blant annet
 	* Lage et interface for en klasse, og skjule selve implementasjonen
 	* Spesifisere funksjoner man forventer at et delegat skal implementere
 
@@ -664,7 +698,7 @@ Knytter et UI-element opp mot en variabel
 
 # Categories
 
-* Categories brukes for å legge nye funksjoner til eksisterende klasser, og er et alternativ til å subklasse. 
+* Categories brukes for å legge nye funksjoner til eksisterende klasser, og er et alternativ til arv. 
 * En category vil kjøre som en del av klassen, og ha tilgang til self.
 
 
@@ -689,7 +723,7 @@ Knytter et UI-element opp mot en variabel
 # Selectors
 
 * Referere til en metode med ett unikt navn.
-* Ligner på funksjonspekere
+* Ligner på funksjonspekere, som foreksempel brukes i javascript
 * De er av typen SEL, og den kan brukes til å invoke en metode på et objekt. 
 * @selector() brukes til å lage en SEL
 
@@ -716,14 +750,16 @@ Knytter et UI-element opp mot en variabel
 * Gjøres likt som i alle andre programmeringsspråk, men brukes skjelden. De fleste bruker NSError i stedet. 
 
 
-&
+
 .objective-c
 	Venn *venn = [[Venn alloc] init];
  
-	@try {
+	@try 
+	{
 	    [venn sladre];
 	}
-	@catch (NSException *exception) {
+	@catch (NSException *exception) 
+	{
 	    NSLog(@"Feilet %@: %@", [exception name], [exception reason]);
 	}
 
@@ -753,6 +789,7 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 	* iterere over objekter i et array
 	* kjøre kode som et callback
 * Man definerer en block med `.objective-c ^{ /*min fine block*/ }`, og alt inne i blocken kan referere til variabler på utsiden
+* `__block` brukes der man skal kunne sette variabler utenfor en block på insiden av en block
 
 
 
@@ -790,6 +827,8 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 .objective-c
 	@(M_PI/16) // [NSNumber numberWithDouble:(M_PI / 16)]
 
+---
+
 ## Container Literals
 
 
@@ -816,6 +855,7 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 
 .middle.center
 #Debug time!
+## Demo av hvordan debugge i Xcode
 
 ---
 
@@ -852,13 +892,17 @@ Du finner en ferdig hjelpe klasse for å laste ned (GET) og sende data (POST) ti
 
 # Forslag til bøker og ressurser
 
+
+## Bøker 
 * Cocoa Programming for MAC OS X
 * Beginning iPhone Development
 * iPhone Programming - The big nerd ranch guide
 * Cocoa Design Patterns
-* http://goo.gl/lwznv
-* Standford - http://goo.gl/rIHvu
-* Coding Guidelines - http://goo.gl/mfE1P
+
+## Linker
+* [iOS Developer Library (http://goo.gl/lwznv)](http://goo.gl/lwznv)
+* [Standford (http://goo.gl/rIHvu)](http://goo.gl/rIHvu)
+* [Coding Guidelines (http://goo.gl/mfE1P)](http://goo.gl/mfE1P)
 
 ---
 
@@ -872,6 +916,9 @@ Du finner en ferdig hjelpe klasse for å laste ned (GET) og sende data (POST) ti
 	* YQL (Yahoo) (URL?)
 
 ---
+
+.middle.center
+# Takk for oss
 
     </textarea>
     <div id="slideshow"></div>
