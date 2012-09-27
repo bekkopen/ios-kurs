@@ -13,6 +13,7 @@
 
 @interface ViewController ()
 @property (nonatomic, strong) NSArray *messages;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 @end
 
 @implementation ViewController
@@ -20,28 +21,40 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(doRefresh) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
+    [self.tableView addSubview:refreshControl];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self doRefresh];
+}
+
+- (void)doRefresh
+{
     
-    [Downloader startDownloadWithRequest:[Downloader createGetRequestForUrl:[NSURL URLWithString:@"http://ioskurs.herokuapp.com/json"]] successHandler:^(NSData *data)
+    [KURLConnection startWithRequest:[KURLConnection createGetRequestForUrl:[NSURL URLWithString:@"http://localhost:8090/json"]] successHandler:^(NSData *data)
      {
          MessageParser *messageParser = [[MessageParser alloc] init];
          
          NSError *error = nil;
          self.messages = [messageParser createMessagesFromJSON:data error:&error];
+         [self.refreshControl endRefreshing];
          
          if (error != nil)
          {
              [self showAlert];
              return;
          }
-         
+                    
          [self.tableView reloadData];
      } failedHandler:^(NSError *error)
      {
+             [self.refreshControl endRefreshing];
          [self showAlert];
      }];
 }
@@ -69,9 +82,9 @@
 }
 
 
-#pragma mark - Table view data source
+#pragma mark - UITableViewDataSource
 
-#define PADDING 15.0f
+#define PADDING 18.0f
 - (CGFloat)tableView:(UITableView *)t heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *text = [[self.messages objectAtIndex:indexPath.row] message];
@@ -112,7 +125,7 @@
     return cell;
 }
 
-#pragma mark - Table view delegate
+#pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

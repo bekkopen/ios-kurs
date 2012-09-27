@@ -15,9 +15,8 @@
 		602D307C16079DA500172AB7 /* liblibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 602D306316079DA500172AB7 /* liblibrary.a */; };
 		602D308216079DA500172AB7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 602D308016079DA500172AB7 /* InfoPlist.strings */; };
 		602D308516079DA500172AB7 /* libraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 602D308416079DA500172AB7 /* libraryTests.m */; };
-		602D309A1607A12B00172AB7 /* Downloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 602D30991607A12B00172AB7 /* Downloader.m */; };
-		602D309B1607A14900172AB7 /* DataDownloader.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 602D30971607A12B00172AB7 /* DataDownloader.h */; };
-		602D309C1607A14C00172AB7 /* Downloader.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 602D30981607A12B00172AB7 /* Downloader.h */; };
+		602D309A1607A12B00172AB7 /* KURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 602D30991607A12B00172AB7 /* KURLConnection.m */; };
+		602D309C1607A14C00172AB7 /* KURLConnection.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 602D30981607A12B00172AB7 /* KURLConnection.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +36,7 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
-				602D309C1607A14C00172AB7 /* Downloader.h in CopyFiles */,
-				602D309B1607A14900172AB7 /* DataDownloader.h in CopyFiles */,
+				602D309C1607A14C00172AB7 /* KURLConnection.h in CopyFiles */,
 				602D306C16079DA500172AB7 /* library.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -57,9 +55,8 @@
 		602D308116079DA500172AB7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		602D308316079DA500172AB7 /* libraryTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libraryTests.h; sourceTree = "<group>"; };
 		602D308416079DA500172AB7 /* libraryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = libraryTests.m; sourceTree = "<group>"; };
-		602D30971607A12B00172AB7 /* DataDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataDownloader.h; sourceTree = "<group>"; };
-		602D30981607A12B00172AB7 /* Downloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Downloader.h; sourceTree = "<group>"; };
-		602D30991607A12B00172AB7 /* Downloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Downloader.m; sourceTree = "<group>"; };
+		602D30981607A12B00172AB7 /* KURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KURLConnection.h; sourceTree = "<group>"; };
+		602D30991607A12B00172AB7 /* KURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KURLConnection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,9 +151,8 @@
 		602D30921607A0D900172AB7 /* Downloader */ = {
 			isa = PBXGroup;
 			children = (
-				602D30971607A12B00172AB7 /* DataDownloader.h */,
-				602D30981607A12B00172AB7 /* Downloader.h */,
-				602D30991607A12B00172AB7 /* Downloader.m */,
+				602D30981607A12B00172AB7 /* KURLConnection.h */,
+				602D30991607A12B00172AB7 /* KURLConnection.m */,
 			);
 			name = Downloader;
 			sourceTree = "<group>";
@@ -259,7 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				602D309A1607A12B00172AB7 /* Downloader.m in Sources */,
+				602D309A1607A12B00172AB7 /* KURLConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +410,7 @@
 				602D308A16079DA500172AB7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		602D308B16079DA500172AB7 /* Build configuration list for PBXNativeTarget "libraryTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +419,7 @@
 				602D308D16079DA500172AB7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,3 +1,3 @@
 #!/bin/bash
-cd backend
+cd server
 mvn package && java -cp "target/classes:target/dependency/*" no.bekk.ioskurs.Main

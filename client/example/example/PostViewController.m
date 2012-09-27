@@ -18,7 +18,8 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
     }
     return self;
@@ -38,9 +39,9 @@
 - (void)postFrom:(NSString *)from withMessage:(NSString *)message
 {
     NSString *postString = [[NSString alloc] initWithFormat:@"from=%@&message=%@",from, message];
-    NSURL *postUrl = [NSURL URLWithString:@"http://ioskurs.herokuapp.com/post"];
+    NSURL *postUrl = [NSURL URLWithString:@"http://localhost:8090/post"];
     
-    [Downloader startDownloadWithRequest:[Downloader createPostRequestForUrl:postUrl withParameterAsString:postString] successHandler:^(NSData *data)
+    [KURLConnection startWithRequest:[KURLConnection createPostRequestForUrl:postUrl withParameterAsString:postString] successHandler:^(NSData *data)
      {
          [self cancelTouch:nil];
      } failedHandler:^(NSError *error)

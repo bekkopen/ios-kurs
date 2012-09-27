@@ -10,6 +10,6 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>backend</module>
+		<module>server</module>
 	</modules>
 </project>

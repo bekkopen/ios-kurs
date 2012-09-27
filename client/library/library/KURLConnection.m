@@ -1,16 +1,16 @@
-#import "Downloader.h"
+#import "KURLConnection.h"
 
-@interface Downloader()
-@property(nonatomic, assign) id<DataDownloaderDelegate> theDelegate;
+@interface KURLConnection()
+@property(nonatomic, assign) id<KURLConnectionDelegate> theDelegate;
 @property(nonatomic, strong) NSMutableData *data;
 @property(nonatomic, strong) NSString *username;
 @property(nonatomic, strong) NSString *password;
 @property(nonatomic, strong) NSURLRequest *request;
-@property (nonatomic, copy) DataDownloaderSuccessHandler successHandler;
-@property (nonatomic, copy) DataDownloaderFailedHandler failedHandler;
+@property (nonatomic, copy) KURLConnectionSuccessHandler successHandler;
+@property (nonatomic, copy) KURLConnectionFailedHandler failedHandler;
 @end
 
-@implementation Downloader
+@implementation KURLConnection
 
 + (NSURLRequest *)createGetRequestForUrl:(NSURL *)url
 {
@@ -30,14 +30,14 @@
     return request;
 }
 
-+ (void)startDownloadWithRequest:(NSURLRequest *)request successHandler:(DataDownloaderSuccessHandler)successHandler failedHandler:(DataDownloaderFailedHandler)failedHandler
++ (void)startWithRequest:(NSURLRequest *)request successHandler:(KURLConnectionSuccessHandler)successHandler failedHandler:(KURLConnectionFailedHandler)failedHandler
 {
-    [self startDownloadWithRequest:request username:nil andPassword:nil successHandler:successHandler failedHandler:failedHandler];
+    [self startWithRequest:request username:nil andPassword:nil successHandler:successHandler failedHandler:failedHandler];
 }
 
-+ (void)startDownloadWithRequest:(NSURLRequest *)request username:(NSString *)username andPassword:(NSString *)password successHandler:(DataDownloaderSuccessHandler)successHandler failedHandler:(DataDownloaderFailedHandler)failedHandler
++ (void)startWithRequest:(NSURLRequest *)request username:(NSString *)username andPassword:(NSString *)password successHandler:(KURLConnectionSuccessHandler)successHandler failedHandler:(KURLConnectionFailedHandler)failedHandler
 {
-    Downloader *downloader = [[Downloader alloc] initWithRequest:request username:username andPassword:password];
+    KURLConnection *downloader = [[KURLConnection alloc] initWithRequest:request username:username andPassword:password];
     [downloader setSuccessHandler:successHandler];
     [downloader setFailedHandler:failedHandler];
     
@@ -49,7 +49,7 @@
     }
 }
 
-- (id)initWithRequest:(NSURLRequest *)request andDelegate:(id<DataDownloaderDelegate>)delegate
+- (id)initWithRequest:(NSURLRequest *)request andDelegate:(id<KURLConnectionDelegate>)delegate
 {
     return [self initWithRequest:request andDelegate:delegate username:nil andPassword:nil];
 }
@@ -59,7 +59,7 @@
     return [self initWithRequest:request andDelegate:nil username:username andPassword:password];
 }
 
-- (id)initWithRequest:(NSURLRequest *)request andDelegate:(id<DataDownloaderDelegate>)delegate username:(NSString *)username andPassword:(NSString *)password
+- (id)initWithRequest:(NSURLRequest *)request andDelegate:(id<KURLConnectionDelegate>)delegate username:(NSString *)username andPassword:(NSString *)password
 {
     self = [self init];
     
@@ -75,24 +75,22 @@
     return self;
 }
 
-- (void)startDownload
+- (void)start
 {
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:YES];
     
     if (!connection)
     {
-        [self respondDidFailDownloadingWithErrorToDelegate:nil];
+        [self respondDidFailWithError:nil];
     }
 }
+
+
+#pragma mark - NSURLConnectionDelegate
 
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection
 {
     return NO;
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-  [self.data setLength:0];
 }
 
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
@@ -100,7 +98,14 @@
     NSURLCredential *credential = [NSURLCredential credentialWithUser:self.username
                                                              password:self.password
                                                           persistence:NSURLCredentialPersistenceForSession];
-    [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];    
+    [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
+}
+
+#pragma mark - NSURLConnectionDataDelegate
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+  [self.data setLength:0];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
@@ -110,45 +115,36 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    if (self.theDelegate != nil)
-    {
-        [self respondDidFailDownloadingWithErrorToDelegate:error];
-    }
-    
-    if (self.failedHandler != nil)
-    {
-        self.failedHandler(error);
-    }
+    [self respondDidFailWithError:error];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    if (self.theDelegate != nil)
+    [self respondDidFinishWithData:[NSData dataWithData:self.data]];
+}
+
+- (void)respondDidFinishWithData:(NSData *)data
+{
+    if([self.theDelegate respondsToSelector:@selector(didFinishWithData:)])
     {
-        [self respondDidFinishDownloadingToDelegate:[NSData dataWithData:self.data]];
+        [(id)[self theDelegate] performSelectorOnMainThread:@selector(didFinishWithData:) withObject:data waitUntilDone:YES];
     }
     
-    if (self.successHandler != nil)
-    {
+    dispatch_async(dispatch_get_main_queue(), ^{
         self.successHandler([NSData dataWithData:self.data]);
-    }
-
+    });    
 }
 
-- (void) respondDidFinishDownloadingToDelegate: (NSData *) data
+- (void)respondDidFailWithError:(NSError *)error
 {
-    if ([self.theDelegate respondsToSelector:@selector(didFinishDownloadData:)])
+    if ([self.theDelegate respondsToSelector:@selector(didFailWithError:)])
     {
-        [(id)[self theDelegate] performSelector:@selector(didFinishDownloadData:) withObject:data];
+        [(id)[self theDelegate] performSelectorOnMainThread:@selector(didFailWithError:) withObject:error waitUntilDone:YES];
     }
-}
-
-- (void) respondDidFailDownloadingWithErrorToDelegate: (NSError *) error
-{
-    if ([self.theDelegate respondsToSelector:@selector(didFailDownloadWithError:)])
-    {
-        [(id)[self theDelegate] performSelector:@selector(didFailDownloadWithError:) withObject:error];
-    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.failedHandler(error);
+    });
 }
 
 @end
