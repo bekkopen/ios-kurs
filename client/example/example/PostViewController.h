@@ -11,5 +11,7 @@
 @interface PostViewController : UIViewController
 - (IBAction)cancelTouch:(id)sender;
 - (IBAction)sendTouch:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UIView *navigationTitleView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @end

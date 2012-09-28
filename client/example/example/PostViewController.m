@@ -10,10 +10,12 @@
 #import <library/library.h>
 
 @interface PostViewController ()
-
+@property (nonatomic, strong) NSString *username;
 @end
 
 @implementation PostViewController
+
+static NSString *usernameKey = @"username";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,8 +29,43 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];  
+    [super viewDidLoad];
+    
+    NSString *savedUsername = [[NSUserDefaults standardUserDefaults] objectForKey:usernameKey];
+    
+    if (savedUsername != nil)
+    {
+        self.username = savedUsername;
+    }
+    else
+    {
+        self.username = @"unknown";
+    }
+    
+    self.usernameLabel.text = self.username;
+
+    UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+    [self.navigationTitleView addGestureRecognizer:singleFingerTap];
 }
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+    UIAlertView *inputAlert = [[UIAlertView alloc] initWithTitle:@"Brukernavn" message:@"Skriv inn brukernavn" delegate:self cancelButtonTitle:@"Avbryt" otherButtonTitles:@"OK", nil];
+    inputAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [inputAlert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        NSString *name = [alertView textFieldAtIndex:0].text;
+        self.username = name;
+        self.usernameLabel.text = self.username;
+        [[NSUserDefaults standardUserDefaults] setObject:self.username forKey:usernameKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -63,11 +100,13 @@
 
 - (IBAction)sendTouch:(id)sender
 {
-    [self postFrom:@"Some" withMessage:self.textView.text];
+    [self postFrom:self.username withMessage:self.textView.text];
 }
 
 - (void)viewDidUnload {
     [self setTextView:nil];
+    [self setUsernameLabel:nil];
+    [self setNavigationTitleView:nil];
     [super viewDidUnload];
 }
 @end
