@@ -256,10 +256,13 @@ Objective-C
 	Person *person = [Person alloc] init];
 	- (NSString *)fullName;
 	// NSString *fullName = [person fullName];
+
 	- (int)age
 	// int age = [person age];
+
 	- (void)setAge(int)age;
 	// [person setAge:25];
+
 	- (BOOL)hasDrivingLicence;
 	// if ([person hasDrivingLicence]) 
 	// {
@@ -655,12 +658,20 @@ Knytter et UI-element opp mot en variabel
 	- (void)showAlertView {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Advarsel"
 			message:@"Beskjed"
-			delegate:self
+			delegate:self // <-- Setter oss selv som delegate på UIAlertViewet
 			cancelButtonTitle:@"Ok"
 			otherButtonTitles:nil];
 		[alert show];
 	}
 
+	// UIAlertView vises, og kjører følgende kode når man trykker på en knapp
+	if ([_delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
+		// Kaller funksjonen alertView:clickedButtonAtIndex: på delegatet
+        [_delegate alertView:self clickedButtonAtIndex:buttonIndex]; 
+    }
+
+    // Her har vi implementert funksjonen alertView:clickedButtonAtIndex:
+    // og får derfor et kall fra UIAlertViewet om hva som ble trykket på
 	- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 		NSLog(@"Trykket på en knapp!");
 	}
