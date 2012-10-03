@@ -158,7 +158,7 @@ Det betyr også, at man må vœre litt mer varsom enn i java, da man ikke får k
 
 ---
 
-# Klasse og instansmetoder
+# Klasse- og instansmetoder
 
 * Instans-metoder defineres på følgende måte
 
@@ -230,20 +230,19 @@ Java
 
 
 .java
-	person.doSomething(parameter1, parameter2);
+	Person person = new Person("Jan", "Johansen");
 
-	Person.doSomethingElse(parameter1);
+	person.setAge(31);
 
-	String fullName = Person.fullName();
-
+	String fullName = person.getFullName();
 
 Objective-C
 
 
 .objetive-c
-	[person doSomethingWith:parameter1 and:parameter2];
+	Person *person = [[Person alloc] initWithFirstName:@"Jan" surname:@"Johansen"];
 
-	[Person doSomethingWith:parameter1];
+	[person setAge:31];
 	
 	NSString *fullName = [person fullName];
 
