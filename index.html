@@ -841,25 +841,31 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 
 
 .objective-c
-	NSArray *mySortedArray = [myArray sortedArrayUsingComparator:
-	^(id first, id second) {
-		if (first.myCoolValue > second.myCoolValue)
-			return NSOrderedAscending;
-		...
-	}];
+	// En block-definisjon
+	typedef void(^KURLConnectionSuccessHandler)(NSData *data);
 
-.objective-c
-	
+	// metodedefinisjon med block som input
+	+ (void)startWithSuccessHandler:(KURLConnectionSuccessHandler)successHandler;
+
+	// Kall på metode med block lik block-definisjonen
+	[KURLConnection startWithSuccessHandler:^(NSData *data)
+    {
+		[self cancelTouch:nil];
+    }];
+
+
 
 
 ---
 
-# Object Literals
+# Object Literals #1
 
 * Apple LLVM Compiler heter Apple sin compiler, altså den som komplierer til binœr kode
 * Fra og med 4.0 har man fått mange nye features og forenklinger av språket, da blant annet object literals.
 
 ---
+
+# Object Literals #2
 
 ## NSNumber Literals
 
@@ -879,6 +885,8 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 	@(M_PI/16) // [NSNumber numberWithDouble:(M_PI / 16)]
 
 ---
+
+# Object Literals #3
 
 ## Container Literals
 
