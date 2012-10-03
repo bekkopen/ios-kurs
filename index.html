@@ -177,8 +177,9 @@ Det betyr også, at man må vœre litt mer varsom enn i java, da man ikke får k
 
 
 .objective-c
-	Person *person = [Person alloc] init];
+	Person *person = [[Person alloc] init];
 
+* `[[Person alloc] init]`, og alle metoder som starter med `init` kan sees på som konstruktører
 
 ---
 
