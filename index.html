@@ -25,9 +25,9 @@
 
 Få en pangstart på din karriere som app-utvikler. BEKK holder tre-delt iOS-kurs, der du vil få den grunnleggende kunnskapen som skal til for å lage en iOS-app fra bunnen av. 
 
-Del 1 gir introduksjon til Objective-C, iOS platformen og verktøy. Det blir holdt presentasjon og det skal kodes.
-Del 2 går mer i dybden på temaene i del 1 og vi vil lage en twitter-aktig app.
-Del 3 vil gå ut på å lage en applikasjon fra bunnen av som bruker egne API'er eller foreslåtte API'er. Veileder vil hjelpe til underveis. 
+* Del 1 gir introduksjon til Objective-C, iOS platformen og verktøy. Det blir holdt presentasjon og det skal kodes.
+* Del 2 går mer i dybden på temaene i del 1 og vi vil lage en twitter-aktig app.
+* Del 3 - mer om iOS og verktøy. Deretter hjelp av veilderne til egen app eller utvikle videre på twitter appen. 
 
 Krav:
 Mac med Xcode
@@ -59,7 +59,7 @@ Om man får tid se kjapt på: http://cocoadevcentral.com/articles/000081.php
 * Del 3 - Lage en app
 	* iOS - Standardkomponenter
 	* Debugging
-	* Verktøy, alternativer og forslag
+	* Verktøy og testing, alternativer og forslag
 	* Bøker og ressurser
 	* Utvikle på egen app eller forsette med twitter klone med hjelp fra veilederne
 
@@ -89,9 +89,8 @@ Om man får tid se kjapt på: http://cocoadevcentral.com/articles/000081.php
 * Objective-C er ett sett med utvidelser til programmeringsspråket C
 * Man kan blande Objective-C med C og C++ (Obj++)
 * Objektorientert, mer om Apple sin tolkning av dette finner du på:
-	* http://developer.apple.com/iphone/library/documentation/ Cocoa/Conceptual/OOP_ObjC
+	* [OOP (http://goo.gl/5ABv6)](http://goo.gl/5ABv6)
 * Enkelt språk, men litt rar syntax
-	* http://goo.gl/TNPO9
 * Dynamisk typet runtime
 
 ---
@@ -148,7 +147,7 @@ Det betyr også, at man må vœre litt mer varsom enn i java, da man ikke får k
 
 -->
 
-* Man lager egne objekter ved å definere klasser
+* Man lager egne objekter ved å definere klasser og lage instanser av disse
 * Klassene inneholder som regel instans-variabler for å ta vare på klassens data
 * Manipulering av instans-variablene skjer ved hjelp av metoder
 * Stor forbokstav for klasser og små for instanser av denne klassen
@@ -156,18 +155,53 @@ Det betyr også, at man må vœre litt mer varsom enn i java, da man ikke får k
 	* h.-filen definerer som regel instans variablene og public metoder
 	* m.-filen inneholder all implemtasjon
 
+
 ---
 
-# Klasse og instansmetoder
+# Objective-C ivar
 
-* Instansmetoder defineres på følgende måte
+<!--
+
+I Objective-C er alle instans variabler interne (@protected) for klassen de er definert i. Dermed er staten til instans-variablene kun tilgjengelig via klassens metoder eller en klasse som har arvet av den klassen der instans-variablene er definert. Man kan overstyre dette ved å bruke 'scope directives'.
+
+-->
+
+* Alle instans-variabler deklarert i .h-filen er automatisk interne (@protected)
+* Kan overstyres ved hjelp av 'scope directives'
+
+
+
+.objective-c
+	/* Instans variabelen er bare tilgjengelig inne i klassen som deklarerer den */
+	@private
+	NSString * ettObjekt;
+
+	/* Instans variabelen er tilgjengelig i klassen som
+	deklarer den og for klasser som arver av den klassen */
+	@protected
+	NSString * ettObjekt;
+
+	/* Instans variabelen er tilgjengelig for alle */
+	@public
+	NSString * ettObjekt;
+
+	/* Kun tilgjengelig for klasser som ligger i ett og samme image. */
+	@package
+	NSString * ettObjekt;
+
+
+---
+
+# Klasse- og instansmetoder
+
+* Instans-metoder defineres på følgende måte
 
 
 
 .objective-c
 	- (id)init //Gjør initialiseringen som kreves av et objekt for å bli klart
 
-* Klasse metoder defineres på følgende måte
+* Klasse-metoder defineres på følgende måte
 
 
 
@@ -186,93 +220,47 @@ Det betyr også, at man må vœre litt mer varsom enn i java, da man ikke får k
 
 ---
 
-# Objective-C ivar
-
-<!-- 
-
-I Objective-C er alle instans variabler interne (@protected) for klassen de er definert i. Dermed er staten til instans-variablene kun tilgjengelig via klassens metoder eller en klasse som har arvet av den klassen der instans-variablene er definert. Man kan overstyre dette ved å bruke 'scope directives'.
-
---> 
-
-* Alle instans-variabler deklarert i .h-filen er automatisk interne (@protected)
-* Kan overstyres ved hjelp av 'scope directives'
-
-
-
-.objective-c
-	/* Instans variabelen er bare tilgjengelig inne i klassen som deklarerer den */
-	@private 
-	NSString * ettObjekt;
-
-	/* Instans variabelen er tilgjengelig i klassen som 
-	deklarer den og for klasser som arver av den klassen */
-	@protected 
-	NSString * ettObjekt;
-	
-	/* Instans variabelen er tilgjengelig for alle */
-	@public 
-	NSString * ettObjekt;
-
-	/* Kun tilgjengelig for klasser som ligger i ett og samme image. */
-	@package	
-	NSString * ettObjekt;
-
----
-
-
-# Objective-C Message Passing
+# Objective-C Message Passing #1
 
 * I Objetive-C kaller man ikke metoder på objekter, men sender en beskjed
 * Navngir ikke selve funksjonen, men hvert parameter til funksjonen.
 * Skriver metoder mer som om man snakker til objektet
 
+
+
+.objective-c
+
+	- (id)initWithFirstName:(NSString *) andSurname:(NSString *)surname;
+
+	- (void)setAge:(int)age;
+
+	- (NSString *)fullName;
+
+
+---
+
+
+# Objective-C Message Passing #2
+
 Java
 
 
 .java
-	person.doSomething(parameter1, parameter2);
+	Person person = new Person("Jan", "Johansen");
 
-	Person.doSomethingElse(parameter1);
+	person.setAge(31);
 
-	String fullName = Person.fullName();
-
+	String fullName = person.getFullName();
 
 Objective-C
 
 
 .objetive-c
-	[person doSomethingWith:parameter1 and:parameter2];
+	Person *person = [[Person alloc] initWithFirstName:@"Jan" andSurname:@"Johansen"];
 
-	[Person doSomethingWith:parameter1];
+	[person setAge:31];
 	
 	NSString *fullName = [person fullName];
-
----
-
-# Metoder og kall eksempler
-
-* Et eksempel på hvordan en typisk klasse kan se ut og hvordan man kaller metoder på en instans av denne klassen
-
-
-
-.objective-c
-
-	Person *person = [Person alloc] init];
-	- (NSString *)fullName;
-	// NSString *fullName = [person fullName];
-
-	- (int)age
-	// int age = [person age];
-
-	- (void)setAge(int)age;
-	// [person setAge:25];
-
-	- (BOOL)hasDrivingLicence;
-	// if ([person hasDrivingLicence]) 
-	// {
-	//	  //drive car
-	// }
-
 
 ---
 
@@ -299,11 +287,22 @@ Objective-C
 .objective-c
 	setAge:
 
-* Method - Koden valgt av bedskjeden
+* Method - Koden valgt av meldingen
+
+
+
+.objective-c
+	- (void)setAge:(int)age;
+
+	- (void)setAge:(int)age
+	{
+
+	}
+
 
 ---
 
-# Objective-C ivar og properties
+# Objective-C ivar og properties #1
 
 * Properties er en effektiv måte og lage en get og set metode for instans-variabler (ivars)
 * I nyere Objective-C trenger man ikke definere ivars om man definerer properties, da de blir automatisk laget om det ikke finnes en matchende ivars til property navnet
@@ -311,16 +310,18 @@ Objective-C
 
 
 .objective-c
-	@property(nonatomic, strong) Person *person;
-	@property(nonatomic) int promille;
+	@property(nonatomic, strong) NSString *firstName;
 
-	// Klassen har nå propertiene 'person' og 'promille',
-	// med tilhørende settere og gettere
-	
+	@property(nonatomic, strong) NSString *surname;
+
+	@property(nonatomic) int age;
+
+	// Det blir nå automagisk laget settere og gettere
+
 
 ---
 
-#Properties continued
+# Objective-C ivar og properties #2
 
 Properties kan også ha attributes, som sier hva som skal skje når den aksesseres
 
@@ -333,7 +334,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 	- __copy__: en kopi av objektet vil bli brukt ved assignment
 	- __assign__: setter verdien direkte. Brukes ofte på primitiver
 * Trådsikkerhet
-	- __atomic__ : Default, men bør brukes skjelden da den er trengere. Har tilleggsfunksjonalitet som gjør at man alltid returnerer ett helt objekt når flere tråder snakker med setter og getter
+	- __atomic__ : Default, men bør brukes skjelden da den er tregere. Har tilleggsfunksjonalitet som gjør at man alltid returnerer ett helt objekt når flere tråder snakker med setter og getter
 	- __nonatomic__ : Trådsikkerhet er dust, bruke nonatomic.
 
 ---
@@ -356,13 +357,16 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 .objective-c
 	NSString *fullName = [person fullName]; 
 	[person setAge:25];
-	[person sibling] setAge:27];
+	[[person sibling] setAge:27];
 
 ---
 
 
 # Dynamisk eller statisk?
 
+* Først og fremst, _hva er disse * overalt?_
+	* Det er hvordan man definerer en peker til minnet
+	* Ved bruk av `id` bruker man ikke * da den har en peker automatisk
 * Objective-C har en dynamisk typet runtime, men man kan velge å bruke statiske typer når man skriver koden.
 
 
@@ -370,10 +374,16 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 .objetive-c
 	id person //dynamisk typet
 	Person *person //statisk typet
+	int age //primitiv
 
-* Statisk typing er kun til for å gi deg typesikkerhet compile time; alle spor forsvinner etter kompilering
-* Hvis vi ser på initializerne ser vi at de _alltid_ returnerer `id`. 
+* Statisk typing er kun til for å gi deg typesikkerhet compile time; alle spor forsvinner etter kompilering, foruten primitiver som ikke er pekere og derfor statiske
 * `id` er definert som en pointer til hva som helst
+* Hvis vi ser på initializerne ser vi at de _alltid_ returnerer `id`.
+
+
+
+.objective-c
+	- (id)initWithFirstName:(NSString *) andSurname:(NSString *)surname andAge:(int) age;
 
 <!--* Runtime bryr Objective-C seg ikke om statiske typer
 * Statiske typer gir typesjekking compile time-->
@@ -382,11 +392,9 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 # Nil
 
-* Først og fremst, _hva er disse * overalt?_
-	* Det er hvordan man definerer en peker til minnet
-	* Ved bruk av id bruker man ikke * da den har en peker automatisk
 * I Objective-C bruker man nil, i stedet for null som i mange andre språk
 * Forskjellen er at man kan kalle metoder på nil uten at man kræsjer eller får exceptions
+	* nil !=> NullPointerException!
 * Om man kaller en metode på nil får man bare nil tilbake
 
 
@@ -455,7 +463,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 .objective-c
 	@implementation Contact
-		// @synthesize er ikke lenger nødvendig i Xcode 4.5, 
+		// @synthesize er ikke lenger nødvendig i Xcode 4.5 med nyeste llvm-compileren,
 		// da det blir automatisk laget for alle @property 
 		@synthesize category;
 		@synthesize firm;
@@ -477,7 +485,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 		- (void)somePrivateMethod
 		{
-			//I nyeste Xcode spesifiserer man ikke private metoder
+			//I nyeste Xcode spesifiserer man ikke private metoder i @interface
 		}
 	@end
 
@@ -666,13 +674,21 @@ Knytter et UI-element opp mot en variabel
 			otherButtonTitles:nil];
 		[alert show];
 	}
+<p/>
 
+
+
+.objective-c
 	// UIAlertView vises, og kjører følgende kode når man trykker på en knapp
 	if ([_delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
 		// Kaller funksjonen alertView:clickedButtonAtIndex: på delegatet
-        [_delegate alertView:self clickedButtonAtIndex:buttonIndex]; 
+        [_delegate alertView:self clickedButtonAtIndex:buttonIndex];
     }
+<p/>
 
+
+
+.objective-c
     // Her har vi implementert funksjonen alertView:clickedButtonAtIndex:
     // og får derfor et kall fra UIAlertViewet om hva som ble trykket på
 	- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -685,26 +701,30 @@ Knytter et UI-element opp mot en variabel
 # Protocols
 
 * Kan brukes til blant annet
-	* Lage et interface for en klasse, og skjule selve implementasjonen
+	* Lage en kontrakt for en klasse, og skjule selve implementasjonen (kalles interface i java)
 	* Spesifisere funksjoner man forventer at et delegat skal implementere
 
 
 
 .objective-c
-	@protocol MyFancyProtocol
-	@required
-	- (void)doThis;
-	@optional
-	- (void)maybeDoThat;
+	@protocol KUrlConnectionDelegate
+
+		@required
+		- (void)didFinishWithData:(NSData *)data;
+
+		@optional
+		- (void)didFinishWithError:(NSError *)error;
+
 	@end
 
-	/* MyClass må implementere doThis, og kan implementere maybeDoThat */
-	@interface MyClass : NSObject <MyFancyProtocol> {}
+	/* MyClass må implementere didFinishWithData: og kan implementere didFinishWithError: */
+	@interface MyClass : NSObject <KUrlConnectionDelegate> {}
+
 	@end
 
-	/* Hvilken som helst klasse som implementerer MyFancyProtocol kan settes som delegate */
+	/* Hvilken som helst klasse som implementerer KUrlConnectionDelegate kan settes som delegate */
 	@interface MyOtherClass : NSObject {
-		id<MyFancyProtocol> delegate;
+		id<KUrlConnectionDelegate> delegate;
 	}
 	@end
 
@@ -733,7 +753,22 @@ Knytter et UI-element opp mot en variabel
 
 	@end
 
+
+* NB: Bruk med forsiktighet.
+
+
+
+.objective-c
+	BOOL empty = [@"" isEmptyString];
+	// YES
+
 ---
+
+.middle.center
+# En liten pause?
+
+---
+
 
 # Selectors
 
@@ -792,7 +827,7 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 		@selector(startBakgrunnsJobb) toTarget:self withObject:nil];  
     
 * `dispatch_async()` er en del av GCD (Grand Central Dispatch), som er et rammeverk for å gjøre jobber samtidig. dispatch_async er en metode man kan kalle med en block og brukes ofte der man ønsker å kjøre små kodeblokker asynkrone.
-* NSOperationQueue og NSOperation - Wrapper objekter til GCD for å forenkle threading i Objective-C, kan for eksempel lage oppgave klasser som arver av NSOperation og legge disse på NSOperationQueue
+* NSOperationQueue og NSOperation - Wrapper objekter til GCD for å forenkle threading i Objective-C, kan for eksempel lage oppgaveklasser som arver av NSOperation og legge disse på NSOperationQueue
 
 
 ---
@@ -809,21 +844,31 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 
 
 .objective-c
-	NSArray *mySortedArray = [myArray sortedArrayUsingComparator:
-	^(id first, id second) {
-		if (first.myCoolValue > second.myCoolValue)
-			return NSOrderedAscending;
-		...
-	}];
+	// En block-definisjon
+	typedef void(^KURLConnectionSuccessHandler)(NSData *data);
+
+	// metodedefinisjon med block som input
+	+ (void)startWithSuccessHandler:(KURLConnectionSuccessHandler)successHandler;
+
+	// Kall på metode med block lik block-definisjonen
+	[KURLConnection startWithSuccessHandler:^(NSData *data)
+    {
+		[self cancelTouch:nil];
+    }];
+
+
+
 
 ---
 
-# Object Literals
+# Object Literals #1
 
 * Apple LLVM Compiler heter Apple sin compiler, altså den som komplierer til binœr kode
 * Fra og med 4.0 har man fått mange nye features og forenklinger av språket, da blant annet object literals.
 
 ---
+
+# Object Literals #2
 
 ## NSNumber Literals
 
@@ -843,6 +888,8 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 	@(M_PI/16) // [NSNumber numberWithDouble:(M_PI / 16)]
 
 ---
+
+# Object Literals #3
 
 ## Container Literals
 
@@ -864,6 +911,12 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 	NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
 		@"value1", @"key1", @"value2", @"key2", nil];
 	*/
+
+
+---
+
+.middle.center
+# En liten pause?
 
 
 ---
@@ -998,6 +1051,11 @@ Følg med på App salg, rangering og kommentarer
 * [iOS Developer Library (goo.gl/lwznv)](http://goo.gl/lwznv)
 * [Standford (goo.gl/rIHvu)](http://goo.gl/rIHvu)
 * [Coding Guidelines (goo.gl/mfE1P)](http://goo.gl/mfE1P)
+
+---
+
+.middle.center
+# En liten pause?
 
 ---
 
