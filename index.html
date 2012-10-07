@@ -199,14 +199,14 @@ I Objective-C er alle instans variabler interne (@protected) for klassen de er d
 
 
 .objective-c
-	- (id)init //Gjør initialiseringen som kreves av et objekt for å bli klart
+	- (id)init /* Gjør initialiseringen som kreves av et objekt for å bli klart */
 
 * Klasse-metoder defineres på følgende måte
 
 
 
 .objective-c
-	+ (id)alloc //Allokerer en plass i minne til objektet
+	+ (id)alloc /* Allokerer en plass i minne til objektet */
 
 
 * Opprette instans av en klasse gjøres på følgende måte:
@@ -316,7 +316,7 @@ Objective-C
 
 	@property(nonatomic) int age;
 
-	// Det blir nå automagisk laget settere og gettere
+	/* Det blir nå automagisk laget settere og gettere */
 
 
 ---
@@ -372,9 +372,9 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 
 .objetive-c
-	id person //dynamisk typet
-	Person *person //statisk typet
-	int age //primitiv
+	id person /* dynamisk typet */
+	Person *person /* statisk typet */
+	int age /* primitiv */
 
 * Statisk typing er kun til for å gi deg typesikkerhet compile time; alle spor forsvinner etter kompilering, foruten primitiver som ikke er pekere og derfor statiske
 * `id` er definert som en pointer til hva som helst
@@ -418,9 +418,9 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 	- (void)morroMetoden
 	{ 
 		NSMutableArray *vanligArray = [[NSMutableArray alloc] init];
-		//bruk array'et
+		/* bruk array'et */
 		[vanligArray release];
-		//slett det fra minnet når du er ferdig
+		/* slett det fra minnet når du er ferdig */
 	}
 
 
@@ -434,7 +434,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 	- (void)morroMetoden
 	{ 
 		NSMutableArray *vanligArray = [[NSMutableArray alloc] init];
-		// bruk array'et
+		/* bruk array'et */
 	}
 
 
@@ -463,8 +463,8 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 .objective-c
 	@implementation Contact
-		// @synthesize er ikke lenger nødvendig i Xcode 4.5 med nyeste llvm-compileren,
-		// da det blir automatisk laget for alle @property 
+		/* @synthesize er ikke lenger nødvendig i Xcode 4.5 med nyeste llvm-compileren,
+		 da det blir automatisk laget for alle @property */
 		@synthesize category;
 		@synthesize firm;
 		@synthesize phoneNumber;
@@ -485,7 +485,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 		- (void)somePrivateMethod
 		{
-			//I nyeste Xcode spesifiserer man ikke private metoder i @interface
+			/* I nyeste Xcode spesifiserer man ikke private metoder i @interface */
 		}
 	@end
 
@@ -669,7 +669,7 @@ Knytter et UI-element opp mot en variabel
 	- (void)showAlertView {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Advarsel"
 			message:@"Beskjed"
-			delegate:self // <-- Setter oss selv som delegate på UIAlertViewet
+			delegate:self /* Setter oss selv som delegate på UIAlertViewet */
 			cancelButtonTitle:@"Ok"
 			otherButtonTitles:nil];
 		[alert show];
@@ -679,9 +679,9 @@ Knytter et UI-element opp mot en variabel
 
 
 .objective-c
-	// UIAlertView vises, og kjører følgende kode når man trykker på en knapp
+	/* UIAlertView vises, og kjører følgende kode når man trykker på en knapp */
 	if ([_delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
-		// Kaller funksjonen alertView:clickedButtonAtIndex: på delegatet
+		/* Kaller funksjonen alertView:clickedButtonAtIndex: på delegatet */
         [_delegate alertView:self clickedButtonAtIndex:buttonIndex];
     }
 <p/>
@@ -689,8 +689,8 @@ Knytter et UI-element opp mot en variabel
 
 
 .objective-c
-    // Her har vi implementert funksjonen alertView:clickedButtonAtIndex:
-    // og får derfor et kall fra UIAlertViewet om hva som ble trykket på
+    /* Her har vi implementert funksjonen alertView:clickedButtonAtIndex:
+     og får derfor et kall fra UIAlertViewet om hva som ble trykket på */
 	- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 		NSLog(@"Trykket på en knapp!");
 	}
@@ -760,7 +760,7 @@ Knytter et UI-element opp mot en variabel
 
 .objective-c
 	BOOL empty = [@"" isEmptyString];
-	// YES
+	/* YES */
 
 ---
 
@@ -788,7 +788,7 @@ Knytter et UI-element opp mot en variabel
 .objective-c
 	[venn performSelector:@selector(sladre:) withObject:enNabo];
 
-    //er det samme som
+    /* er det samme som */
     [venn sladre:enNabo];
 
 * Forskjellen på ett vanlig metode kall er at man kan variere beskjeden og objektet som motar beskjeden runtime, da de ikke er tett knyttet sammen under kompilering. 
@@ -844,13 +844,13 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 
 
 .objective-c
-	// En block-definisjon
+	/* En block-definisjon */
 	typedef void(^KURLConnectionSuccessHandler)(NSData *data);
 
-	// metodedefinisjon med block som input
+	/* metodedefinisjon med block som input */
 	+ (void)startWithSuccessHandler:(KURLConnectionSuccessHandler)successHandler;
 
-	// Kall på metode med block lik block-definisjonen
+	/* Kall på metode med block lik block-definisjonen */
 	[KURLConnection startWithSuccessHandler:^(NSData *data)
     {
 		[self cancelTouch:nil];
@@ -875,9 +875,9 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 
 
 .objective-c
-	@12 // [NSNumber numberWithInt:12]
-	@'Z' // [NSNumber numberWithChar:'Z']
-	@YES // [NSNumber numberWithBool:YES]
+	@12 /* [NSNumber numberWithInt:12] */
+	@'Z' /* [NSNumber numberWithChar:'Z'] */
+	@YES /* [NSNumber numberWithBool:YES] */
 
 
 ## Boxed Expression Literals (C kall)
@@ -885,7 +885,7 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 
 
 .objective-c
-	@(M_PI/16) // [NSNumber numberWithDouble:(M_PI / 16)]
+	@(M_PI/16) /* [NSNumber numberWithDouble:(M_PI / 16)] */
 
 ---
 
