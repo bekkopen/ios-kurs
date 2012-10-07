@@ -1,4 +1,4 @@
 BEKK - iOS kurs
 ========
 
-Kurs i iOS programmering [Slides](http://bekkopen.github.com/ios-kurs/)
+3 delt kurs i iOS programmering, her finner du [presentasjonen](http://bekkopen.github.com/ios-kurs/)
