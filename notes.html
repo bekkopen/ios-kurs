@@ -228,8 +228,9 @@
 	* Høyre fil inspektor for valgt fil eller element og hjelp meny
 	* Midten viser filene valgt til venstre, gå igjennom midten (summary)
 5. Gå igjennom AppDelegate
-6. Trykke play og gå videre til simulator
 7. Vise Window -> organizer og dokumentasjon
+8. Vise play knapp og valg av scheme
+6. Trykke play og gå videre til simulator
 
 ---
 
@@ -278,13 +279,53 @@ Forteller kjapt at Instruments kan brukes til å analysere appens performance og
 
 # Hei på dere-appen
 
+1 og 2:
+
+
+
+
+.objective-c
+	- (BOOL)application:(UIApplication *)application 
+	didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+	{
+	    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	    self.window.backgroundColor = [UIColor whiteColor];
+	    [self.window makeKeyAndVisible];
+	    
+	    NSLog(@"Hei på dere!");
+	    
+	    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(110, 50, 200.0f, 20.0f)];
+	    label.text = @"Hei på dere!";
+	    
+	    [self.window addSubview:label];
+	    
+	    return YES;
+	}
+
+
+3. Lag ett storyboard og sett storyboard som default storyboard, dra inn en UILabel. ( husk å fjerne innnholdet i `didFinishLaunchingWithOptions` )
+
 ---
 
 # Vis hva jeg skriver appen
 
+1. Start ett nytt prosjekt, eller brukt det du allerede brukte i sist prosjekt
+2. Lag en custom UIViewController klasse og en storyboard fil.
+3. Sett denne storyboard filen som hoved storyboard
+4. Sett UIViewController klassen du lagde som custom class i interface builder (identity inspector)
+5. Dra inn GUI elementlene fra Object Library i interface builder
+6. Knytt det sammen ved CTRL-hold på GUI elementet og dra det inn i custom viewcontrolleren din
+7. I IBAction du lagde i custom klassen skriv koden for å ta ut det som står i UITextField og legg det på UILabel
+
 ---
 
 # Den enkle browserappen
+
+1. Lag customer view controller og en hoved storyboard, knytt disse opp med hverandre
+2. Dra inn UIPickerView, UIWebView
+3. Finn UIPickerViewDelegate og UIPickerViewDataSource, sett view controller til å vœre dette
+4. Koble sammen dette i IB
+5. Kjør app
 
 ---
 
