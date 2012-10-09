@@ -113,17 +113,41 @@ Gå gjennom planen for kvelden og de neste kveldene.
 
 # Nil
 
+* nil brukes som nullverdi for id eller objekter
+* null brukes som nullverdi for alt annet
+* Kanskje for å beholde bakoverkompabilitet med C?
+
 ---
 
 # Objective-C Minnehåndtering (bye bye)
+
+* Forklare litt raskt reglene
+	* retain når man oppretter eller tar i bruk
+	* release når man er ferdig med objektet
+
+* Garbage collection - ligner på Java sin, droppes i Mountain Lion til fordel for ARC og finnes ikke i iOS
+	* Apple har alltid vær litt imot GC, spesielt mobil som har begrensede ressurser
+
+* Har alltid fått en del kritikk for MRC - enter ARC
+
+* ARC - kompileren setter selv inn release / retain
+	* Properties - du må spesifisere weak / strong for å si om klassen din skal styre minnet til  variabelen
 
 ---
 
 # Et eksempel (header *.h)
 
+* Ikke bland @interface med interfaces fra feks Java
+* Arver fra NSObject
+* Ingen ivars deklarert, lages automatisk fra propertiene
+
+* Spørsmål?
+
 ---
 
 # Et eksempel (implementation *.m)
+
+* privat metode betyr ikke at man ikke kan kalle metoden, man vil bare få en warning om at metoden kanskje ikke finnes.
 
 ---
 
@@ -140,19 +164,60 @@ Gå gjennom planen for kvelden og de neste kveldene.
 
 # iOS familien
 
+* iPhone
+* iPad
+* iPod touch
 
+* Apple TV special case
+
+* DVS ferdige med kurset og sykt pro i iOS -> lage apps for iPhone, iPad & iPod
 
 ---
 
 # Designvurderinger (alt for kort oppsummert) ;)
 
+* Følg Apple guidelines - de kan nekte deg å legge den på app store
+
+* Bærbare devicer - mange utfordringer
+	* Sitter på bussen
+	* Går til jobben og trykker
+
+* Utnytte mulighetene - mer interessante apps
+
+* Liten skjerm - store tomler.
+	* Ingen fysiske forskjeller på knapper og inputfelt, må se på skjermen for å bruke
+
+* Forventninger - folk forventer at appen din fungerer perfekt, uansett hva
+
 ---
 
 # Mockup verktøy og GUI stuff
 
+* Litt tips for de som vil leke kreativ
+
 ---
 
 # iOS - Layers
+
+* Core OS
+	* snakke med devices gjennom blåtann feks.
+	* sikkerhet
+
+* Core Services
+	* Fundamentale tjenester
+	* iCloud-apiet
+
+* Media
+	* OpenGL ES
+	* Quartz - 2D-tegning
+	* Core Animation - lage superfine animasjoner
+
+* Core Touch
+	* Bibliotekene som er spesifikke for å lage iOS-apps
+	* Gestures
+	* UIKit - de fleste GUI-komponenter
+
+*Dypere i lagene - mange likheter mellom Mac OS og iOS
 
 ---
 
@@ -171,8 +236,9 @@ Gå gjennom planen for kvelden og de neste kveldene.
 	* Høyre fil inspektor for valgt fil eller element og hjelp meny
 	* Midten viser filene valgt til venstre, gå igjennom midten (summary)
 5. Gå igjennom AppDelegate
-6. Trykke play og gå videre til simulator
 7. Vise Window -> organizer og dokumentasjon
+8. Vise play knapp og valg av scheme
+6. Trykke play og gå videre til simulator
 
 ---
 
@@ -221,13 +287,53 @@ Forteller kjapt at Instruments kan brukes til å analysere appens performance og
 
 # Hei på dere-appen
 
+1 og 2:
+
+
+
+
+.objective-c
+	- (BOOL)application:(UIApplication *)application 
+	didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+	{
+	    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	    self.window.backgroundColor = [UIColor whiteColor];
+	    [self.window makeKeyAndVisible];
+	    
+	    NSLog(@"Hei på dere!");
+	    
+	    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(110, 50, 200.0f, 20.0f)];
+	    label.text = @"Hei på dere!";
+	    
+	    [self.window addSubview:label];
+	    
+	    return YES;
+	}
+
+
+3. Lag ett storyboard og sett storyboard som default storyboard, dra inn en UILabel. ( husk å fjerne innnholdet i `didFinishLaunchingWithOptions` )
+
 ---
 
 # Vis hva jeg skriver appen
 
+1. Start ett nytt prosjekt, eller brukt det du allerede brukte i sist prosjekt
+2. Lag en custom UIViewController klasse og en storyboard fil.
+3. Sett denne storyboard filen som hoved storyboard
+4. Sett UIViewController klassen du lagde som custom class i interface builder (identity inspector)
+5. Dra inn GUI elementlene fra Object Library i interface builder
+6. Knytt det sammen ved CTRL-hold på GUI elementet og dra det inn i custom viewcontrolleren din
+7. I IBAction du lagde i custom klassen skriv koden for å ta ut det som står i UITextField og legg det på UILabel
+
 ---
 
 # Den enkle browserappen
+
+1. Lag customer view controller og en hoved storyboard, knytt disse opp med hverandre
+2. Dra inn UIPickerView, UIWebView
+3. Finn UIPickerViewDelegate og UIPickerViewDataSource, sett view controller til å vœre dette
+4. Koble sammen dette i IB
+5. Kjør app
 
 ---
 
