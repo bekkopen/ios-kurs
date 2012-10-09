@@ -21,7 +21,7 @@
   <body>
     <textarea id="source">
 
-# Forslag til beskrivelse
+# Beskrivelse
 
 Få en pangstart på din karriere som app-utvikler. BEKK holder tre-delt iOS-kurs, der du vil få den grunnleggende kunnskapen som skal til for å lage en iOS-app fra bunnen av. 
 
@@ -130,7 +130,7 @@ Om man får tid se kjapt på: http://cocoadevcentral.com/articles/000081.php
 
 <!--- Som i mange andre programmeringsspråk så lager man egne objekter ved hjelp av klasser og klassene igjen inneholder andre objekter. 
 
-I tillegg til å holde på sine instans variabler, så inneholder klassene forskjellige metoder. I Objetive-C så bruker man stor forbokstav på klasser, men små bokstaver på instanser av denne klassen. 
+I tillegg til å holde på sine instans variabler, så inneholder klassene forskjellige metoder. I Objective-C bruker man stor forbokstav på klasser, men små bokstaver på instanser av denne klassen.
 
 Det noe av metode og instans variable definering blir gjort i en .h fil, men all implementasjonen blir gjort i en .m fil.
 
@@ -138,7 +138,7 @@ NSObject er en root klasse som alle andre klasser arver fra.
 
 # Objective-C Objekter
 
-Da Objetive-C er objektorientert, vil de samme prinsippene gjelde her som i andre objektorienterte språk, som for eksempel Java. 
+Da Objective-C er objektorientert, vil de samme prinsippene gjelde her som i andre objektorienterte språk, som for eksempel Java.
 
 Objektene har data og metoder for å bruke dataen, den dataen som blir påvirket ligger i såkalte instans-variabler (Ivars). 
 
@@ -227,7 +227,7 @@ I Objective-C er alle instans variabler interne (@protected) for klassen de er d
 
 # Objective-C Message Passing #1
 
-* I Objetive-C kaller man ikke metoder på objekter, men sender en beskjed
+* I Objective-C kaller man ikke metoder på objekter, men sender en beskjed
 * Navngir ikke selve funksjonen, men hvert parameter til funksjonen.
 * Skriver metoder mer som om man snakker til objektet
 
@@ -260,7 +260,7 @@ Java
 Objective-C
 
 
-.objetive-c
+.objective-c
 	Person *person = [[Person alloc] initWithFirstName:@"Jan" andSurname:@"Johansen"];
 
 	[person setAge:31];
@@ -335,7 +335,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
  	- __readwrite__: propertien får både en getter og en setter (default)
 * Hvordan setteren skal fungere
 	- __strong__: denne klassen eier propertien, og styrer minnehåndtering
-	- __weak__: denne klassen eier _ikke_ propertien, og styrrer derfor _ikke_ minnehåndteringen
+	- __weak__: denne klassen eier _ikke_ propertien, og styrer derfor _ikke_ minnehåndteringen
 	- __copy__: en kopi av objektet vil bli brukt ved assignment
 	- __assign__: setter verdien direkte. Brukes ofte på primitiver
 * Trådsikkerhet
@@ -376,7 +376,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 
 
-.objetive-c
+.objective-c
 	id person /* dynamisk typet */
 	Person *person /* statisk typet */
 	int age /* primitiv */
@@ -404,7 +404,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 
 
-.objetive-c
+.objective-c
     NSString *string = nil;
 	NSString *low = [string lowercaseString];
     NSLog(@"%@", low);
@@ -784,7 +784,7 @@ Knytter et UI-element opp mot en variabel
 
 
 
-.objetive-c
+.objective-c
 	SEL enMetode;
 	enMetode = @selector(enMetode:medMer:);
 
