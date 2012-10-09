@@ -397,10 +397,8 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 # Nil
 
-* I Objective-C bruker man nil, i stedet for null som i mange andre språk
-* Forskjellen er at man kan kalle metoder på nil uten at man kræsjer eller får exceptions
-	* nil !=> NullPointerException!
-* Om man kaller en metode på nil får man bare nil tilbake
+* I Objective-C bruker man `nil`, i stedet for `null` som i mange andre språk
+* Om man kaller en metode på nil får man bare nil tilbake, ingen exception!
 
 
 
@@ -410,6 +408,14 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
     NSLog(@"%@", low);
 
 * Dette vil logge (null) uten å krœsje
+* `NULL` og `nil` kompileres begge til 0, så dette er også lov:
+
+
+
+.objective-c
+	NSString *string = 0;
+	NSString *low = [string lowercaseString];
+	NSLog(@"%@", low);
 
 ---
 
@@ -430,7 +436,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 
 
-* Garbage Collection (ligner på Java sin, droppes i Mountain Lion til fordel for ARC og finnes ikke i iOS)
+* Garbage Collection (kun på Mac OS, ikke iOS)
 * ARC (Automatic Reference Counting)
 
 
@@ -467,9 +473,11 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 # Et eksempel (implementation *.m)
 
 .objective-c
+	#import "Contact.h"
+
 	@implementation Contact
-		/* @synthesize er ikke lenger nødvendig i Xcode 4.5 med nyeste llvm-compileren,
-		 da det blir automatisk laget for alle @property */
+		// @synthesize er ikke lenger nødvendig i Xcode 4.5 med nyeste llvm-compileren,
+		// da det blir automatisk laget for alle @property 
 		@synthesize category;
 		@synthesize firm;
 		@synthesize phoneNumber;
