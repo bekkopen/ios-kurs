@@ -377,9 +377,9 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 
 .objective-c
-	id person /* dynamisk typet */
-	Person *person /* statisk typet */
-	int age /* primitiv */
+	id person = [[Person alloc] init]; /* dynamisk typet */
+	Person *person = [[Person alloc] init]; /* statisk typet */
+	int age = 3; /* primitiv */
 
 * Statisk typing er kun til for å gi deg typesikkerhet compile time; alle spor forsvinner etter kompilering, foruten primitiver som ikke er pekere og derfor statiske
 * `id` er definert som en pointer til hva som helst
@@ -408,7 +408,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
     NSLog(@"%@", low);
 
 * Dette vil logge (null) uten å krœsje
-* `NULL` og `nil` kompileres begge til 0, så dette er også lov:
+* `NULL` og `nil` kompileres begge til tallet `0`, så dette er også lov:
 
 
 
@@ -436,7 +436,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 
 
-* Garbage Collection (kun på Mac OS, ikke iOS)
+* Garbage Collection (kun på Mac OS < Mountain Lion, ikke iOS)
 * ARC (Automatic Reference Counting)
 
 
