@@ -12,9 +12,6 @@ public class ClearServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
         resp.setContentType("text/html");
-
-        String from = req.getParameter("from");
-        String message = req.getParameter("message");
         AllPosts.posts.clear();
         out.println("Alle poster slettet");
     }

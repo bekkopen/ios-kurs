@@ -1,0 +1,51 @@
+body {
+    background: #272727;
+    color: #ffffff;
+}
+
+a {
+    color: #FD5158;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.content {
+    margin: 0 auto;
+    width: 40em;
+}
+
+.wrapper {
+    width: 90%;
+    max-width: 800px;
+    margin: 30px auto;
+}
+
+
+.post {
+    float: left;
+    max-width: 300px;
+    color: #fff;
+    display: block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.post:last-of-type {
+    margin-right: 0px;
+    margin-bottom: 10px;
+}
+
+.message {
+    display: block;
+    color: #ffffff;
+}
+
+.from {
+    color: #FD5157;
+    font-size: 1.5em;
+}
+
+.date {
+    font-size: 0.8em;
+    margin-bottom: 10px;
+}

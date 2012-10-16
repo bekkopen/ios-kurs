@@ -1,16 +1,14 @@
+<%@page contentType="text/html;charset=UTF-8" %>
 <%@ page import="no.bekk.ioskurs.AllPosts" %>
-<html>
-<head>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div class="content">
+<jsp:include page="includes/top.jsp" />
+    <h1>Meldinger</h1>
+    <div class="posts">
     <% for (AllPosts.Post post: AllPosts.posts){%>
-         <article>
-             <from><%=post.from%></from>
-             <message><%=post.message%></message>
-         </article>
+        <div class="post">
+            <div class="from"><%=post.from%></div>
+            <div class="date"><%=post.date%></div>
+            <div class="message"><%=post.message%></div>
+        </div>
     <%}%>
-</div>
-</body>
-</html>
+    </div>
+<jsp:include page="includes/bottom.jsp" />

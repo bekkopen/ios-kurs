@@ -1,21 +1,33 @@
 package no.bekk.ioskurs;
 
-import java.util.*;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class AllPosts {
     public static Set<Post> posts = new HashSet<Post>();
 
     public static void addPost(String from, String message) {
-        posts.add(new Post(from, message));
+
+        DateTime dateTime = new DateTime();
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("dd/mm/yyyy HH:mm");
+        String date = dateTime.toString(dtf);
+
+        posts.add(new Post(from, message, date));
     }
 
     public static class Post {
         public String from;
         public String message;
+        public String date;
 
-        public Post(String from, String message) {
+        public Post(String from, String message, String date) {
             this.from = from;
             this.message = message;
+            this.date = date;
         }
 
         public String toString(){
