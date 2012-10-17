@@ -1,0 +1,12 @@
+{
+  "name": "twitter-clone",
+  "description": "twitter clone for iOS introduction course",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express" : "2.5.9",
+    "mongoose" : ">=2.6.0",
+    "colibri" : "*",
+    "jade": ">= 0.0.1"
+  }
+}
