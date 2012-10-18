@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Message.h"
 
 @interface MessageParser : NSObject
 
 - (NSArray *)createMessagesFromJSON:(NSData *)messagesJSON error:(NSError **)error;
+- (NSData *)createJSONFromMessage:(Message *)message error:(NSError **)error;
 
 @end

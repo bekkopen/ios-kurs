@@ -30,6 +30,19 @@
     return request;
 }
 
++ (NSURLRequest *)createPostRequestForUrl:(NSURL *)url withJSONData:(NSData *)jsonData
+{
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+
+    [request setValue:[NSString stringWithFormat:@"%d", [jsonData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:jsonData];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+
+    return request;
+}
+
+
 + (void)startWithRequest:(NSURLRequest *)request successHandler:(KURLConnectionSuccessHandler)successHandler failedHandler:(KURLConnectionFailedHandler)failedHandler
 {
     [self startWithRequest:request username:nil andPassword:nil successHandler:successHandler failedHandler:failedHandler];
@@ -105,7 +118,26 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-  [self.data setLength:0];
+    if ([response respondsToSelector:@selector(statusCode)])
+    {
+        int statusCode = [((NSHTTPURLResponse *)response) statusCode];
+        if (statusCode >= 400)
+        {
+            [connection cancel];
+            NSDictionary *errorInfo
+            = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:
+                                                  NSLocalizedString(@"Server returned status code %d",@""),
+                                                  statusCode]
+                                          forKey:NSLocalizedDescriptionKey];
+            NSError *statusError
+            = [NSError errorWithDomain:@"kurlconnection"
+                                  code:statusCode
+                              userInfo:errorInfo];
+            [self connection:connection didFailWithError:statusError];
+        }
+    } else {
+        [self.data setLength:0];
+    }
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data

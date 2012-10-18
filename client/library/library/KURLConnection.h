@@ -19,6 +19,7 @@ typedef void(^KURLConnectionFailedHandler)(NSError*);
 
 + (NSURLRequest *)createGetRequestForUrl:(NSURL *)url;
 + (NSURLRequest *)createPostRequestForUrl:(NSURL *)url withParameterAsString:(NSString *) params;
++ (NSURLRequest *)createPostRequestForUrl:(NSURL *)url withJSONData:(NSData *)jsonData;
 
 @end
 

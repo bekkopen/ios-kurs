@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6027619D16308BF00028E4BA /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 6027619C16308BF00028E4BA /* NSDate+Utilities.m */; };
+		6027619E16308D060028E4BA /* NSDate+Utilities.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6027619B16308BF00028E4BA /* NSDate+Utilities.h */; };
 		602D306716079DA500172AB7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602D306616079DA500172AB7 /* Foundation.framework */; };
 		602D306C16079DA500172AB7 /* library.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 602D306B16079DA500172AB7 /* library.h */; };
 		602D307616079DA500172AB7 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602D307516079DA500172AB7 /* SenTestingKit.framework */; };
@@ -36,6 +38,7 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
+				6027619E16308D060028E4BA /* NSDate+Utilities.h in CopyFiles */,
 				602D309C1607A14C00172AB7 /* KURLConnection.h in CopyFiles */,
 				602D306C16079DA500172AB7 /* library.h in CopyFiles */,
 			);
@@ -44,6 +47,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6027619B16308BF00028E4BA /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
+		6027619C16308BF00028E4BA /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
 		602D306316079DA500172AB7 /* liblibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		602D306616079DA500172AB7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		602D306A16079DA500172AB7 /* library-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "library-Prefix.pch"; sourceTree = "<group>"; };
@@ -114,7 +119,7 @@
 		602D306816079DA500172AB7 /* library */ = {
 			isa = PBXGroup;
 			children = (
-				602D30921607A0D900172AB7 /* Downloader */,
+				602D30921607A0D900172AB7 /* source */,
 				602D306B16079DA500172AB7 /* library.h */,
 				602D306916079DA500172AB7 /* Supporting Files */,
 			);
@@ -148,13 +153,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		602D30921607A0D900172AB7 /* Downloader */ = {
+		602D30921607A0D900172AB7 /* source */ = {
 			isa = PBXGroup;
 			children = (
 				602D30981607A12B00172AB7 /* KURLConnection.h */,
 				602D30991607A12B00172AB7 /* KURLConnection.m */,
+				6027619B16308BF00028E4BA /* NSDate+Utilities.h */,
+				6027619C16308BF00028E4BA /* NSDate+Utilities.m */,
 			);
-			name = Downloader;
+			name = source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				602D309A1607A12B00172AB7 /* KURLConnection.m in Sources */,
+				6027619D16308BF00028E4BA /* NSDate+Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,7 +349,6 @@
 				DSTROOT = /tmp/library.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "library/library-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -354,7 +361,6 @@
 				DSTROOT = /tmp/library.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "library/library-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

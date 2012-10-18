@@ -11,4 +11,5 @@
 @interface Message : NSObject
 @property (nonatomic, strong) NSString *from;
 @property (nonatomic, strong) NSString *message;
+@property (nonatomic, strong) NSDate *date;
 @end

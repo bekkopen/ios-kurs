@@ -8,6 +8,8 @@
 
 #import "PostViewController.h"
 #import <library/library.h>
+#import "Message.h"
+#import "MessageParser.h"
 
 @interface PostViewController ()
 @property (nonatomic, strong) NSString *username;
@@ -75,17 +77,36 @@ static NSString *usernameKey = @"username";
 
 - (void)postFrom:(NSString *)from withMessage:(NSString *)message
 {
-    NSString *postString = [[NSString alloc] initWithFormat:@"from=%@&message=%@",from, message];
-    NSURL *postUrl = [NSURL URLWithString:@"http://localhost:8090/post"];
     
-    [KURLConnection startWithRequest:[KURLConnection createPostRequestForUrl:postUrl withParameterAsString:postString] successHandler:^(NSData *data)
+    NSURL *postUrl = [NSURL URLWithString:@"http://localhost:3000/message"];
+    Message *messageObject = [[Message alloc] init];
+    messageObject.from = from;
+    messageObject.message = message;
+    messageObject.date = [NSDate date];
+    
+    NSError *error = nil;
+    MessageParser *messageParser = [[MessageParser alloc] init];
+    NSData *jsonData = [messageParser createJSONFromMessage:messageObject error:&error];
+    
+    if (error != nil)
+    {
+        [self showAlert];
+        return;
+    }
+
+    [KURLConnection startWithRequest:[KURLConnection createPostRequestForUrl:postUrl withJSONData:jsonData] successHandler:^(NSData *data)
      {
          [self cancelTouch:nil];
      } failedHandler:^(NSError *error)
      {
-         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Feilet" message:@"Kunne ikke sende bedskjed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-         [alert show];
+         [self showAlert];
      }];
+}
+
+- (void)showAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Feilet" message:@"Kunne ikke sende bedskjed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
 }
 
 - (void)didReceiveMemoryWarning

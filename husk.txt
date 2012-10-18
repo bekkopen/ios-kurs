@@ -1,0 +1,7 @@
+	
+You can determine variable value using debugger console:
+
+print (int) [arr count]
+or use command po to print object's description
+
+po objectName
