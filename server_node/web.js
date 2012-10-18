@@ -23,7 +23,7 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
-var connectUrl = process.env.MONGOLAB_URI || 'mongodb://localhost/iosCourse'
+var connectUrl = process.env.MONGOHQ_URL || 'mongodb://localhost/iosCourse'
 mongoose.connect(connectUrl);
 
 var MessageSchema = new mongoose.Schema({
