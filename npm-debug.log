@@ -1,0 +1,22 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/0.8.12/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install' ]
+2 info using npm@1.1.63
+3 info using node@v0.8.12
+4 verbose read json /Users/hinderberg/package.json
+5 error install Couldn't read dependencies
+6 error Error: ENOENT, open '/Users/hinderberg/package.json'
+7 error If you need help, you may report this log at:
+7 error     <http://github.com/isaacs/npm/issues>
+7 error or email it to:
+7 error     <npm-@googlegroups.com>
+8 error System Darwin 11.4.2
+9 error command "/usr/local/Cellar/node/0.8.12/bin/node" "/usr/local/bin/npm" "install"
+10 error cwd /Users/hinderberg/Dropbox/Bekk101/Kurs/2012 ios-kurs/ios-kurs
+11 error node -v v0.8.12
+12 error npm -v 1.1.63
+13 error path /Users/hinderberg/package.json
+14 error code ENOENT
+15 error errno 34
+16 verbose exit [ 34, true ]
