@@ -21,7 +21,8 @@ define(['app', 'jquery'], function (App, $) {
   var app = new App($("body"));
 
   app.addSections({
-    "main": "#main"
+    "main": "#main",
+    "stats": "#stats"
   });
 
   app.run();

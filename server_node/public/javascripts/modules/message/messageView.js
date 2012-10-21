@@ -1,6 +1,7 @@
 define(['base/view', 'text!modules/message/message.html'], function(BaseView, messageTemplate) {
 
   var MessageView = BaseView.extend({
+  	tagName: 'li',
 	className: "message",
     template: messageTemplate,
 

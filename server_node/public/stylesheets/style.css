@@ -10,6 +10,12 @@ a {
     font-weight: normal;
 }
 
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
 .content {
     margin: 0 auto;
     width: 40em;
@@ -17,17 +23,24 @@ a {
 
 .wrapper {
     width: 90%;
-    max-width: 800px;
+    max-width: 960px;
     margin: 30px auto;
 }
 
-.message {
+#main {
     float: left;
-    max-width: 300px;
+    max-width: 600px;
+}
+
+#stats {
+    float: left;
+    max-width: 360px;
+}
+
+.message {
     color: #fff;
     display: block;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
 }
 
 .message:last-of-type {
@@ -36,16 +49,25 @@ a {
 }
 
 .message-text {
-    display: block;
     color: #ffffff;
+    margin-bottom: 10px;
 }
 
 .from {
     color: #FD5157;
+    display: inline-block;
     font-size: 1.5em;
+    width: 50%;
 }
 
 .date {
+    color: #666666;
+    display: inline-block;
     font-size: 0.8em;
-    margin-bottom: 10px;
+    text-align: right;
+    width: 49%;
+}
+
+.stats .name {
+    color: #FD5157;
 }

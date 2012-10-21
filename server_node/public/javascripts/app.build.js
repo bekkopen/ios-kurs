@@ -15,6 +15,9 @@
   modules: [
     {
       name: "main",
+    },
+    {
+      name: "stats"
     }
   ]
 })
