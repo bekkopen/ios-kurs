@@ -785,7 +785,7 @@ Knytter et UI-element opp mot en variabel
 				otherButtonTitles:nil];
 			[alert show];
 		}
-		
+
 		- (void)alertView:(UIAlertView *)alertView 
 			clickedButtonAtIndex:(NSInteger)buttonIndex {
 			NSLog(@"Trykket på en knapp!");
@@ -869,7 +869,7 @@ Vi setter oss selv som delegate i UIAlertView. UIAlertView kaller tilbake på os
 .objective-c
 	[venn performSelector:@selector(sladre:) withObject:enNabo];
 
-    /* er det samme som */
+    /* er omtrent det samme som */
     [venn sladre:enNabo];
 
 * Forskjellen på ett vanlig metode kall er at man kan variere beskjeden og objektet som motar beskjeden runtime, da de ikke er tett knyttet sammen under kompilering. 
