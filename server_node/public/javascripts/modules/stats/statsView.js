@@ -19,8 +19,15 @@ define(['base/view', 'text!modules/stats/stats.html'], function(BaseView, statsT
 				return message.get("from");
 			});
 
-			_(users).each(function(messages, user) {
-				$el.append("<li><span class='name'>" + user + "</span>: " + messages.length + " meldinger");
+			_(users).chain()
+			.map(function(messages, user) {
+				return { name: user, length: messages.length};
+			})
+			.sortBy(function(user) {
+				return -user.length;
+			})
+			.each(function(user) {
+				$el.append("<li><span class='name'>" + user.name + "</span>: " + user.length + " meldinger");
 			});
 		}
 	});

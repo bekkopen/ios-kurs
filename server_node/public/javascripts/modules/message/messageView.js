@@ -2,7 +2,7 @@ define(['base/view', 'text!modules/message/message.html'], function(BaseView, me
 
   var MessageView = BaseView.extend({
   	tagName: 'li',
-	className: "message",
+	  className: "message",
     template: messageTemplate,
 
     render: function() {

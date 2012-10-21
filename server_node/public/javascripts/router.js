@@ -22,9 +22,9 @@ define(['backbone', 'modules/message/messagesView', 'modules/message/messageColl
 
       messageCollection.fetch();
 
-      //setInterval(function() {
-      //    messageCollection.fetch();
-      //}, 0.90 * 1000);
+      setInterval(function() {
+          messageCollection.fetch();
+      }, 0.90 * 1000);
     }
   });
 
