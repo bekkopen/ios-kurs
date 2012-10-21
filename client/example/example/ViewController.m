@@ -107,7 +107,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = nil;
+    
+    if ([tableView respondsToSelector:@selector(dequeueReusableCellWithIdentifier:forIndexPath:)])
+    {
+         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    }
+    else
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];   
+    }
+    
+   
     
     Message *message = (self.messages)[indexPath.row];
     
