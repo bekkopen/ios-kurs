@@ -1,4 +1,4 @@
-define(['base/view', 'text!modules/message/message.html'], function(BaseView, messageTemplate) {
+define(['base/view', 'moment', 'moment_nb', 'text!modules/message/message.html'], function(BaseView, Moment, MomentNB, messageTemplate) {
 
   var MessageView = BaseView.extend({
   	tagName: 'li',
@@ -6,7 +6,13 @@ define(['base/view', 'text!modules/message/message.html'], function(BaseView, me
     template: messageTemplate,
 
     render: function() {
-      this.renderTemplate(this.model.toJSON());
+
+      var json = this.model.toJSON();
+      var date = Moment(new Date(json.date));
+      date = date.from(new Date());
+      json.date = date
+
+      this.renderTemplate(json);
 
       return this;
     }

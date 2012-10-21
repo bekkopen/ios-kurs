@@ -3,7 +3,9 @@ require.config({
     "jquery": "libs/jquery",
     "underscore": "libs/underscore", 
     "backbone": "libs/backbone",
-    'text': 'libs/text'
+    "text": "libs/text",
+    "moment": "libs/moment",
+    "moment_nb": "libs/moment_nb"
   },
   shim: {
     'underscore': {

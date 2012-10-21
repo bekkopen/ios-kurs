@@ -27,7 +27,7 @@ define(['base/view', 'text!modules/stats/stats.html'], function(BaseView, statsT
 				return -user.length;
 			})
 			.each(function(user) {
-				$el.append("<li><span class='name'>" + user.name + "</span>: " + user.length + " meldinger");
+				$el.append("<li><span class='name'>" + user.name + "</span> " + user.length + " meldinger");
 			});
 		}
 	});
