@@ -235,7 +235,7 @@ I Objective-C er alle instans variabler interne (@protected) for klassen de er d
 
 .objective-c
 
-	- (id)initWithFirstName:(NSString *) andSurname:(NSString *)surname;
+	- (id)initWithFirstName:(NSString *)firstname andSurname:(NSString *)surname;
 
 	- (void)setAge:(int)age;
 
@@ -377,9 +377,9 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 
 .objective-c
-	id person /* dynamisk typet */
-	Person *person /* statisk typet */
-	int age /* primitiv */
+	id person = [[Person alloc] init]; /* dynamisk typet */
+	Person *person = [[Person alloc] init]; /* statisk typet */
+	int age = 3; /* primitiv */
 
 * Statisk typing er kun til for å gi deg typesikkerhet compile time; alle spor forsvinner etter kompilering, foruten primitiver som ikke er pekere og derfor statiske
 * `id` er definert som en pointer til hva som helst
@@ -388,7 +388,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 
 .objective-c
-	- (id)initWithFirstName:(NSString *) andSurname:(NSString *)surname andAge:(int) age;
+	- (id)initWithFirstName:(NSString *)firstname andSurname:(NSString *)surname andAge:(int) age;
 
 <!--* Runtime bryr Objective-C seg ikke om statiske typer
 * Statiske typer gir typesjekking compile time-->
@@ -408,7 +408,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
     NSLog(@"%@", low);
 
 * Dette vil logge (null) uten å krœsje
-* `NULL` og `nil` kompileres begge til 0, så dette er også lov:
+* `NULL` og `nil` kompileres begge til tallet `0`, så dette er også lov:
 
 
 
@@ -436,7 +436,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 
 
-* Garbage Collection (kun på Mac OS, ikke iOS)
+* Garbage Collection (kun på Mac OS < Mountain Lion, ikke iOS)
 * ARC (Automatic Reference Counting)
 
 
@@ -668,46 +668,147 @@ Knytter et UI-element opp mot en variabel
 
 
 
-* `super` brukes for å sende bedskjeder til klassen man arver fra
+* `super` brukes for å sende meldinger til klassen man arver fra
 
 ---
 
-# Delegates
+# Categories
 
-* Design pattern for å få et objekt til å delegere deler av sine oppgaver til et annet objekt.
+* Categories brukes for å legge nye funksjoner til eksisterende klasser, og er et alternativ til arv.
+* En category vil kjøre som en del av klassen, og ha tilgang til self.
 
 
 
 .objective-c
-	- (void)showAlertView {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Advarsel"
-			message:@"Beskjed"
-			delegate:self /* Setter oss selv som delegate på UIAlertViewet */
-			cancelButtonTitle:@"Ok"
-			otherButtonTitles:nil];
-		[alert show];
+	@interface NSString (MyCategory)
+
+	- (BOOL)isEmptyString;
+
+	@end
+
+	@implementation NSString (MyCategory)
+
+	- (BOOL)isEmptyString {
+		/* implementation.. */
 	}
+
+	@end
+
+
+* NB: Bruk med forsiktighet (..monkey patching)
+
+
+
+.objective-c
+	BOOL empty = [@"" isEmptyString];
+	/* YES */
+
+---
+
+
+# Delegates #1
+
+* "Design pattern" for å få et objekt til å delegere deler av sine oppgaver til et annet objekt.
+* Ikke originalt GoF pattern.
+
+Eksempel i sin ekleste form:
+
+
+
+.objective-c
+	@implementation Car
+		- (id) init
+		{
+			self = super.init()
+			if(self)
+			{
+				self.engine = [[Engine alloc] init];
+			}
+			return self;
+		}
+		- (void) start
+		{
+			[self.engine start];
+		}
+	@end
+
+
+
+
+* Du kaller start på en `Car`, men bilen kaller start på `Engine`.
+* Negativt: Skaper knytning mellom `Car` og `Engine`. (High coupling)
+
+
+---
+
+
+
+# Delegates #2
+
+* Delegate med Inversion of control (IoC) med constructor injection
+
+
+
+.objective-c
+	@implementation Car
+		- (id) initWithEngine:(Engine)engine
+		{
+			self = super.init()
+			if(self)
+			{
+				self.engine = [[Engine alloc] init];
+			}
+			return self;
+		}
+		- (void) start
+		{
+			[self.engine start];
+		}
+	@end
+
+
+* Low coupling
+
+
+---
+
+
+# Delegates #3
+
+Et mer ekte iOS-eksempel:
+
+
+
+.objective-c
+	@implementation MinViewController
+		- (void)showAlertView {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Advarsel"
+				message:@"Beskjed"
+				delegate:self /* Setter oss selv som delegate på UIAlertViewet */
+				cancelButtonTitle:@"Ok"
+				otherButtonTitles:nil];
+			[alert show];
+		}
+		- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+			NSLog(@"Trykket på en knapp!");
+		}
+	@end
 <p/>
 
 
-
 .objective-c
-	/* UIAlertView vises, og kjører følgende kode når man trykker på en knapp */
-	if ([_delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
-		/* Kaller funksjonen alertView:clickedButtonAtIndex: på delegatet */
-        [_delegate alertView:self clickedButtonAtIndex:buttonIndex];
-    }
-<p/>
+	@implementation UIAlertView
+		//[...show...]
+			/* UIAlertView vises, og kjører følgende kode når man trykker på en knapp */
+			if ([_delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
+				/* Kaller funksjonen alertView:clickedButtonAtIndex: på delegatet */
+				[_delegate alertView:self clickedButtonAtIndex:buttonIndex];
+			}
+		//[...]
+	@end
 
 
-
-.objective-c
-    /* Her har vi implementert funksjonen alertView:clickedButtonAtIndex:
-     og får derfor et kall fra UIAlertViewet om hva som ble trykket på */
-	- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-		NSLog(@"Trykket på en knapp!");
-	}
-
+Vi setter hos selv som delegate i AlertView. AlertView kaller tilbake på oss selv når noe forventet skjer.
 
 ---
 
@@ -742,38 +843,6 @@ Knytter et UI-element opp mot en variabel
 	@end
 
 
----
-
-# Categories
-
-* Categories brukes for å legge nye funksjoner til eksisterende klasser, og er et alternativ til arv. 
-* En category vil kjøre som en del av klassen, og ha tilgang til self.
-
-
-
-.objective-c
-	@interface NSString (MyCategory)
-
-	- (BOOL)isEmptyString;
-	
-	@end
-
-	@implementation NSString (MyCategory)
-
-	- (BOOL)isEmptyString {
-		/* implementation.. */
-	}
-
-	@end
-
-
-* NB: Bruk med forsiktighet.
-
-
-
-.objective-c
-	BOOL empty = [@"" isEmptyString];
-	/* YES */
 
 ---
 
