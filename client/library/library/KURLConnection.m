@@ -10,23 +10,14 @@
 @property (nonatomic, copy) KURLConnectionFailedHandler failedHandler;
 @end
 
+NSString *KURLErrorDomain = @"KURLErrorDomain";
+
 @implementation KURLConnection
 
 + (NSURLRequest *)createGetRequestForUrl:(NSURL *)url
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"GET"];
-    return request;
-}
-
-+ (NSURLRequest *)createPostRequestForUrl:(NSURL *)url withParameterAsString:(NSString *)params
-{
-    NSData *postData = [[params stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding] dataUsingEncoding:NSASCIIStringEncoding];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:postData];
-    
     return request;
 }
 
@@ -41,7 +32,6 @@
 
     return request;
 }
-
 
 + (void)startWithRequest:(NSURLRequest *)request successHandler:(KURLConnectionSuccessHandler)successHandler failedHandler:(KURLConnectionFailedHandler)failedHandler
 {
@@ -114,6 +104,11 @@
     [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
 }
 
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    [self respondDidFailWithError:error];
+}
+
 #pragma mark - NSURLConnectionDataDelegate
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -124,13 +119,11 @@
         if (statusCode >= 400)
         {
             [connection cancel];
-            NSDictionary *errorInfo
-            = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:
+            NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:
                                                   NSLocalizedString(@"Server returned status code %d",@""),
                                                   statusCode]
                                           forKey:NSLocalizedDescriptionKey];
-            NSError *statusError
-            = [NSError errorWithDomain:@"kurlconnection"
+            NSError *statusError = [NSError errorWithDomain:KURLErrorDomain
                                   code:statusCode
                               userInfo:errorInfo];
             [self connection:connection didFailWithError:statusError];
@@ -145,11 +138,6 @@
     [self.data appendData:data];
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    [self respondDidFailWithError:error];
-}
-
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     [self respondDidFinishWithData:[NSData dataWithData:self.data]];
@@ -162,7 +150,8 @@
         [(id)[self theDelegate] performSelectorOnMainThread:@selector(didFinishWithData:) withObject:data waitUntilDone:YES];
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
         self.successHandler([NSData dataWithData:self.data]);
     });    
 }
@@ -174,7 +163,8 @@
         [(id)[self theDelegate] performSelectorOnMainThread:@selector(didFailWithError:) withObject:error waitUntilDone:YES];
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
         self.failedHandler(error);
     });
 }

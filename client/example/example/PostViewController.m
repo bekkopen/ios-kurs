@@ -68,7 +68,6 @@ static NSString *usernameKey = @"username";
     }
 }
 
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];

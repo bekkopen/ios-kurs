@@ -55,8 +55,6 @@
                                    dateStyle:NSDateFormatterLongStyle
                                    timeStyle:NSDateFormatterLongStyle];
     
-    
-    
     NSDictionary* messageDict = @{
         @"from": message.from,
         @"message": message.message,

@@ -37,7 +37,9 @@
 - (void)doRefresh
 {
     
-    [KURLConnection startWithRequest:[KURLConnection createGetRequestForUrl:[NSURL URLWithString:@"http://localhost:3000/message"]] successHandler:^(NSData *data)
+    [KURLConnection startWithRequest:
+     [KURLConnection createGetRequestForUrl:[NSURL URLWithString:@"http://localhost:3000/message"]]
+                      successHandler:^(NSData *data)
      {
          MessageParser *messageParser = [[MessageParser alloc] init];
          
@@ -69,7 +71,6 @@
 {
     [self setTableView:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -80,7 +81,6 @@
         return YES;
     }
 }
-
 
 #pragma mark - UITableViewDataSource
 
