@@ -711,8 +711,6 @@ Knytter et UI-element opp mot en variabel
 * "Design pattern" for å få et objekt til å delegere deler av sine oppgaver til et annet objekt.
 * Ikke originalt GoF pattern.
 
-Eksempel i sin ekleste form:
-
 
 
 .objective-c
@@ -775,8 +773,6 @@ Eksempel i sin ekleste form:
 
 # Delegates #3
 
-Et mer ekte iOS-eksempel:
-
 
 
 .objective-c
@@ -789,7 +785,9 @@ Et mer ekte iOS-eksempel:
 				otherButtonTitles:nil];
 			[alert show];
 		}
-		- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+		
+		- (void)alertView:(UIAlertView *)alertView 
+			clickedButtonAtIndex:(NSInteger)buttonIndex {
 			NSLog(@"Trykket på en knapp!");
 		}
 	@end
@@ -808,7 +806,7 @@ Et mer ekte iOS-eksempel:
 	@end
 
 
-Vi setter hos selv som delegate i AlertView. AlertView kaller tilbake på oss selv når noe forventet skjer.
+Vi setter oss selv som delegate i UIAlertView. UIAlertView kaller tilbake på oss ved hjelp av en selector
 
 ---
 
@@ -836,7 +834,8 @@ Vi setter hos selv som delegate i AlertView. AlertView kaller tilbake på oss se
 
 	@end
 
-	/* Hvilken som helst klasse som implementerer KUrlConnectionDelegate kan settes som delegate */
+	/* Hvilken som helst klasse som implementerer KUrlConnectionDelegate 
+	kan settes som delegate */
 	@interface MyOtherClass : NSObject {
 		id<KUrlConnectionDelegate> delegate;
 	}
