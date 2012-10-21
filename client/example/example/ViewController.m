@@ -118,8 +118,6 @@
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];   
     }
     
-   
-    
     Message *message = (self.messages)[indexPath.row];
     
     UILabel *fromLabel = (UILabel *)[cell viewWithTag:100];
