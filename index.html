@@ -1034,7 +1034,32 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 # Lets code!
 ## Twitter aktig app
 
-Du finner en ferdig hjelpeklasse for å laste ned (GET) og sende data (POST) til serveren. Klassen kan lastes ned fra: URL 
+Hjelpeklasser for å snakke med serveren: [library](http://goo.gl/hDEMX)
+
+---
+
+# Twitter aktig app - hint
+
+* Serveren ligger på [http://ios-course.herokuapp.com](http://ios-course.herokuapp.com)
+* Rest endepunktene leverer JSON og fungerer på følgende måte:
+	* [http://ios-course.herokuapp.com/message](http://ios-course.herokuapp.com/message) (GET) <- alle beskjeder
+	* [http://ios-course.herokuapp.com/message](http://ios-course.herokuapp.com/message) (POST) <- JSON i body
+	* [http://ios-course.herokuapp.com/message/{id}](http://ios-course.herokuapp.com/message/{id}) (DELETE) <- Slette
+	* [http://ios-course.herokuapp.com/message/{id}](http://ios-course.herokuapp.com/message/{id}) (PUT) <- Oppdatere
+
+
+	.javascript
+	{
+		"from":"hinderberg",
+		"message":"Denne funker fint!:)",
+		"date":"2012-10-18T17:43:48.011Z" //date må man ikke ha med
+	}
+
+<p />
+
+	.objective-c
+	NSJSONSerialization //Kan brukes til å parse JSON til Objective-C 
+	#import <library/library.h> //Hjelpe klassene importeres
 
 ---
 
@@ -1075,6 +1100,15 @@ Du finner en ferdig hjelpeklasse for å laste ned (GET) og sende data (POST) til
 .middle.center
 #Debug time!
 ## Demo av hvordan debugge i Xcode
+
+Printe ut variabler i debug console:	
+`print (int) [arr count]`
+
+printe ut objekt beskrivelse:
+`po objectName`
+
+
+
 
 ---
 

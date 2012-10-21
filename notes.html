@@ -109,19 +109,35 @@ Gå gjennom planen for kvelden og de neste kveldene.
 
 # Dynamisk eller statisk?
 
+* Stjerne viser at variabelen er en peker til en plass i minnet.
+	* Variabelen inneholder altså ikke data, men peker til data i minnet
+
+* Forklare litt hva dynamisk og statisk er
+	* statisk typing (feks java) vs dynamisk typing (feks javascript)
+
+* id kan implisitt kastes til hvilken som helst klasse
+
 ---
 
 # Nil
 
 * nil brukes som nullverdi for id eller objekter
 * null brukes som nullverdi for alt annet
-* Kanskje for å beholde bakoverkompabilitet med C?
+
+* Siden man ikke kaller funksjoner, men sender beskjeder, kan man fint sende beskjed til nil
+	* I mange språk får man NullPointerExceptions, ikke i Objective C!
+	* Ha dette litt i bakhodet - det kan gi deg litt interessante resultater
+
+* De har samm verdi, men brukes altså i forskjellige sammenhenger
+
+* Kanskje ikke anbefalt å bruke `0` though..
 
 ---
 
 # Objective-C Minnehåndtering (bye bye)
 
 * Forklare litt raskt reglene
+	* Forklare at det er en retaincount - antall som bruker objektet
 	* retain når man oppretter eller tar i bruk
 	* release når man er ferdig med objektet
 
@@ -131,6 +147,8 @@ Gå gjennom planen for kvelden og de neste kveldene.
 * Har alltid fått en del kritikk for MRC - enter ARC
 
 * ARC - kompileren setter selv inn release / retain
+	* Implementerer reglene for minnehåndtering i kompilatoren
+	* 
 	* Properties - du må spesifisere weak / strong for å si om klassen din skal styre minnet til  variabelen
 
 ---
@@ -169,6 +187,7 @@ Gå gjennom planen for kvelden og de neste kveldene.
 * iPod touch
 
 * Apple TV special case
+	* Airplay: kan streame skjermbildet ditt til Apple TV
 
 * DVS ferdige med kurset og sykt pro i iOS -> lage apps for iPhone, iPad & iPod
 
@@ -202,6 +221,7 @@ Gå gjennom planen for kvelden og de neste kveldene.
 * Core OS
 	* snakke med devices gjennom blåtann feks.
 	* sikkerhet
+	* Bruker ikke dette med mindre du driver med ekstrem ytelsesoptimalisering
 
 * Core Services
 	* Fundamentale tjenester
