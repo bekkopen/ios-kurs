@@ -6,7 +6,12 @@ define([
 
   var MessageCollection = Backbone.Collection.extend({
 	model: MessageModel,
-    url: "message"
+    url: "message",
+
+    comparator: function(message) {
+    	var date = new Date(message.get('date'));
+    	return date * -1;
+    }
   });
 
   return MessageCollection;
