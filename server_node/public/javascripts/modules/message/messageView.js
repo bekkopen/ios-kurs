@@ -9,7 +9,7 @@ define(['base/view', 'moment', 'moment_nb', 'text!modules/message/message.html']
 
       var json = this.model.toJSON();
       var date = Moment(new Date(json.date));
-      date = date.from(new Date());
+      date = date.fromNow();
       json.date = date
 
       this.renderTemplate(json);
