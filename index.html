@@ -878,7 +878,7 @@ Vi setter oss selv som delegate i UIAlertView. UIAlertView kaller tilbake på os
 
 # Exception Handling
 
-* Gjøres likt som i alle andre programmeringsspråk, men brukes skjelden. De fleste bruker NSError i stedet. 
+* Gjøres likt som i alle andre programmeringsspråk, men brukes skjelden
 
 
 
@@ -894,22 +894,8 @@ Vi setter oss selv som delegate i UIAlertView. UIAlertView kaller tilbake på os
 	    NSLog(@"Feilet %@: %@", [exception name], [exception reason]);
 	}
 
----
 
-# Threading
-Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tre forskjellige
-
-* NSThread gir oss muligheten til å kjøre en selector i en ny tråd
-
-
-
-.objective-c
-	[NSThread detachNewThreadSelector:
-		@selector(startBakgrunnsJobb) toTarget:self withObject:nil];  
-    
-* `dispatch_async()` er en del av GCD (Grand Central Dispatch), som er et rammeverk for å gjøre jobber samtidig. dispatch_async er en metode man kan kalle med en block og brukes ofte der man ønsker å kjøre små kodeblokker asynkrone.
-* NSOperationQueue og NSOperation - Wrapper objekter til GCD for å forenkle threading i Objective-C, kan for eksempel lage oppgaveklasser som arver av NSOperation og legge disse på NSOperationQueue
-
+* De fleste bruker heller `NSError`
 
 ---
 
@@ -937,28 +923,48 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 		[self cancelTouch:nil];
     }];
 
-
-
-
 ---
 
-# Object Literals #1
+# Threading
+Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tre forskjellige
 
-* Apple LLVM Compiler heter Apple sin compiler, altså den som komplierer til binœr kode
-* Fra og med 4.0 har man fått mange nye features og forenklinger av språket, da blant annet object literals.
-
----
-
-# Object Literals #2
-
-## NSNumber Literals
+* __NSThread__ gir oss muligheten til å kjøre en selector i en ny tråd
 
 
 
 .objective-c
-	@12 /* [NSNumber numberWithInt:12] */
-	@'Z' /* [NSNumber numberWithChar:'Z'] */
-	@YES /* [NSNumber numberWithBool:YES] */
+	[NSThread detachNewThreadSelector:
+		@selector(startBakgrunnsJobb) toTarget:self withObject:nil];  
+  
+* __Grand Central Dispatch (GCD)__ - C-bibliotek for å kjøre ting parallelt
+	* Vanskeligere å bruke, men mer kontroll
+	* Benytter mye blocks
+	* `dispatch_async` kjører en block i bakgrunnen
+* __NSOperationQueue__ og __NSOperation__
+	* Oppretter en ny `NSOperationQueue`
+	* Oppretter objekter av klasser som subklasser `NSOperation`
+	* `[queue addOperation:myOperation]`
+
+
+---
+
+# Objective-C Literals #1
+
+* Noen som husker `@` for å lage `NSString`?
+* Nylig utvidet for å kunne lage `NSNumber`, `NSArray` og `NSDictionary`.
+
+---
+
+# Objective-C Literals #2
+
+## NSNumber
+
+
+
+.objective-c
+	@12      /* [NSNumber numberWithInt:12] */
+	@'Z'     /* [NSNumber numberWithChar:'Z'] */
+	@YES     /* [NSNumber numberWithBool:YES] */
 
 
 ## Boxed Expression Literals (C kall)
@@ -970,11 +976,9 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 
 ---
 
-# Object Literals #3
+# Objective-C Literals #3
 
-## Container Literals
-
-
+## NSArray
 
 .objective-c
 	NSArray *array = @[ @"Hello", @"Wellow", @"Cool" ]; 
@@ -982,7 +986,12 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 	/*
 	NSArray arrayWithObjects:@"Hello", @"Wellow", @"Cool", nil];
 	*/
-	
+
+	NSLog(@"Første element: %@", array[0]);
+
+## NSDictionary
+
+.objective-c	
 	NSDictionary *dictionary = @{
 		@"firstname" : @"Foo",
 		@"lastname" : @"Bar",
@@ -992,6 +1001,8 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 	NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
 		@"value1", @"key1", @"value2", @"key2", nil];
 	*/
+
+	NSLog(@"Første element: %@", dictionary["firstname"]);
 
 
 ---
