@@ -872,13 +872,13 @@ Vi setter oss selv som delegate i UIAlertView. UIAlertView kaller tilbake på os
     /* er omtrent det samme som */
     [venn sladre:enNabo];
 
-* Forskjellen på ett vanlig metode kall er at man kan variere beskjeden og objektet som motar beskjeden runtime, da de ikke er tett knyttet sammen under kompilering. 
+* Kan sende metodekall rundt i programmet ditt!
 
 ---
 
 # Exception Handling
 
-* Gjøres likt som i alle andre programmeringsspråk, men brukes skjelden
+* Gjøres likt som i alle andre programmeringsspråk, men brukes sjelden
 
 
 
@@ -895,7 +895,18 @@ Vi setter oss selv som delegate i UIAlertView. UIAlertView kaller tilbake på os
 	}
 
 
-* De fleste bruker heller `NSError`
+* De fleste (og Apple) bruker heller `NSError`
+
+
+
+.objective-c
+	NSError *myError = nil;
+	NSString *fileContent = [NSString stringWithContentsOfFile:@"minfil.txt"
+													 encoding:NSUTF8StringEncoding
+													    error:&myError];
+	if (error != nil) {
+		// Noe feilet
+	}
 
 ---
 
@@ -935,15 +946,15 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 .objective-c
 	[NSThread detachNewThreadSelector:
 		@selector(startBakgrunnsJobb) toTarget:self withObject:nil];  
-  
-* __Grand Central Dispatch (GCD)__ - C-bibliotek for å kjøre ting parallelt
-	* Vanskeligere å bruke, men mer kontroll
-	* Benytter mye blocks
-	* `dispatch_async` kjører en block i bakgrunnen
+
 * __NSOperationQueue__ og __NSOperation__
 	* Oppretter en ny `NSOperationQueue`
 	* Oppretter objekter av klasser som subklasser `NSOperation`
 	* `[queue addOperation:myOperation]`
+* __Grand Central Dispatch (GCD)__ - C-bibliotek for å kjøre ting parallelt
+	* (Kanskje) vanskeligere å bruke, men mer kontroll
+	* Benytter mye blocks
+	* `dispatch_async` kjører en block i bakgrunnen
 
 
 ---

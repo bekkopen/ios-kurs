@@ -409,6 +409,7 @@ Forteller kjapt at Instruments kan brukes til å analysere appens performance og
 
 * Exception handling er noe man sjeldent ser i Objective C-verden.
 * Brukes ALDRI til kontroll-flyt
+* Apple selv anbefaler å bruke NSError
 
 ---
 
@@ -423,6 +424,8 @@ Forteller kjapt at Instruments kan brukes til å analysere appens performance og
 
 * Vanskelig
 * Spesielt viktig på en mobil!
+	* på iOS kjører ting default på GUI-tråden
+	* lange operasjoner "henger"
 	* Ingen liker apps som "henger"
 
 ---
@@ -438,6 +441,10 @@ Forteller kjapt at Instruments kan brukes til å analysere appens performance og
 ---
 
 # Object Literals #3
+
+## NSArray
+
+* Legg merke til at NSArray og NSDictionary kun holder på objekter
 
 ---
 
