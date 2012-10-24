@@ -12,10 +12,6 @@
 	.max-width img {
 		width: 100%;	
 	}
-
-	.max-height img {
-		height: 100%;
-	}
 </style>
   </head>
   <body>
@@ -1029,25 +1025,71 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 
 ---
 
-#UIViewController
+#UIViewController #1
 
-.round.max-height
+.round
 ![alternativ](images/viewcontroller.png)
 
 ---
 
+#UIViewController #2
 
-#UITableViewController og UITableView
+* Brukes til å orkistrere andre views
+* I en custom UIViewController limes model objekter, andre controller klasser og grensesnitt sammen
+* Ett lite tips er å dra all logikk som ikke har med view ut i andre gjenbrukbare klasser og bruke disse i view controlleren.
+* En viewcontroller kan også inneholde andre view controllere.
+* Den står for resizing av views, tilpasse inneholde til viewene og lytter på events som fyres av fra disse viewene når brukeren interaktere med dem.
+* Det er vanlig å ha flere view controllere i en app.
+* En view controller eies ofte enten av ett window (det som finnes i AppDelegate), eller en annen view controller.
 
-.round.max-height
+---
+
+.middle.center
+# DEMO
+
+---
+
+#UITableViewController og UITableView #1
+
+.round
 ![alternativ](images/tableviewcontroller.png)
 
 ---
 
-#UINavigationController
+.pushed
+![alternativ](images/tableviewcontroller1.png)
 
-.round.max-height
+#UITableViewController og UITableView #2
+
+UITableViewController er en hjelpe klasse for å vise data i en liste
+
+---
+
+.middle.center
+# DEMO
+
+---
+
+#UINavigationController #1
+
+.round
 ![alternativ](images/navigationcontroller.png)
+
+---
+
+.pushed
+
+![alternativ](images/navigation_interface.jpeg)
+
+#UINavigationController #2
+
+* Gir utviklere et enkel måte å lage en hierkisk struktur av views
+* Har kule ting som gjenoppretting av state i iOS6. 
+
+---
+
+.middle.center
+# DEMO
 
 ---
 
@@ -1106,14 +1148,14 @@ Hjelpeklasser for å snakke med serveren: [library](http://goo.gl/hDEMX)
 
 #UITabBarController og UITabBar
 
-.round.max-height
+.round
 ![alternativ](images/tabbarcontroller.png)
 
 ---
 
 #UICollectionViewController og UICollectionView
 
-.round.max-height
+.round
 ![alternativ](images/collectionviewcontroller.png)
 
 ---

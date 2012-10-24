@@ -461,9 +461,58 @@ Forteller kjapt at Instruments kan brukes til å analysere appens performance og
 
 #ViewController
 
+Brukes til å orkistrere andrw views. Dette er den vi arvet fra sist gang for å sette opp vårt view, den brukes så og si aldri direkte.
+
+Det er typisk i en view controller at man limer sammen objekter/klasser og grensesnitt, ett lite tips er å dra all logikk som ikke har med view ut i andre gjenbrukbare klasser. 
+
+En viewcontroller kan også inneholde andre view controllere.
+
+Den står for resizing av views, tilpasse inneholde til viewene og lytter på events som fyres av fra disse viewene når brukeren trykker på dem.
+
+Det er vanlig å ha flere view controllere i en app.
+
+En view controller eies ofte enten av ett window (det som finnes i AppDelegate), eller en annen view controller.
+
+
+
 ---
 
 #TableViewController og TableView
+
+
+#pragma -
+#pragma UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.textLabel.text = @"Morro";
+    return cell;
+}
+
+
+#pragma -
+#pragma UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 200.0f;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"I felt a touch.;)");
+}
 
 ---
 
