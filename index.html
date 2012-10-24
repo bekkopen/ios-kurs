@@ -912,8 +912,9 @@ Vi setter oss selv som delegate i UIAlertView. UIAlertView kaller tilbake på os
 	* kunne kjøre små kodeblokker samtidig
 	* iterere over objekter i et array
 	* kjøre kode som et callback
-* Man definerer en block med `.objective-c ^{ /*min fine block*/ }`, og alt inne i blocken kan referere til variabler på utsiden
-* `__block` brukes der man skal kunne sette variabler utenfor en block på insiden av en block
+* Man definerer en block med `.objective-c ^{ /*min fine block*/ }`
+	* Alt inne i blocken kan lese variabler på utsiden
+	* Variabler på utsiden må defineres med `__block` for å være skrivbare
 
 
 
@@ -964,7 +965,7 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 
 # Objective-C Literals #2
 
-## NSNumber
+### NSNumber
 
 
 
@@ -974,7 +975,7 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 	@YES     /* [NSNumber numberWithBool:YES] */
 
 
-## Boxed Expression Literals (C kall)
+### Boxed Expression Literals (C kall)
 
 
 
@@ -985,7 +986,7 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 
 # Objective-C Literals #3
 
-## NSArray
+### NSArray
 
 .objective-c
 	NSArray *array = @[ @"Hello", @"Wellow", @"Cool" ]; 
@@ -996,7 +997,7 @@ Objective-C gir oss flere forskjellige måter å lage tråder på, her har vi tr
 
 	NSLog(@"Første element: %@", array[0]);
 
-## NSDictionary
+### NSDictionary
 
 .objective-c	
 	NSDictionary *dictionary = @{
