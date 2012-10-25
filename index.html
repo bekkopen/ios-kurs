@@ -384,7 +384,8 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 
 
 .objective-c
-	- (id)initWithFirstName:(NSString *)firstname andSurname:(NSString *)surname andAge:(int) age;
+	- (id)initWithFirstName:(NSString *)firstname andSurname:(NSString *)surname 
+		andAge:(int) age;
 
 <!--* Runtime bryr Objective-C seg ikke om statiske typer
 * Statiske typer gir typesjekking compile time-->
@@ -714,6 +715,7 @@ Knytter et UI-element opp mot en variabel
 		- (id) init
 		{
 			self = [super init];
+
 			if(self != nil)
 			{
 				self.engine = [[Engine alloc] init];
@@ -748,7 +750,9 @@ Knytter et UI-element opp mot en variabel
 		- (id) initWithEngine:(Engine)engine
 		{
 			self = [super init];
+
 			if(self != nil)
+
 			{
 				self.engine = engine;
 			}
@@ -900,7 +904,7 @@ Vi setter oss selv som delegate i UIAlertView. UIAlertView kaller tilbake på os
 	NSString *fileContent = [NSString stringWithContentsOfFile:@"minfil.txt"
 													 encoding:NSUTF8StringEncoding
 													    error:&myError];
-	if (error != nil) {
+	if (myError != nil) {
 		// Noe feilet
 	}
 
