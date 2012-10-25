@@ -714,7 +714,7 @@ Knytter et UI-element opp mot en variabel
 		- (id) init
 		{
 			self = [super init];
-			if(self)
+			if(self != nil)
 			{
 				self.engine = [[Engine alloc] init];
 			}
@@ -747,8 +747,8 @@ Knytter et UI-element opp mot en variabel
 	@implementation Car
 		- (id) initWithEngine:(Engine)engine
 		{
-			self = super.init()
-			if(self)
+			self = [super init];
+			if(self != nil)
 			{
 				self.engine = engine;
 			}
