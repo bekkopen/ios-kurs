@@ -713,7 +713,7 @@ Knytter et UI-element opp mot en variabel
 	@implementation Car
 		- (id) init
 		{
-			self = super.init()
+			self = [super init];
 			if(self)
 			{
 				self.engine = [[Engine alloc] init];
