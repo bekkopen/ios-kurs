@@ -1198,8 +1198,11 @@ printe ut objekt beskrivelse:
 
 # IDE
 
-* JetBrains AppCode - Et alternativ IDE til Xcode
-* Accessorizer - Effektivieringsverktøy som suplementerer Xcode. Kan blant annet generere mer enn 40 forskjellige kodesnutter. 
+* [JetBrains AppCode (http://goo.gl/s9hsZ)](http://goo.gl/s9hsZ) - Et alternativ IDE til Xcode
+* [Accessorizer (http://goo.gl/uHgfX)](http://goo.gl/uHgfX) - Effektivieringsverktøy som suplementerer Xcode. Kan blant annet generere mer enn 40 forskjellige kodesnutter. 
+
+<br/>
+<img src="images/accessorizer.png" />
 
 ---
 
@@ -1211,25 +1214,28 @@ Følg med på App salg, rangering og kommentarer
 * [App Annie (www.appannie.com)](http://www.appannie.com) - Web
 * [App Figures (www.appfigures.com)](http://www.appfigures.com) - Web
 
+<br/>
+
+<img style="height:295px; float:right;" src="images/app-annie-dashboard.png" />
+<img style="height:300px; float:left;" src="images/appannie.ping.png" />
+
+
 ---
 
 # Generelle Apps
 
-* Key Codes - Verktøy for å vise tilgjengelige snarveier i OSX
-* Sip - Finn fargekoden for en farge på skjermen din
+* [Key Codes (http://goo.gl/KqZOf)](http://goo.gl/KqZOf) - Verktøy for å vise tilgjengelige snarveier i OSX
+* [Sip (http://goo.gl/MQQNV)](http://goo.gl/MQQNV) - Finn fargekoden for en farge på skjermen din
 
 ---
 
-.middle.center
 # Forslag til bøker og ressurser
 
----
-
 ## Bøker 
-* Cocoa Programming for MAC OS X
 * Beginning iPhone Development
-* iPhone Programming - The big nerd ranch guide
 * Cocoa Design Patterns
+* iPhone Programming - The big nerd ranch guide
+* Cocoa Programming for MAC OS X
 
 ## Linker
 * [iOS Developer Library (goo.gl/lwznv)](http://goo.gl/lwznv)
@@ -1245,6 +1251,35 @@ Følg med på App salg, rangering og kommentarer
 
 .middle.center
 # Lets code!
+## Twitter aktig app fortsetter
+### Utfordring til de som ble ferdig sist -> gjør appe fancy og bruk gjerne UICollectionViewController
+
+Hjelpeklasser for å snakke med serveren: [library](http://goo.gl/hDEMX)
+
+---
+
+# Twitter aktig app - hint
+
+* Serveren ligger på [http://ios-course.herokuapp.com](http://ios-course.herokuapp.com)
+* Rest endepunktene leverer JSON og fungerer på følgende måte:
+	* [http://ios-course.herokuapp.com/message](http://ios-course.herokuapp.com/message) (GET) <- alle beskjeder
+	* [http://ios-course.herokuapp.com/message](http://ios-course.herokuapp.com/message) (POST) <- JSON i body
+	* [http://ios-course.herokuapp.com/message/{id}](http://ios-course.herokuapp.com/message/{id}) (DELETE) <- Slette
+	* [http://ios-course.herokuapp.com/message/{id}](http://ios-course.herokuapp.com/message/{id}) (PUT) <- Oppdatere
+
+
+	.javascript
+	{
+		"from":"hinderberg",
+		"message":"Denne funker fint!:)",
+		"date":"2012-10-18T17:43:48.011Z" //date må man ikke ha med
+	}
+
+<p />
+
+	.objective-c
+	NSJSONSerialization //Kan brukes til å parse JSON til Objective-C 
+	#import <library/library.h> //Hjelpe klassene importeres
 
 ---
 
