@@ -41,13 +41,50 @@ var MessageSchema = new mongoose.Schema({
 
 var MessageModel = mongoose.model('message', MessageSchema);
 
+app.get('/message', function (req, res, next) {
+  if (req.query.feed != 'continuous') return next()
+
+  res.setHeader('Content-Type', 'application/x-json-stream')
+
+  function ondoc(doc) {
+    try {
+      doc = JSON.stringify(doc)
+    } catch(e) {
+      console.error(e)
+      return
+    }
+
+    res.write(doc + '\r\n')
+  }
+
+  app.on('message', ondoc)
+
+  res.on('close', function () {
+    app.removeListener('message', ondoc)
+  })
+
+  var query = {}
+    , since
+  if (req.query.since) {
+    try {
+      since = new mongoose.Types.ObjectId(req.query.since)
+    } catch(e) {
+      return next(new Error('Invalid ObjectID for `since` query param'))
+    }
+    query._id = { $gt: since }
+  }
+
+  var stream = MessageModel.find(query).stream()
+  stream.on('data', ondoc)
+})
+
 colibri.createResource(app, {
   model: MessageModel,
   hooks: {
-    "get": {
-      "begin": function(req, res, next) {
-
-        return next(null);
+    'post': {
+      'save': function(req, res, next) {
+        app.emit('message', req.rest.document)
+        return next(null)
       }
 
     }
