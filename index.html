@@ -1199,6 +1199,30 @@ Hjelpeklasser for å snakke med serveren: [library](http://goo.gl/hDEMX)
 ---
 
 .middle.center
+# Flere skjermstørelser, hva gjør vi nå?
+
+---
+
+# Autosizing masks (springs and struts model) vs Auto Layout
+
+* Før iOS 6 eksiterte bare Autosizing Masks, men så kom Auto Layout
+* Autosizing Masks gjør at barn view's tilpasser seg i forhold til sine super view's størrelsesendringer 
+	* Fleksible eller statiske marginer (struts)
+	* Hva skal den gjøre med høyde og bredde?
+	* Bregrensningene blir klare når man har ett mer komplekst view, der man før måtte kode mye av størrelsesforhold og oppførsel mellom views selv
+*  Auto Layout - en slags regelmotor for views og deres forhold til hverandre
+	* Består av ett sett med regler
+	* Hva skjer når reglene bryter med hverandre? Da bruker regelmotoren proriteten til regelen
+	* For enkelt bruk fungerer Interface Builder, men man har også mulighet til å kode regler med klassen `NSLayoutConstraint`
+
+---
+
+.middle.center
+# DEMO
+
+---
+
+.middle.center
 #Men hva gjør vi når noe feiler?
 ### (jo, vi debugger)
 
@@ -1208,9 +1232,9 @@ Hjelpeklasser for å snakke med serveren: [library](http://goo.gl/hDEMX)
 * Bruk lldb!
 * Kjekke kommandoer
 	* printe primitiver `print (int) [myArray count]`
-	* printe objekter: `po myObject`
-	* neste kodelinje: `next`
-	* neste breakpoint: `continue`
+	* printe objekter `po myObject`
+	* neste kodelinje `next`
+	* neste breakpoint `continue`
 
 ---
 
