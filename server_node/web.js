@@ -41,13 +41,17 @@ var MessageSchema = new mongoose.Schema({
 
 var MessageModel = mongoose.model('message', MessageSchema);
 
+app.MessageModel = MessageModel
+
+require('./routes/message')(app)
+
 colibri.createResource(app, {
   model: MessageModel,
   hooks: {
-    "get": {
-      "begin": function(req, res, next) {
-
-        return next(null);
+    'post': {
+      'save': function (req, res, next) {
+        app.emit('message', req.rest.document)
+        return next(null)
       }
 
     }
