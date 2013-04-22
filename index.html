@@ -479,14 +479,19 @@ Kan styre oppførselen til en property ved hjelp av attributter
 
 .objective-c
 	/* Ingen ivars deklarert i .h */
-	@interface Contact : NSObject
-		@property (nonatomic, strong) NSString *category;
-		@property (nonatomic, strong) NSString *firm;
-		@property (nonatomic, strong) NSString *phoneNumber;
-		@property (nonatomic, strong) NSString *url;
+	@interface Contact : NSObject {
+		NSString *privateNote;
+	}
+		
+	@property (nonatomic, strong) NSString *category;
+	@property (nonatomic, strong) NSString *firm;
+	@property (nonatomic, strong) NSString *phoneNumber;
+	@property (nonatomic, strong) NSString *url;
 
-		- (void)someMethod;
-		- (BOOL)someOtherMethod:(NSString *)string andAnotherParameter:(BOOL)bool;
+	+ (Contact *) theKing;
+	- (void)someMethod;
+	- (BOOL)someOtherMethod:(NSString *)string andAnotherParameter:(BOOL)bool;
+	
 	@end
 
 ---
@@ -497,30 +502,33 @@ Kan styre oppførselen til en property ved hjelp av attributter
 	#import "Contact.h"
 
 	@implementation Contact
-		// @synthesize er ikke lenger nødvendig i Xcode 4.5 med nyeste llvm-compileren,
-		// da det blir automatisk laget for alle @property 
-		@synthesize category;
-		@synthesize firm;
-		@synthesize phoneNumber;
-		@synthesize url;
+	// @synthesize er ikke lenger nødvendig i Xcode 4.5 med nyeste llvm-compileren,
+	// da det blir automatisk laget for alle @property 
+	//@synthesize category, firm, phoneNumber, url;
 
-		- (void)someMethod
-		{
+	+ (Contact *) theKing 
+	{
+		return [Contact alloc] init];
+	}
 
-		}
 
-		- (BOOL)someOtherMethod:(NSString *)string andAnotherParameter:(BOOL)bool
-		{
-			/*  Legg merke til at boolean bruker YES og NO i stedet 
-			    for true eller false som i mange andre språk */
+	- (void)someMethod
+	{
 
-			return YES;
-		}
+	}
 
-		- (void)somePrivateMethod
-		{
-			/* I nyeste Xcode spesifiserer man ikke private metoder i @interface */
-		}
+	- (BOOL)someOtherMethod:(NSString *)string andAnotherParameter:(BOOL)bool
+	{
+		/*  Legg merke til at boolean bruker YES og NO i stedet 
+		    for true eller false som i mange andre språk */
+		return YES;
+	}
+
+	- (void)somePrivateMethod
+	{
+		/* I nyeste Xcode spesifiserer man ikke private metoder i @interface */
+	}
+	
 	@end
 
 ---
