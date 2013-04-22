@@ -61,7 +61,7 @@ Om man får tid se kjapt på: http://cocoadevcentral.com/articles/000081.php
 	* Debugging
 	* Verktøy og testing, alternativer og forslag
 	* Bøker og ressurser
-	* Utvikle på egen app eller forsette med twitter klone med hjelp fra veilederne
+	* Utvikle på egen app eller forsette med twitter klone
 
 ---
 
@@ -95,7 +95,7 @@ Om man får tid se kjapt på: http://cocoadevcentral.com/articles/000081.php
 * Man kan blande Objective-C med C og C++ (Obj++)
 * Objektorientert, mer om Apple sin tolkning av dette finner du på:
 	* [OOP (http://goo.gl/5ABv6)](http://goo.gl/5ABv6)
-* Enkelt språk, men litt rar syntax
+* Enkelt språk, men uvant syntax
 * Dynamisk typet runtime
 
 ---
@@ -108,7 +108,7 @@ Om man får tid se kjapt på: http://cocoadevcentral.com/articles/000081.php
 * Ingen garbage collection
   * Allokere minne før man bruker det
   * Deallokere minne når man er ferdig
-* Lite overhead - blazing fast
+* Lite overhead - utrolig kjapt
 
 
 
@@ -163,7 +163,7 @@ Det betyr også, at man må vœre litt mer varsom enn i java, da man ikke får k
 
 ---
 
-# Objective-C ivar
+# Objective-C instansvariabler (ivar)
 
 <!--
 
@@ -171,7 +171,7 @@ I Objective-C er alle instans variabler interne (@protected) for klassen de er d
 
 -->
 
-* Alle instans-variabler deklarert i .h-filen er automatisk interne (@protected)
+* Alle instansvariabler deklarert i .h-filen er automatisk interne (@protected)
 * Kan overstyres ved hjelp av 'scope directives'
 
 
@@ -228,7 +228,7 @@ I Objective-C er alle instans variabler interne (@protected) for klassen de er d
 # Objective-C Message Passing #1
 
 * I Objective-C kaller man ikke metoder på objekter, men sender en beskjed
-* Navngir ikke selve funksjonen, men hvert parameter til funksjonen.
+* Navngir ikke selve metoden, men hver parameter.
 * Skriver metoder mer som om man snakker til objektet
 
 
@@ -240,6 +240,24 @@ I Objective-C er alle instans variabler interne (@protected) for klassen de er d
 	- (void)setAge:(int)age;
 
 	- (NSString *)fullName;
+
+* Som fører til slike morsomheter som denne
+
+
+
+.objective-c
+
+	- (id)initWithBitmapDataPlanes:(unsigned char **)planes 
+                        pixelsWide:(NSInteger)width 
+                        pixelsHigh:(NSInteger)height 
+                     bitsPerSample:(NSInteger)bps 
+                   samplesPerPixel:(NSInteger)spp 
+                          hasAlpha:(BOOL)alpha
+                          isPlanar:(BOOL)isPlanar 
+                    colorSpaceName:(NSString *)colorSpaceName
+                      bitmapFormat:(NSBitmapFormat)bitmapFormat 
+                       bytesPerRow:(NSInteger)rowBytes
+                      bitsPerPixel:(NSInteger)pixelBits
 
 
 ---
@@ -260,12 +278,14 @@ Java
 Objective-C
 
 
+
 .objective-c
 	Person *person = [[Person alloc] initWithFirstName:@"Jan" andSurname:@"Johansen"];
 
 	[person setAge:31];
-	
+
 	NSString *fullName = [person fullName];
+
 
 ---
 
@@ -282,7 +302,7 @@ Objective-C
 
 
 
-.Objective-C
+.objective-C
 	setAge:25
 
  * Selector 
@@ -292,16 +312,14 @@ Objective-C
 .objective-c
 	setAge:
 
-* Method - Koden valgt av meldingen
+* Method - Koden som vil bli kjørt basert på meldingen
 
 
 
 .objective-c
-	- (void)setAge:(int)age;
-
 	- (void)setAge:(int)age
 	{
-
+		// Do something with age
 	}
 
 
@@ -309,38 +327,40 @@ Objective-C
 
 # Objective-C ivar og properties #1
 
-* Properties er en effektiv måte og lage en get og set metode for instans-variabler (ivars)
+* Properties er en effektiv måte og lage en get og set metode for instansvariabler (ivars)
 * I nyere Objective-C trenger man ikke definere ivars om man definerer properties, da de blir automatisk laget om det ikke finnes en matchende ivars til property navnet
 
 
 
 .objective-c
-	@property(nonatomic, strong) NSString *firstName;
+	@property(nonatomic, strong) NSString *firstName;          // _firstName
 
-	@property(nonatomic, strong) NSString *surname;
+	@property(nonatomic, strong) NSString *surname;            // _surname
 
-	@property(nonatomic) int age;
+	@property(nonatomic) int age;                              // _age
 
 	/* Det blir nå automagisk laget settere og gettere */
 
+
+Merk at `@synthesize attr` ble brukt i eldre Objective-C for at selve metoden skulle bli generert
 
 ---
 
 # Objective-C ivar og properties #2
 
-Properties kan også ha attributes, som sier hva som skal skje når den aksesseres
+Kan styre oppførselen til en property ved hjelp av attributter
 
 * Tilgjengelighet
-	- __readonly__: propertien får kun en getter
-	- __readwrite__: propertien får både en getter og en setter (default)
+	- `readonly` - kun getter
+	- `readwrite` - både getter og setter (default)
 * Hvordan setteren skal fungere
-	- __strong__: denne klassen eier propertien, og styrer minnehåndtering
-	- __weak__: denne klassen eier _ikke_ propertien, og styrer derfor _ikke_ minnehåndteringen
-	- __copy__: en kopi av objektet vil bli brukt ved assignment
-	- __assign__: setter verdien direkte. Brukes ofte på primitiver
+	- `strong` - denne klassen eier propertien, og styrer minnehåndtering
+	- `weak` - denne klassen eier _ikke_ propertien, og styrer derfor _ikke_ minnehåndteringen
+	- `copy` - en kopi av objektet vil bli brukt ved assignment
+	- `assign` - setter verdien direkte. Brukes ofte på primitiver
 * Trådsikkerhet
-	- __atomic__ : Default, men bør brukes skjelden da den er tregere. Har tilleggsfunksjonalitet som gjør at man alltid returnerer ett helt objekt når flere tråder snakker med setter og getter
-	- __nonatomic__ : Trådsikkerhet er dust, bruke nonatomic.
+	- `atomic` - Default, men bør brukes skjelden da den er tregere. Har tilleggsfunksjonalitet som gjør at man alltid returnerer ett helt objekt når flere tråder snakker med setter og getter
+	- `nonatomic` - sier seg kanskje selv, motsatte av atomic
 
 ---
 
@@ -381,7 +401,7 @@ Properties kan også ha attributes, som sier hva som skal skje når den aksesser
 	Person *person = [[Person alloc] init]; /* statisk typet */
 	int age = 3; /* primitiv */
 
-* Statisk typing er kun til for å gi deg typesikkerhet compile time; alle spor forsvinner etter kompilering, foruten primitiver som ikke er pekere og derfor statiske
+* Statisk typing er kun til for å gi deg typesikkerhet ved kompilering; alle spor forsvinner etter kompilering, foruten primitiver som ikke er pekere og derfor statiske
 * `id` er definert som en pointer til hva som helst
 * Hvis vi ser på initializerne ser vi at de _alltid_ returnerer `id`.
 
