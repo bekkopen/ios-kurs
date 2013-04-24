@@ -481,7 +481,7 @@ Kan styre oppførselen til en property ved hjelp av attributter
 .objective-c
 	/* Ingen ivars deklarert i .h */
 	@interface Contact : NSObject {
-		NSString *privateNote;
+		NSString *_privateNote;
 	}
 		
 	@property (nonatomic, strong) NSString *category;
@@ -491,7 +491,7 @@ Kan styre oppførselen til en property ved hjelp av attributter
 
 	+ (Contact *) theKing;
 	- (void)someMethod;
-	- (BOOL)someOtherMethod:(NSString *)string andAnotherParameter:(BOOL)bool;
+	- (BOOL)someOtherMethod:(NSString *)aString andAnotherParameter:(BOOL)aBool;
 	
 	@end
 
@@ -518,7 +518,7 @@ Kan styre oppførselen til en property ved hjelp av attributter
 
 	}
 
-	- (BOOL)someOtherMethod:(NSString *)string andAnotherParameter:(BOOL)bool
+	- (BOOL)someOtherMethod:(NSString *)aString andAnotherParameter:(BOOL)aBool
 	{
 		/*  Legg merke til at boolean bruker YES og NO i stedet 
 		    for true eller false som i mange andre språk */
