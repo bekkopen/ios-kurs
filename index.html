@@ -426,7 +426,7 @@ Kan styre oppførselen til en property ved hjelp av attributter
 .objective-c
     NSString *string = nil;
 	NSString *low = [string lowercaseString];
-    NSLog(@"%@", low);
+    NSLog(@"%@", low); // => null
 
 * Dette vil logge (null) uten å krœsje
 * `NULL` og `nil` kompileres begge til tallet `0`, så dette er også lov:
@@ -436,7 +436,8 @@ Kan styre oppførselen til en property ved hjelp av attributter
 .objective-c
 	NSString *string = 0;
 	NSString *low = [string lowercaseString];
-	NSLog(@"%@", low);
+	NSLog(@"%@", low); // => null
+
 
 ---
 
