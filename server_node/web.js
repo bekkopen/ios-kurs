@@ -35,7 +35,10 @@ var MessageSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    "default": Date.now
+    "default": Date.now,
+    validate: function(date){
+      return Date.now() > date;
+    }
   }
 });
 
